@@ -1,56 +1,65 @@
-# Breweries, Beer, and Breviews: Unraveling the Global Beer Experience
-## Abstract
-Our project aims to explore, using data from the two popular beer ratings websites RateBeer and BeerAdvocate, the intricate relationship between brewery prevalence, beer quality, and customer reviews to understand which factors influence the popularity of beers. <br>
-By analyzing our data with trend analysis methods we’ll examine the evolution of beer preferences over time, identifying style preference shifts and potential significant event influences, such as elections or big sports events. We’ll also see how these trends change in different countries in the world. <br>
-In our analysis we’ll consider factors like beer styles, ABV preferences, and the reviewer’s country of origin by combining statistical methods with NLP techniques, such as topic modeling and sentiment analysis, we aim to understand what makes a beer popular. <br>
-Through this study, we will provide valuable insights for beer enthusiasts and breweries, offering a deep understanding of global beer trends and consumer behavior.
+**Title**: Breweries, Beer, and Breviews: Unraveling the Global Beer Experience
 
-## Research Questions
-The research questions that we aim to answer through this project are:
-- What temporal patterns (e.g., seasonal trends, specific major events, …) can be observed in our reviews? Are the patterns global or local?
-- How do beer characteristics (e.g. ABV, style, location of the brewery, …) affect beer popularity and grading across different regions? Are there some beers that are particularly poorly rated given their characteristics or vice-versa?
-- Do regional preferences influence the choice of beers to drink?
-- Is popularity affected by the platform used for reviewing?
+**Abstract**
 
-## Proposed Additional Dataset
-To enhance our analysis, we will manually curate a list of key major events from several relevant categories. This curated dataset will provide contextual information to help us understand shifts in beer preferences and trends over time. The categories we plan to include are:
-- <b>Sporting Events</b>: Major international competitions such as the FIFA World Cup, the Olympics, and significant national sporting events.
-- <b>Cultural Festivals</b>: Events that celebrate beer culture, such as Oktoberfest, St. Patrick's Day, and other local beer festivals.
-- <b>Economic Events</b>: Significant economic occurrences, such as recessions, market booms, and major policy changes affecting the alcohol industry.
+Our project aims to explore the intricate relationship between brewery prevalence, beer preferences, and customer and expert reviews through the data of popular beer rating websites (RateBeer and BeerAdvocate). We strive to understand which factors influence consumer preferences across time and geographic regions. This project will utilize trend analysis methods, examining the evolution of global and local beer preferences, thus identifying both gradually emerging patterns and immediate changes triggered by specific circumstances, for instance following major events like the Super Bowl, World Cup or presidential elections. We will examine multiple variables, such as beer style, alcohol content, and reviewer demographics, aiming to combine statistical methods with NLP techniques, such as topic modeling and sentiment analysis, to identify the key characteristics that make specific beers more popular, whether at a global or regional level. Ultimately, we aim to provide an in-depth understanding of global beer trends and consumer reviews.
 
-We will compile this information into a parquet file that includes the date, event name, and category. This approach allows us to focus specifically on the events most relevant to our study, ensuring we have a manageable dataset that can be easily integrated with our beer review data.
+**Research Questions**
 
-## Methods
-To answer our research questions we are will use the following methodology:
-- <b>Data handling</b>: some of the original datasets were provided as txt files. To simplify the process of analysis and handling we have chosen to convert these files into parquet files to speed up the loading, reduce the memory usage and make it possible to use them easily with Python libraries.
-- <b>Data processing</b>: even if the dataset is not huge (< 10 GB) we verified significant performance issues with pandas. That has prompted us to explore alternative libraries such as Polars, which, thanks to the use of multithreading, allows us to speed up the operation needed. Given that we have chosen to work on DeepNote, a really powerful tool that helps us with its real time collaborative features, version control and standardized cloud environment but with some memory constraints (5 GB), we have also tested, with success, the use of DuckDB. This powerful tool enables out-of-memory computing and lazy loading for larger datasets letting us work with these memory constraints.
-- <b>Data cleaning</b>: after analyzing the data we have done a detailed cleaning of the data. We’ve removed outliers, inconsistent results, duplicates, and data that was not used, in order to reduce the memory usage of our dataset.
-- <b>Data enrichment</b>: after cleaning the data we needed to recompute and add some of the values (such as avg, std or median of the beers) useful for our purposes. We additionally modified the data to make them consistent across different datasets. In the next milestone we aim to compute additional values from the reviews dataset to see how other factors, such as smell or taste ratings, affect the popularity of a beer. 
-- <b>Data analysis</b>:
-    - <b>Quantitative and Statistical analysis</b>: in this process we aim to conduct a general overview of the data by computing descriptive statistics for key variables (e.g. brewery numbers for each country, average rating for beers in a country, …), some correlation analysis to understand how the relationship between the data and finally to conduct some regression analysis to understand which variables affect the beer rating. 
-    - <b>Natural language processing</b>: here we aim to process the textual reviews with sentiment analysis and topic modeling (e.g. LDA) to identify key themes in beer descriptions and reviews and to extract additional data from the textual reviews.
-    - <b>Geospatial analysis & Temporal analysis</b>: here, by conducting time trend analysis (e.g. Mann-Kendall test for time series), spatial and correlation analysis we aim to conduct in detail on our data to understand how popularity has shifted over time and if how this shift changes in different countries.
-    - <b>Cross-platform analysis</b>: after conducting our analysis on both datasets individually we aim to see if there are differences between the two populations and how different the populations of the two websites are to understand if the reviewing platform has an impact on the popularity.
+1. What patterns in consumer reviews reveal cyclical (e.g. seasonal) trends and event-driven changes, and how do these differ between global and regional contexts?
+2. How do intrinsic beer characteristics (such as alcohol content, stylistic classification, and brewery location) correlate with consumer ratings across geographic regions, and what statistically significant outliers emerge in rating patterns when controlling for these factors?
+3. How do regional preferences and cultural factors shape consumer beer selection patterns and consumption behavior?
+4. To what extent do rating distributions and consumer preferences differ between RateBeer and BeerAdvocate, indicating a platform effect?
 
-## Proposed Timeline
+**Proposed additional dataset**
+
+We opted against utilizing another existing dataset, instead proposing to create a collection of significant sociocultural (e.g. Superbowl, World Cup) and economic occurrences. This dataset will form the basis for analyzing variations in beer consumption and rating patterns. Given the predominantly North American user demographic of our primary datasets, the focus will primarily be on U.S.-centric events, while also incorporating key international occurrences. Specifically, this dataset will include:
+
+1\. Athletic Competitions: International and domestic sporting events.
+
+2\. Cultural Celebrations: Beer-centric festivals and holidays.
+
+3\. Macroeconomic Indicators: Market dynamics and regulatory shifts within the beverage industry.
+
+This dataset will be loosely structured, containing temporal markers, event identifiers, and categorical classifications. These attributes are intended to facilitate temporal joins with our primary beer review datasets, enabling deeper exploration of correlations and patterns.
+
+Throughout the project we will use the following methodology:
+
+1. **Data handling**: The provided files were mostly in CSV and TXT format. Thus, to facilitate quicker (as well as simpler in the instance of TXT files) data loading we converted larger files into parquet files.
+2. **Data processing**: Whilst the size of the provided dataset is manageable, we opted to use polars over pandas, due to its performance advantage, as well as its more _“SQL-ish”_ syntax, which aligned better with our team’s expertise. To combat the extensive memory needed for data analysis we utilized DuckDB, a novel embedded OLAP with lazy loading and out-of-memory computation. This was particularly useful for our collaborative online IDE (Deepnote), wherein we are limited to 5GB of memory.
+3. **Data cleaning**: After inspecting the data, basic cleaning methods were utilized, mainly: outlier removal, duplicate removal, and inconsistency, the latter refers to data points we believe are fraudulent or misleading for the larger analysis. Post-cleaning, typical statistical values were added (e.g. avg, std, median…). Additionally, for consistency across the datasets, an outline (e.g. renaming columns, enforcing datetime formats, etc.) was enforced.
+
+In the next milestone, we aim to compute further values, for instance - How do smell or taste ratings affect the popularity of a beer?
+
+1. **Data analysis:**
+    - **Quantitative and Statistical Analysis:** This phase will encompass an examination of the data through descriptive statistical analysis of key variables (e.g. brewery distribution by country, mean beer ratings by country, …). Next, through correlation analysis, we will try to elucidate the relationships within the data, followed by conducting regression analysis to understand which variables affect beer rating.
+    - **Natural Language Processing:** This component aims to focus on processing the textual reviews using sentiment analysis and topic modeling techniques (e.g. LDA). This should allow us to identify key themes in beer descriptors and reviews while allowing us to extract additional data from the textual data.
+    - **Geospatial Analysis & Temporal Analysis:** This stage aims to implement time trend analysis (e.g. Mann-Kendall) alongside spatial and correlation analyses. This approach enables us to examine temporal shifts in popularity patterns and their geographical variations.
+    - **Cross-Platform Analysis:** Upon conducting the individual dataset analyses, we strive to seek discrepancies between the two platform user bases. This analysis should assess potential differences and evaluate the extent to which the reviewing platform users influence metrics.
+
+**Proposed Timeline**
+
 Our proposed timeline for milestone 3 is
-- <b>Week 1</b>: (Nov 18 - Nov 24 | 7 days):
-    - Start conducting more detailed analysis and additional data processing (if needed).
-    - Define the structure of the data story and set up the website.
-    - Insert basic analysis conducted for milestone 2 in the data story.
-- <b>Week 2-3</b>: (Nov 25 - Dec 08 | 14 days)
-    - Answer all the research questions by conducting in-depth analysis and by applying different analysis methods.
-    - Work on the documentation and improve the data story with preliminary results obtained during these weeks.
-- <b>Week 4</b>: (Dec 09 - Dec 16 | 7 days): 
-    - Finalize analysis. 
-    - Complete data story. 
-    - Ensure proper documentation and code structure.
-- <b>Week 5</b>: (Dec 16 - Dec 20): final project review and project submission.
+
+- _Week 1: (Nov 18 - Nov 24 | 7 days)_:
+  - Start conducting more detailed analysis and additional data processing (if needed).
+  - Define the structure of the data story and set up the website.
+  - Insert basic analysis conducted for milestone 2 in the data story.
+- _Week 2-3: (Nov 25 - Dec 08 | 14 days)_
+  - Answer all the research questions by conducting in-depth analysis and by applying different analysis methods.
+  - Work on the documentation and improve the data story with preliminary results obtained during these weeks.
+- _Week 4: (Dec 09 - Dec 16 | 7 days)_:
+  - Finalize analysis.
+  - Complete data story.
+  - Ensure proper documentation and code structure.
+- _Week 5: (Dec 16 - Dec 20)_: final project review and project submission.
 
 We plan to finish one week early to be able to have more time for reviewing and do some last minute modifications if needed.
 
-## Organization Within the Team
+**Organization Within the Team**
+
 We plan to split the work between our team in subgroups:
-- <b>Alex Procelewski</b> and <b>Konstantinos Chasialis</b>: Geospatial analysis & Temporal analysis.
-- <b>Alessandro Dalbesio</b> and <b>Rik de Vries</b>: Finish quantitative and statistical analysis started in milestone 2 and work on the natural language processing part.
-- <b>Oscar de Francesca</b>: Set up the website & cross-platform analysis.
+
+- _Alex Procelewski_ and _Konstantinos Chasialis_: Geospatial analysis & Temporal analysis.
+- _Alessandro Dalbesio_ and _Rik de Vries_: Finish quantitative and statistical analysis started in milestone 2 and work on the natural language processing part.
+- _Oscar de Francesca_: Set up the website & cross-platform analysis.
