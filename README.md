@@ -44,18 +44,17 @@ We opted against utilizing another existing dataset, instead proposing to create
 
 This dataset will be loosely structured, containing temporal markers, event identifiers, and categorical classifications. These attributes are intended to facilitate temporal joins with our primary beer review datasets, enabling deeper exploration of correlations and patterns.
 
-### Methods
+### Methodology
 Throughout the project we will use the following methodology:
 
 1. **Data handling**: The provided files were mostly in CSV and TXT format. Thus, to facilitate quicker (as well as simpler in the instance of TXT files) data loading we converted larger files into parquet files.
-2. **Data processing**: Whilst the size of the provided dataset is manageable, we opted to use polars over pandas, due to its performance advantage, as well as its more _“SQL-ish”_ syntax, which aligned better with our team’s expertise. To combat the extensive memory needed for data analysis we utilized DuckDB, a novel embedded OLAP with lazy loading and out-of-memory computation. This was particularly useful for our collaborative online IDE (Deepnote), wherein we are limited to 5GB of memory.
-3. **Data cleaning**: After inspecting the data, basic cleaning methods were utilized, mainly: outlier removal, duplicate removal, and inconsistency, the latter refers to data points we believe are fraudulent or misleading for the larger analysis. Post-cleaning, typical statistical values were added (e.g. avg, std, median…). Additionally, for consistency across the datasets, an outline (e.g. renaming columns, enforcing datetime formats, etc.) was enforced.
-
-In the next milestone, we aim to compute further values, for instance - How do smell or taste ratings affect the popularity of a beer?
-
-1. **Data analysis:**
-    - **Quantitative and Statistical Analysis:** This phase will encompass an examination of the data through descriptive statistical analysis of key variables (e.g. brewery distribution by country, mean beer ratings by country, …). Next, through correlation analysis, we will try to elucidate the relationships within the data, followed by conducting regression analysis to understand which variables affect beer rating.
-    - **Natural Language Processing:** This component aims to focus on processing the textual reviews using sentiment analysis and topic modeling techniques (e.g. LDA). This should allow us to identify key themes in beer descriptors and reviews while allowing us to extract additional data from the textual data.
+2. **Data processing**: Whilst the size of the provided dataset is manageable (some GBs of data) we saw that we weren't always able to handle the data with pandas, the go to library for data manipulation in Python. We choose instead to do as follow:
+    - Small files (such as the beers, the breweries or the users) are handled with pandas. This has done because the data is small enough to be handled with pandas and it is easier to manipulate since we are more familiar with it.
+    - Larger files (such as reviews and ratings) are handled with polars and the data without the textual reviews are handled with pandas.
+3. **Data cleaning**: After inspecting the data, basic cleaning methods were utilized, mainly: outlier removal, duplicate removal, and inconsistency. Post-cleaning, typical statistical values were added (e.g. avg, std, median…). Additionally, for consistency across the datasets, an outline (e.g. renaming columns, enforcing datetime formats, etc.) was enforced.
+4. **Data analysis:**
+    - **Quantitative and Statistical Analysis:** This phase encompass an examination of the data through descriptive statistical analysis of key variables (e.g. brewery distribution by country, mean beer ratings by country, …). Next, through correlation analysis, we will try to elucidate the relationships within the data, followed by conducting regression analysis to understand which variables affect beer rating.
+    - **Natural Language Processing:** This component aims to focus on processing the textual reviews using sentiment analysis and topic modeling techniques (e.g. LDA). This allow us to identify key themes in beer descriptors and reviews while allowing us to extract additional data from the textual data.
     - **Geospatial Analysis & Temporal Analysis:** This stage aims to implement time trend analysis (e.g. Mann-Kendall) alongside spatial and correlation analyses. This approach enables us to examine temporal shifts in popularity patterns and their geographical variations.
     - **Cross-Platform Analysis:** Upon conducting the individual dataset analyses, we strive to seek discrepancies between the two platform user bases. This analysis should assess potential differences and evaluate the extent to which the reviewing platform users influence metrics.
 
@@ -78,7 +77,7 @@ Our proposed timeline for milestone 3 is
 
 We plan to finish one week early to be able to have more time for reviewing and do some last minute modifications if needed.
 
-### Organization Within the Team
+## Organization Within the Team
 
 We plan to split the work between our team in subgroups:
 
