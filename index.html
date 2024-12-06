@@ -1,98 +1,139 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ADA project sADAmasochists</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            .content {
-                width: 60em;
-                max-width: calc(100% - 4em);
-                margin: 0 auto;
-            }
-            .expanded-content {
-                width: 85em;
-                max-width: calc(100% - 4em);
-                margin: 0 auto;
-            }
-            .content p {
-                text-align: justify;
-                color: #333;
-                font-size: 1.2em;
-                line-height: 1.6em;
-                margin-top: 16px;
-                margin-bottom: 16px;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Project presentation -->
-        <section class="py-12">
-            <div class="content mx-auto px-6">
-                <div class="mx-auto justify-center">
-                    <h1 class="text-3xl font-bold text-center mb-16">
-                        Beerpop: The Ultimate Guide to Beer Trends
-                    </h1>
-                    <p>
-                        Have you ever paused mid-sip and wondered what truly makes a beer legendary? Is it the boldness of its hops, the warmth of its alcohol content, or perhaps the lyrical reviews of enthusiasts who compare it to liquid gold? Welcome to Hop, Skip, and Analyze, where we dive into the frothy world of beer to unravel the mysteries of its popularity. Using data from BeerAdvocate, the go-to haven for beer connoisseurs, we’re blending numbers and words to explore how factors like style, alcohol content, and review sentiment drive a beer’s success.
-                    </p>
-                    <p>
-                        But we’re not stopping there! From the bustling pubs of the UK to the Oktoberfest-loving heart of Germany and the craft breweries of the US, we’re mapping how beer trends ebb and flow across regions and seasons. Are high-alcohol beers the winter MVPs? Do citrusy ales dominate the summer? And why does one IPA make waves while another sinks? With data science tools in hand and curiosity on tap, we’re chasing the ultimate question: what makes a beer unforgettable?
-                    </p>
-                    <p>
-                        Take your favourite beer, sit back and enjoy the ride. We promise you won't be disappointed.
-                    </p>
-                    <img src="./img/beer-drinking-homer-gif.gif" alt="Feature 1" class="w-full object-cover rounded-lg shadow-xl">
-                </div>
-            </div>        
-        </section>
-        
-        <!-- Data presentation -->
-        <section class="py-12">
-            <div class="mx-auto px-6">
-                <div class="content">
-                    <h2 class="text-3xl font-bold text-center">Wait a minute... Who are you?</h2>
-                    <div class="mx-auto justify-center">
-                        <p>Wait a minute, before continuing let us introduce the real start of this project: the data!</p>
-                        <p>We are going to use the data obtained from the <a href="https://www.beeradvocate.com/" class="text-blue-500">BeerAdvocate</a> website. This website is a go-to haven for beer connoisseurs, where they can find reviews and ratings for beers from all over the world.</p>
-                    </div>
-                    <div class="grid grid-cols-3 gap-6 mt-12 mb-12">
-                        <div class="col-span-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-12 h-12 mx-auto text-gray-800 mb-4">
-                                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
-                            </svg>
-                            <h3 class="text-2xl font-bold text-gray-800 text-center">153,704 users</h3>
-                        </div>
-                        <div class="col-span-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-12 h-12 mx-auto text-gray-800 mb-4">
-                                <path d="M32 64c0-17.7 14.3-32 32-32l288 0c17.7 0 32 14.3 32 32l0 32 51.2 0c42.4 0 76.8 34.4 76.8 76.8l0 102.1c0 30.4-17.9 57.9-45.6 70.2L384 381.7l0 34.3c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64L32 64zM384 311.6l56.4-25.1c4.6-2.1 7.6-6.6 7.6-11.7l0-102.1c0-7.1-5.7-12.8-12.8-12.8L384 160l0 151.6zM160 144c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224zm64 0c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224zm64 0c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224z"/>
-                            </svg>
-                            <h3 class="text-2xl font-bold text-gray-800 text-center">273,764 beers</h3>
-                        </div>
-                        <div class="col-span-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-12 h-12 mx-auto text-gray-800 mb-4">
-                                <path d="M123.6 391.3c12.9-9.4 29.6-11.8 44.6-6.4c26.5 9.6 56.2 15.1 87.8 15.1c124.7 0 208-80.5 208-160s-83.3-160-208-160S48 160.5 48 240c0 32 12.4 62.8 35.7 89.2c8.6 9.7 12.8 22.5 11.8 35.5c-1.4 18.1-5.7 34.7-11.3 49.4c17-7.9 31.1-16.7 39.4-22.7zM21.2 431.9c1.8-2.7 3.5-5.4 5.1-8.1c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208s-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6c-15.1 6.6-32.3 12.6-50.1 16.1c-.8 .2-1.6 .3-2.4 .5c-4.4 .8-8.7 1.5-13.2 1.9c-.2 0-.5 .1-.7 .1c-5.1 .5-10.2 .8-15.3 .8c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c4.1-4.2 7.8-8.7 11.3-13.5c1.7-2.3 3.3-4.6 4.8-6.9l.3-.5z"/>
-                            </svg>
-                            <h3 class="text-2xl font-bold text-gray-800 text-center">8,229373 ratings</h3>
-                        </div>
-                    </div>
-                    <p>Wow! That's a lot of data! But don't worry we are going to make sense of it all. But firstly let's see where and when these ratings have been done</p>
-                </div>
-                <div class="expanded-content grid grid-cols-2 gap-6 mt-12">
-                    <img src="plots/number_of_rating_per_country.png" alt="Feature 1" />
-                    <img src="plots/number_of_ratings_per_year.png" alt="Feature 2" />
-                </div>
-            </div>        
-        </section>
-        <section class="py-12">
-            <div class="mx-auto px-6">
-                <div class="content">
-                    <h2 class="text-3xl font-bold text-center">Let's go!</h2>
-                    <div class="mx-auto justify-center">
-                        <p>Now that we know who we are dealing with let's dive into the data and see what we can find!</p>
-                    </div>
-                </div>
-            </div>        
-        </section>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beerpop: Unraveling the Global Beer Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .content {
+            width: 60em;
+            max-width: calc(100% - 4em);
+            margin: 0 auto;
+        }
+        .expanded-content {
+            width: 85em;
+            max-width: calc(100% - 4em);
+            margin: 0 auto;
+        }
+        .content p {
+            text-align: justify;
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.6em;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Introduction Section -->
+    <section class="py-12">
+        <div class="content mx-auto px-6">
+            <h1 class="text-3xl font-bold text-center mb-8">Beerpop: The Ultimate Guide to Beer Trends</h1>
+            <p>
+                Ever wondered why your favorite beer feels like poetry in a pint? In this project, we dive into the frothy depths of beer preferences, ratings, and trends across the globe.
+            </p>
+            <p>
+                Our mission: to uncover the science of what makes a beer legendary. From understanding seasonal trends to exploring cultural influences, we’ve set out to answer one big question: what makes a beer unforgettable?
+            </p>
+        </div>
+    </section>
+
+    <!-- Data Introduction Section -->
+    <section class="py-12 bg-gray-100">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">Meet the Data</h2>
+            <p>
+                Our analysis is based on data from <a href="https://www.beeradvocate.com/" class="text-blue-500">BeerAdvocate</a> and RateBeer. These platforms host an ocean of beer reviews and ratings from around the world. But don’t worry, we’ve sifted through the froth to make sense of it all.
+            </p>
+            <p>
+                Key definitions:
+                <ul class="list-disc ml-6">
+                    <li><strong>Beer Preference:</strong> The specific features that people love in their beers—be it fruity notes, malty sweetness, or even just a catchy name.</li>
+                    <li><strong>Popularity:</strong> The combination of high ratings and wide recognition in the beer community.</li>
+                </ul>
+            </p>
+        </div>
+    </section>
+
+    <!-- Global Distribution Section -->
+    <section class="py-12">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">What the World Drinks</h2>
+            <p>
+                Let’s take a look at the global landscape of beer preferences. Where does each style reign supreme, and how do preferences shift over time? Check out the map below for a sip of global beer trends.
+            </p>
+            <div class="expanded-content grid grid-cols-2 gap-6 mt-12">
+                <img src="plots/global_distribution.png" alt="Global Beer Distribution" class="rounded-lg shadow-lg">
+                <img src="plots/temporal_trends.png" alt="Temporal Trends in Beer Popularity" class="rounded-lg shadow-lg">
+            </div>
+            <p class="mt-6">
+                Observations: Germany dominates lagers, the US loves IPAs, and Belgium remains a haven for Trappist ales. Curious trends abound—like how fruity sours have recently surged in popularity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Reviews and Sentiment Section -->
+    <section class="py-12 bg-gray-100">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">What’s in a Review?</h2>
+            <p>
+                Words matter! Using Natural Language Processing, we explored how beer reviews influence ratings. Are positive words like "crisp" and "aromatic" the secret to high ratings? Check out the sentiment analysis below.
+            </p>
+            <div class="expanded-content">
+                <img src="plots/review_sentiments.png" alt="Sentiment Analysis" class="rounded-lg shadow-lg">
+            </div>
+            <p class="mt-6">
+                Turns out, positive emotions and vivid descriptors are the key to a beer’s success. But tread lightly—one mention of "skunky" or "metallic," and you’re doomed.
+            </p>
+        </div>
+    </section>
+
+    <!-- Temporal Analysis Section -->
+    <section class="py-12">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">Tastes Across Time</h2>
+            <p>
+                How do beer preferences change over time? From the rise of IPAs to the enduring love for stouts during winters, here’s a deep dive into temporal trends.
+            </p>
+            <div class="expanded-content grid grid-cols-2 gap-6 mt-12">
+                <img src="plots/temporal_analysis.png" alt="Temporal Analysis" class="rounded-lg shadow-lg">
+                <img src="plots/seasonal_analysis.png" alt="Seasonal Analysis" class="rounded-lg shadow-lg">
+            </div>
+            <p class="mt-6">
+                Fun fact: IPAs dominate summer months, while dark ales reign in the colder seasons. Seasonal drinking is real, folks!
+            </p>
+        </div>
+    </section>
+
+    <!-- Platform Comparison Section -->
+    <section class="py-12 bg-gray-100">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">Platform Wars: RateBeer vs. BeerAdvocate</h2>
+            <p>
+                How do the two platforms compare? Are RateBeer users the adventurous types, while BeerAdvocate caters to traditionalists? Let’s see how their drinkers differ.
+            </p>
+            <div class="expanded-content">
+                <img src="plots/platform_comparison.png" alt="Platform Comparison" class="rounded-lg shadow-lg">
+            </div>
+            <p class="mt-6">
+                Think Apple vs. Android—but with hops and malts. Each platform brings its own flavor to the beer-rating world.
+            </p>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="py-12">
+        <div class="content mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-center">Final Thoughts</h2>
+            <p>
+                So, what have we learned? Beer isn’t just a drink—it’s a story of culture, geography, and emotions. From the hop-filled IPAs of the US to the timeless ales of Europe, each pint tells a tale.
+            </p>
+            <p>
+                Next time you raise a glass, remember: there’s a world of data behind every sip. Cheers to beer and the stories it tells!
+            </p>
+        </div>
+    </section>
+</body>
 </html>
