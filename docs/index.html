@@ -84,13 +84,53 @@
                         <h3 class="text-2xl font-bold text-gray-800 text-center">8,229,373 ratings</h3>
                     </div>
                 </div>
-            </div>        
-            <div class="expanded-content grid grid-cols-2 gap-6 mt-12">
-                <img src="plots/number_of_rating_per_country.png" alt="Ratings by Country" class="rounded-lg shadow-lg">
-                <img src="plots/number_of_ratings_per_year.png" alt="Ratings by Year" class="rounded-lg shadow-lg">
+
+                <!-- Interactive Visualization -->
+                <div class="content mx-auto mt-12">
+                    <h3 class="text-xl font-bold text-center mb-4">Explore the Data</h3>
+                    <p class="text-center mb-6">
+                        Use the toggle below to switch between a flat map and a 3D globe visualization. Both maps provide an interactive view of beer-related data, allowing you to explore ratings, breweries, users, and beer varieties across countries and US states.
+                    </p>
+                    <div class="text-center mb-4">
+                        <button id="flat-map-button" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Flat Map</button>
+                        <button id="globe-map-button" class="bg-gray-300 text-black px-4 py-2 rounded">3D Globe</button>
+                    </div>
+                    <div id="flat-map-container">
+                        <iframe src="../analysis/general_plots/flat_map.html" style="width: 100%; height: 900px; border: none;"></iframe>
+                    </div>
+                    <div id="globe-map-container" class="hidden">
+                        <iframe src="../analysis/general_plots/globe_map.html" style="width: 100%; height: 900px; border: none;"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <script>
+        const flatMapButton = document.getElementById("flat-map-button");
+        const globeMapButton = document.getElementById("globe-map-button");
+        const flatMapContainer = document.getElementById("flat-map-container");
+        const globeMapContainer = document.getElementById("globe-map-container");
+
+        flatMapButton.addEventListener("click", () => {
+            flatMapContainer.classList.remove("hidden");
+            globeMapContainer.classList.add("hidden");
+            flatMapButton.classList.remove("bg-gray-300");
+            flatMapButton.classList.add("bg-blue-500", "text-white");
+            globeMapButton.classList.remove("bg-blue-500", "text-white");
+            globeMapButton.classList.add("bg-gray-300", "text-black");
+        });
+
+        globeMapButton.addEventListener("click", () => {
+            globeMapContainer.classList.remove("hidden");
+            flatMapContainer.classList.add("hidden");
+            globeMapButton.classList.remove("bg-gray-300");
+            globeMapButton.classList.add("bg-blue-500", "text-white");
+            flatMapButton.classList.remove("bg-blue-500", "text-white");
+            flatMapButton.classList.add("bg-gray-300", "text-black");
+        });
+    </script>
+
 
     <!-- Global Beer Trends -->
     <section class="py-12">
