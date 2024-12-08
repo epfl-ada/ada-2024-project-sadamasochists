@@ -1,32 +1,31 @@
 # Do all the imports here
-import polars as pl
-import polars as pl
 import tqdm
 from datetime import datetime
 import os
+import pandas as pd
 
 # Define the data folder
 DATA_FOLDER = os.path.join(os.path.dirname(__file__), '../../data')
 
 # Process the data
 # Define the mapping betwen column names and polars types
-mapping_pl = {
-    'rating': pl.Float64,
-    'palate': pl.Float64,
-    'abv': pl.Float64,
-    'beer_id': pl.Int64,
-    'beer_name': pl.Utf8,
-    'user_id': pl.Int64,
-    'taste': pl.Float64,
-    'date': pl.Datetime,
-    'style': pl.Utf8,
-    'appearance': pl.Float64,
-    'overall': pl.Float64,
-    'brewery_name': pl.Utf8,
-    'text': pl.Utf8,
-    'aroma': pl.Float64,
-    'user_name': pl.Utf8,
-    'brewery_id': pl.Int64
+mapping_pd = {
+    'rating': pd.Float64Dtype,
+    'palate': pd.Float64Dtype,
+    'abv': pd.Float64Dtype,
+    'beer_id': pd.Int64Dtype,
+    'beer_name': pd.StringDtype,
+    'user_id': pd.Int64Dtype,
+    'taste': pd.Float64Dtype,
+    'date': pd.Timestamp,
+    'style': pd.StringDtype,
+    'appearance': pd.Float64Dtype,
+    'overall': pd.Float64Dtype,
+    'brewery_name': pd.StringDtype,
+    'text': pd.StringDtype,
+    'aroma': pd.Float64Dtype,
+    'user_name': pd.StringDtype,
+    'brewery_id': pd.Int64Dtype
 }
 
 # Create an empty list to collect rows
@@ -39,7 +38,7 @@ with open(f"{DATA_FOLDER}/ratings.txt") as f:
         line = line.strip()
             
         # Create a dictionary to store the content of the row
-        content = {label: None for label in mapping_pl.keys()}
+        content = {label: None for label in mapping_pd.keys()}
 
         # Process the line until we get a complete record
         while line:
@@ -51,15 +50,15 @@ with open(f"{DATA_FOLDER}/ratings.txt") as f:
             # Skip 'nan' values (these values are used to indicate missing data)
             if value != 'nan':
                 # Cast the value to the correct type based on the mapping
-                if mapping_pl[label] == pl.Int64:
+                if mapping_pd[label] == pd.Int64Dtype:
                     value = int(value)
-                elif mapping_pl[label] == pl.Float64:
+                elif mapping_pd[label] == pd.Float64Dtype:
                     value = float(value)
-                elif mapping_pl[label] == pl.Utf8:
+                elif mapping_pd[label] == pd.StringDtype:
                     value = str(value)
-                elif mapping_pl[label] == pl.Datetime:
+                elif mapping_pd[label] == pd.Timestamp:
                     value = datetime.fromtimestamp(int(value))
-                elif mapping_pl[label] == pl.Boolean:
+                elif mapping_pd[label] == pd.Boolean:
                     value = value == "True"
 
                 # Store the value in the content dictionary
@@ -72,10 +71,10 @@ with open(f"{DATA_FOLDER}/ratings.txt") as f:
         rows.append(content)
 
 # After processing all lines, create a DataFrame from the accumulated rows
-df = pl.DataFrame(rows)
+df = pd.DataFrame(rows)
 
 # Save it as parquet
-df.write_parquet(f'{DATA_FOLDER}/ratings.pq')
+df.to_parquet(f'{DATA_FOLDER}/ratings.pq')
 
 # Delete the ratings.txt file
 os.remove(f"{DATA_FOLDER}/ratings.txt")

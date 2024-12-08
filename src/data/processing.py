@@ -1,5 +1,26 @@
+# Import all the needed libraries
 import pandas as pd
 import os
+
+# Define a function to process the states
+def clean_states(df, loc_column_name, suffix):
+    # Do the cleaning
+    split = df[loc_column_name].str.split(', ', expand=True)
+    split.columns = [f'country_{suffix}', f'state_{suffix}']
+    df = df.drop(loc_column_name, axis=1)
+    df = pd.concat([df, split], axis=1)
+
+    # Do any remapping
+    mapping = {
+        "Wales": "United Kingdom",
+        "England": "United Kingdom",
+        "Scotland": "United Kingdom",
+        "Northern Ireland": "United Kingdom"
+    }
+    df[f'country_{suffix}'] = df[f'country_{suffix}'].replace(mapping)
+
+    # Return the cleaned dataframe
+    return df
 
 # Define some constants
 DATA_FOLDER = os.path.join(os.path.dirname(__file__), '../../data')
@@ -18,22 +39,18 @@ df_beers = df_beers.dropna()
 # Clean the breweries
 df_breweries = df_breweries[['id', 'name', 'location']]
 df_breweries.columns = ['brewery_id', 'brewery_name', 'location_brewery']
-df_breweries = df_breweries.dropna()
+df_breweries = clean_states(df_breweries, 'location_brewery', 'brewery')
 
 # Clean the users
-df_users = df_users[['user_id', 'user_name', 'location', 'joined']]
-df_users.columns = ['user_id', 'user_name', 'location_user', 'joined']
-df_users['joined'] = pd.to_datetime(df_users['joined'], unit='s')
+df_users = df_users[['user_id', 'user_name', 'location']]
+df_users.columns = ['user_id', 'user_name', 'location_user']
 df_users = df_users.dropna()
+df_users = clean_states(df_users, 'location_user', 'user')
 
 # Remove the ratings that have elements that have been cleaned before
-beers_ids = df_ratings['beer_id'].unique()
-breweries_ids = df_ratings['brewery_id'].unique()
-users_ids = df_ratings['user_id'].unique()
-
-df_ratings = df_ratings[df_ratings['beer_id'].isin(beers_ids)]
-df_ratings = df_ratings[df_ratings['brewery_id'].isin(breweries_ids)]
-df_ratings = df_ratings[df_ratings['user_id'].isin(users_ids)]
+df_ratings = df_ratings[df_ratings['beer_id'].isin(df_ratings['beer_id'].unique())]
+df_ratings = df_ratings[df_ratings['brewery_id'].isin(df_ratings['brewery_id'].unique())]
+df_ratings = df_ratings[df_ratings['user_id'].isin(df_ratings['user_id'].unique())]
 df_ratings = df_ratings[['date', 'beer_id', 'user_id', 'brewery_id', 'abv', 'style', 'rating', 'palate', 'taste', 'appearance', 'aroma', 'overall', 'text']]
 
 # Add location information to the ratings
