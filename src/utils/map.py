@@ -1,5 +1,4 @@
 import plotly.graph_objects as go
-import pandas as pd
 
 us_remapping = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
@@ -16,16 +15,9 @@ us_remapping = {
     "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV",
     "Wisconsin": "WI", "Wyoming": "WY"
 }
-option = {
-    "country_column": "",
-    "state_column": "",
-    "z-value": "",
-    "color": "red",
-    "title":""
-}
 
 
-def plot_map(df_no_US,df_US, options):
+def plot_map(df_no_US, df_US, options, save_path=None):
     # Initialize figure
     fig = go.Figure()
 
@@ -33,24 +25,28 @@ def plot_map(df_no_US,df_US, options):
     counter = 0
     for counter in range(len(options['plots'])):
         plot = options['plots'][counter]
-        df = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
+        dfNoUS = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
         fig.add_trace(go.Choropleth(
-            locations=df[plot['location_label']],
+            locations=dfNoUS[plot['location_label']],
             locationmode="country names",
-            z=df[plot['z_label']],
+            z=dfNoUS[plot['z_label']],
             colorscale=plot['colorscale'],
             showscale=False,  # Suppress legend for countries
             hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
             visible=counter == 0
         ))
-        df = df_US[counter] if len(options['plots']) > 1 else df_US    
-        df[plot['location_label']] = df[plot['location_label']].map(us_remapping)
+        dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
+        dfUS[plot['location_label']] = dfUS[plot['location_label']].map(us_remapping)
+        minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
+        maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
         fig.add_trace(go.Choropleth(
-            locations=df[plot['location_label']],
+            locations=dfUS[plot['location_label']],
             locationmode="USA-states",
-            z=df[plot['z_label']],
+            z=dfUS[plot['z_label']],
             colorscale=plot['colorscale'],
-            colorbar=dict(title="Ratings", tickformat=".1s", len=0.5),
+            zmin=minZ,  # Set min value for colorbar
+            zmax=maxZ,  # Set max value for colorbar
+            colorbar=dict(title="Scale", tickformat=".1s", len=1),
             hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
             visible=counter == 0
         ))
@@ -91,3 +87,7 @@ def plot_map(df_no_US,df_US, options):
 
     # Show the plot
     fig.show()
+
+    # Save the plot
+    if save_path:
+        fig.write_html(save_path)
