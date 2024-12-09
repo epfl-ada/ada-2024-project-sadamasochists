@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Afghanistan", "label": "Afghanistan", "shape": "dot"}, {"color": "#97c2fc", "id": "Slovenia", "label": "Slovenia", "shape": "dot"}, {"color": "#97c2fc", "id": "Albania", "label": "Albania", "shape": "dot"}, {"color": "#97c2fc", "id": "United States of America", "label": "United States of America", "shape": "dot"}, {"color": "#97c2fc", "id": "American Samoa", "label": "American Samoa", "shape": "dot"}, {"color": "#97c2fc", "id": "Andorra", "label": "Andorra", "shape": "dot"}, {"color": "#97c2fc", "id": "Angola", "label": "Angola", "shape": "dot"}, {"color": "#97c2fc", "id": "Anguilla", "label": "Anguilla", "shape": "dot"}, {"color": "#97c2fc", "id": "United Kingdom", "label": "United Kingdom", "shape": "dot"}, {"color": "#97c2fc", "id": "Antarctica", "label": "Antarctica", "shape": "dot"}, {"color": "#97c2fc", "id": "Antigua and Barbuda", "label": "Antigua and Barbuda", "shape": "dot"}, {"color": "#97c2fc", "id": "Aotearoa", "label": "Aotearoa", "shape": "dot"}, {"color": "#97c2fc", "id": "New Zealand", "label": "New Zealand", "shape": "dot"}, {"color": "#97c2fc", "id": "Argentina", "label": "Argentina", "shape": "dot"}, {"color": "#97c2fc", "id": "Aruba", "label": "Aruba", "shape": "dot"}, {"color": "#97c2fc", "id": "Australia", "label": "Australia", "shape": "dot"}, {"color": "#97c2fc", "id": "Austria", "label": "Austria", "shape": "dot"}, {"color": "#97c2fc", "id": "Bahamas", "label": "Bahamas", "shape": "dot"}, {"color": "#97c2fc", "id": "Barbados", "label": "Barbados", "shape": "dot"}, {"color": "#97c2fc", "id": "Belarus", "label": "Belarus", "shape": "dot"}, {"color": "#97c2fc", "id": "Germany", "label": "Germany", "shape": "dot"}, {"color": "#97c2fc", "id": "Belgium", "label": "Belgium", "shape": "dot"}, {"color": "#97c2fc", "id": "Belize", "label": "Belize", "shape": "dot"}, {"color": "#97c2fc", "id": "Jamaica", "label": "Jamaica", "shape": "dot"}, {"color": "#97c2fc", "id": "Bermuda", "label": "Bermuda", "shape": "dot"}, {"color": "#97c2fc", "id": "Bhutan", "label": "Bhutan", "shape": "dot"}, {"color": "#97c2fc", "id": "Bolivia", "label": "Bolivia", "shape": "dot"}, {"color": "#97c2fc", "id": "Bosnia and Herzegovina", "label": "Bosnia and Herzegovina", "shape": "dot"}, {"color": "#97c2fc", "id": "Czechia", "label": "Czechia", "shape": "dot"}, {"color": "#97c2fc", "id": "Bouvet Island", "label": "Bouvet Island", "shape": "dot"}, {"color": "#97c2fc", "id": "Brazil", "label": "Brazil", "shape": "dot"}, {"color": "#97c2fc", "id": "British Indian Ocean Territory", "label": "British Indian Ocean Territory", "shape": "dot"}, {"color": "#97c2fc", "id": "Bulgaria", "label": "Bulgaria", "shape": "dot"}, {"color": "#97c2fc", "id": "Burkina Faso", "label": "Burkina Faso", "shape": "dot"}, {"color": "#97c2fc", "id": "Cambodia", "label": "Cambodia", "shape": "dot"}, {"color": "#97c2fc", "id": "Canada", "label": "Canada", "shape": "dot"}, {"color": "#97c2fc", "id": "Cayman Islands", "label": "Cayman Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Chile", "label": "Chile", "shape": "dot"}, {"color": "#97c2fc", "id": "China", "label": "China", "shape": "dot"}, {"color": "#97c2fc", "id": "Christmas Island", "label": "Christmas Island", "shape": "dot"}, {"color": "#97c2fc", "id": "Colombia", "label": "Colombia", "shape": "dot"}, {"color": "#97c2fc", "id": "Costa Rica", "label": "Costa Rica", "shape": "dot"}, {"color": "#97c2fc", "id": "Croatia", "label": "Croatia", "shape": "dot"}, {"color": "#97c2fc", "id": "Cyprus", "label": "Cyprus", "shape": "dot"}, {"color": "#97c2fc", "id": "Denmark", "label": "Denmark", "shape": "dot"}, {"color": "#97c2fc", "id": "Dominican Republic", "label": "Dominican Republic", "shape": "dot"}, {"color": "#97c2fc", "id": "Ecuador", "label": "Ecuador", "shape": "dot"}, {"color": "#97c2fc", "id": "Egypt", "label": "Egypt", "shape": "dot"}, {"color": "#97c2fc", "id": "El Salvador", "label": "El Salvador", "shape": "dot"}, {"color": "#97c2fc", "id": "Equatorial Guinea", "label": "Equatorial Guinea", "shape": "dot"}, {"color": "#97c2fc", "id": "Estonia", "label": "Estonia", "shape": "dot"}, {"color": "#97c2fc", "id": "Ethiopia", "label": "Ethiopia", "shape": "dot"}, {"color": "#97c2fc", "id": "Faroe Islands", "label": "Faroe Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Fiji Islands", "label": "Fiji Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Finland", "label": "Finland", "shape": "dot"}, {"color": "#97c2fc", "id": "France", "label": "France", "shape": "dot"}, {"color": "#97c2fc", "id": "Gibraltar", "label": "Gibraltar", "shape": "dot"}, {"color": "#97c2fc", "id": "Greece", "label": "Greece", "shape": "dot"}, {"color": "#97c2fc", "id": "Guam", "label": "Guam", "shape": "dot"}, {"color": "#97c2fc", "id": "Guatemala", "label": "Guatemala", "shape": "dot"}, {"color": "#97c2fc", "id": "Guernsey", "label": "Guernsey", "shape": "dot"}, {"color": "#97c2fc", "id": "Haiti", "label": "Haiti", "shape": "dot"}, {"color": "#97c2fc", "id": "Heard and McDonald Islands", "label": "Heard and McDonald Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Honduras", "label": "Honduras", "shape": "dot"}, {"color": "#97c2fc", "id": "Hong Kong", "label": "Hong Kong", "shape": "dot"}, {"color": "#97c2fc", "id": "Hungary", "label": "Hungary", "shape": "dot"}, {"color": "#97c2fc", "id": "Iceland", "label": "Iceland", "shape": "dot"}, {"color": "#97c2fc", "id": "India", "label": "India", "shape": "dot"}, {"color": "#97c2fc", "id": "Indonesia", "label": "Indonesia", "shape": "dot"}, {"color": "#97c2fc", "id": "Ireland", "label": "Ireland", "shape": "dot"}, {"color": "#97c2fc", "id": "Isle of Man", "label": "Isle of Man", "shape": "dot"}, {"color": "#97c2fc", "id": "Israel", "label": "Israel", "shape": "dot"}, {"color": "#97c2fc", "id": "Italy", "label": "Italy", "shape": "dot"}, {"color": "#97c2fc", "id": "Japan", "label": "Japan", "shape": "dot"}, {"color": "#97c2fc", "id": "Jersey", "label": "Jersey", "shape": "dot"}, {"color": "#97c2fc", "id": "Jordan", "label": "Jordan", "shape": "dot"}, {"color": "#97c2fc", "id": "Kazakhstan", "label": "Kazakhstan", "shape": "dot"}, {"color": "#97c2fc", "id": "Kenya", "label": "Kenya", "shape": "dot"}, {"color": "#97c2fc", "id": "Kyrgyzstan", "label": "Kyrgyzstan", "shape": "dot"}, {"color": "#97c2fc", "id": "Latvia", "label": "Latvia", "shape": "dot"}, {"color": "#97c2fc", "id": "Lebanon", "label": "Lebanon", "shape": "dot"}, {"color": "#97c2fc", "id": "Lesotho", "label": "Lesotho", "shape": "dot"}, {"color": "#97c2fc", "id": "Liberia", "label": "Liberia", "shape": "dot"}, {"color": "#97c2fc", "id": "Netherlands", "label": "Netherlands", "shape": "dot"}, {"color": "#97c2fc", "id": "Lithuania", "label": "Lithuania", "shape": "dot"}, {"color": "#97c2fc", "id": "Luxembourg", "label": "Luxembourg", "shape": "dot"}, {"color": "#97c2fc", "id": "Macedonia", "label": "Macedonia", "shape": "dot"}, {"color": "#97c2fc", "id": "Malaysia", "label": "Malaysia", "shape": "dot"}, {"color": "#97c2fc", "id": "Malta", "label": "Malta", "shape": "dot"}, {"color": "#97c2fc", "id": "Malvinas", "label": "Malvinas", "shape": "dot"}, {"color": "#97c2fc", "id": "Marshall Islands", "label": "Marshall Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Mauritania", "label": "Mauritania", "shape": "dot"}, {"color": "#97c2fc", "id": "Mauritius", "label": "Mauritius", "shape": "dot"}, {"color": "#97c2fc", "id": "Mexico", "label": "Mexico", "shape": "dot"}, {"color": "#97c2fc", "id": "Moldova", "label": "Moldova", "shape": "dot"}, {"color": "#97c2fc", "id": "Mozambique", "label": "Mozambique", "shape": "dot"}, {"color": "#97c2fc", "id": "New Caledonia", "label": "New Caledonia", "shape": "dot"}, {"color": "#97c2fc", "id": "Nicaragua", "label": "Nicaragua", "shape": "dot"}, {"color": "#97c2fc", "id": "Northern Mariana Islands", "label": "Northern Mariana Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Norway", "label": "Norway", "shape": "dot"}, {"color": "#97c2fc", "id": "Palestine", "label": "Palestine", "shape": "dot"}, {"color": "#97c2fc", "id": "Panama", "label": "Panama", "shape": "dot"}, {"color": "#97c2fc", "id": "Papua New Guinea", "label": "Papua New Guinea", "shape": "dot"}, {"color": "#97c2fc", "id": "Paraguay", "label": "Paraguay", "shape": "dot"}, {"color": "#97c2fc", "id": "Peru", "label": "Peru", "shape": "dot"}, {"color": "#97c2fc", "id": "Philippines", "label": "Philippines", "shape": "dot"}, {"color": "#97c2fc", "id": "Poland", "label": "Poland", "shape": "dot"}, {"color": "#97c2fc", "id": "Portugal", "label": "Portugal", "shape": "dot"}, {"color": "#97c2fc", "id": "Puerto Rico", "label": "Puerto Rico", "shape": "dot"}, {"color": "#97c2fc", "id": "Republic of Serbia", "label": "Republic of Serbia", "shape": "dot"}, {"color": "#97c2fc", "id": "Romania", "label": "Romania", "shape": "dot"}, {"color": "#97c2fc", "id": "Russia", "label": "Russia", "shape": "dot"}, {"color": "#97c2fc", "id": "Rwanda", "label": "Rwanda", "shape": "dot"}, {"color": "#97c2fc", "id": "Seychelles", "label": "Seychelles", "shape": "dot"}, {"color": "#97c2fc", "id": "Singapore", "label": "Singapore", "shape": "dot"}, {"color": "#97c2fc", "id": "Sint Maarten", "label": "Sint Maarten", "shape": "dot"}, {"color": "#97c2fc", "id": "Slovakia", "label": "Slovakia", "shape": "dot"}, {"color": "#97c2fc", "id": "Solomon Islands", "label": "Solomon Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "South Africa", "label": "South Africa", "shape": "dot"}, {"color": "#97c2fc", "id": "South Georgia and South Sandwich Islands", "label": "South Georgia and South Sandwich Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Spain", "label": "Spain", "shape": "dot"}, {"color": "#97c2fc", "id": "Svalbard and Jan Mayen Islands", "label": "Svalbard and Jan Mayen Islands", "shape": "dot"}, {"color": "#97c2fc", "id": "Sweden", "label": "Sweden", "shape": "dot"}, {"color": "#97c2fc", "id": "Switzerland", "label": "Switzerland", "shape": "dot"}, {"color": "#97c2fc", "id": "Taiwan", "label": "Taiwan", "shape": "dot"}, {"color": "#97c2fc", "id": "Tajikistan", "label": "Tajikistan", "shape": "dot"}, {"color": "#97c2fc", "id": "Tanzania", "label": "Tanzania", "shape": "dot"}, {"color": "#97c2fc", "id": "Thailand", "label": "Thailand", "shape": "dot"}, {"color": "#97c2fc", "id": "Tokelau", "label": "Tokelau", "shape": "dot"}, {"color": "#97c2fc", "id": "Trinidad and Tobago", "label": "Trinidad and Tobago", "shape": "dot"}, {"color": "#97c2fc", "id": "Turkey", "label": "Turkey", "shape": "dot"}, {"color": "#97c2fc", "id": "Turkmenistan", "label": "Turkmenistan", "shape": "dot"}, {"color": "#97c2fc", "id": "Uganda", "label": "Uganda", "shape": "dot"}, {"color": "#97c2fc", "id": "Ukraine", "label": "Ukraine", "shape": "dot"}, {"color": "#97c2fc", "id": "United Arab Emirates", "label": "United Arab Emirates", "shape": "dot"}, {"color": "#97c2fc", "id": "Uruguay", "label": "Uruguay", "shape": "dot"}, {"color": "#97c2fc", "id": "Uzbekistan", "label": "Uzbekistan", "shape": "dot"}, {"color": "#97c2fc", "id": "Vanuatu", "label": "Vanuatu", "shape": "dot"}, {"color": "#97c2fc", "id": "Venezuela", "label": "Venezuela", "shape": "dot"}, {"color": "#97c2fc", "id": "Vietnam", "label": "Vietnam", "shape": "dot"}, {"color": "#97c2fc", "id": "Zimbabwe", "label": "Zimbabwe", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Afghanistan", "smooth": false, "to": "Slovenia", "value": 1.0001809919652496}, {"arrows": "to", "from": "Slovenia", "smooth": false, "to": "Belgium", "value": 1.012307453636969}, {"arrows": "to", "from": "Albania", "smooth": false, "to": "United States of America", "value": 1.0001809919652496}, {"arrows": "to", "from": "United States of America", "smooth": {"type": "curvedCW"}, "to": "Belgium", "value": 15.0}, {"arrows": "to", "from": "American Samoa", "smooth": false, "to": "United States of America", "value": 1.0004977279044363}, {"arrows": "to", "from": "Andorra", "smooth": false, "to": "United States of America", "value": 1.0003167359391867}, {"arrows": "to", "from": "Angola", "smooth": false, "to": "United States of America", "value": 1.000226239956562}, {"arrows": "to", "from": "Anguilla", "smooth": false, "to": "United Kingdom", "value": 1.0000452479913124}, {"arrows": "to", "from": "United Kingdom", "smooth": false, "to": "United States of America", "value": 1.4717103094316206}, {"arrows": "to", "from": "Antarctica", "smooth": false, "to": "United States of America", "value": 1.00493203105305}, {"arrows": "to", "from": "Antigua and Barbuda", "smooth": false, "to": "United States of America", "value": 1.0001357439739371}, {"arrows": "to", "from": "Aotearoa", "smooth": false, "to": "New Zealand", "value": 1.0131671654719043}, {"arrows": "to", "from": "Argentina", "smooth": false, "to": "United States of America", "value": 1.0064252147663588}, {"arrows": "to", "from": "Aruba", "smooth": false, "to": "United States of America", "value": 1.0007239678609983}, {"arrows": "to", "from": "Australia", "smooth": false, "to": "United States of America", "value": 1.3123921320207106}, {"arrows": "to", "from": "Austria", "smooth": false, "to": "United States of America", "value": 1.0361531450585961}, {"arrows": "to", "from": "Bahamas", "smooth": false, "to": "United States of America", "value": 1.004705791096488}, {"arrows": "to", "from": "Barbados", "smooth": false, "to": "United States of America", "value": 1.0003619839304991}, {"arrows": "to", "from": "Belarus", "smooth": false, "to": "Germany", "value": 1.00398182323549}, {"arrows": "to", "from": "Germany", "smooth": false, "to": "United States of America", "value": 1.2722571637266245}, {"arrows": "to", "from": "Belgium", "smooth": {"type": "curvedCW"}, "to": "United States of America", "value": 1.087871599128653}, {"arrows": "to", "from": "Belize", "smooth": false, "to": "Jamaica", "value": 1.0000452479913124}, {"arrows": "to", "from": "Bermuda", "smooth": false, "to": "United States of America", "value": 1.0008597118349354}, {"arrows": "to", "from": "Bhutan", "smooth": false, "to": "United States of America", "value": 1.0004524799131238}, {"arrows": "to", "from": "Bolivia", "smooth": false, "to": "United States of America", "value": 1.0174657246465808}, {"arrows": "to", "from": "Bosnia and Herzegovina", "smooth": false, "to": "Czechia", "value": 1.0008597118349354}, {"arrows": "to", "from": "Czechia", "smooth": false, "to": "United Kingdom", "value": 1.0124884456022185}, {"arrows": "to", "from": "Bouvet Island", "smooth": false, "to": "United States of America", "value": 1.0006334718783734}, {"arrows": "to", "from": "Brazil", "smooth": false, "to": "United States of America", "value": 1.0922606542859543}, {"arrows": "to", "from": "British Indian Ocean Territory", "smooth": false, "to": "Belgium", "value": 1.0000904959826247}, {"arrows": "to", "from": "Bulgaria", "smooth": false, "to": "Belgium", "value": 1.0028958714439926}, {"arrows": "to", "from": "Burkina Faso", "smooth": false, "to": "United States of America", "value": 1.0014931837133088}, {"arrows": "to", "from": "Cambodia", "smooth": false, "to": "United States of America", "value": 1.0013121917480592}, {"arrows": "to", "from": "Canada", "smooth": false, "to": "United States of America", "value": 4.846757981422468}, {"arrows": "to", "from": "Cayman Islands", "smooth": false, "to": "Belgium", "value": 1.0002714879478742}, {"arrows": "to", "from": "Chile", "smooth": false, "to": "United States of America", "value": 1.0058369908792977}, {"arrows": "to", "from": "China", "smooth": false, "to": "United States of America", "value": 1.0261080909872464}, {"arrows": "to", "from": "Christmas Island", "smooth": false, "to": "United States of America", "value": 1.0008597118349354}, {"arrows": "to", "from": "Colombia", "smooth": false, "to": "Germany", "value": 1.0022171515743068}, {"arrows": "to", "from": "Costa Rica", "smooth": false, "to": "United States of America", "value": 1.0033031033658042}, {"arrows": "to", "from": "Croatia", "smooth": false, "to": "Belgium", "value": 1.0180087005423295}, {"arrows": "to", "from": "Cyprus", "smooth": false, "to": "Belgium", "value": 1.0028506234526804}, {"arrows": "to", "from": "Denmark", "smooth": false, "to": "United States of America", "value": 1.0101355500539744}, {"arrows": "to", "from": "Dominican Republic", "smooth": false, "to": "United States of America", "value": 1.0057917428879855}, {"arrows": "to", "from": "Ecuador", "smooth": false, "to": "Belgium", "value": 1.0000452479913124}, {"arrows": "to", "from": "Egypt", "smooth": false, "to": "Belgium", "value": 1.0000452479913124}, {"arrows": "to", "from": "El Salvador", "smooth": false, "to": "Germany", "value": 1.0008597118349354}, {"arrows": "to", "from": "Equatorial Guinea", "smooth": false, "to": "United States of America", "value": 1.000226239956562}, {"arrows": "to", "from": "Estonia", "smooth": false, "to": "Belgium", "value": 1.0043890551573014}, {"arrows": "to", "from": "Ethiopia", "smooth": false, "to": "United States of America", "value": 1.0013121917480592}, {"arrows": "to", "from": "Faroe Islands", "smooth": false, "to": "Belgium", "value": 1.0019456636264326}, {"arrows": "to", "from": "Fiji Islands", "smooth": false, "to": "United States of America", "value": 1.003755583278928}, {"arrows": "to", "from": "Finland", "smooth": false, "to": "United States of America", "value": 1.0317640899012948}, {"arrows": "to", "from": "France", "smooth": false, "to": "Belgium", "value": 1.0761523693787451}, {"arrows": "to", "from": "Gibraltar", "smooth": false, "to": "United Kingdom", "value": 1.0000452479913124}, {"arrows": "to", "from": "Greece", "smooth": false, "to": "United States of America", "value": 1.0083708783927914}, {"arrows": "to", "from": "Guam", "smooth": false, "to": "United States of America", "value": 1.0131219174805919}, {"arrows": "to", "from": "Guatemala", "smooth": false, "to": "United States of America", "value": 1.0022623995656192}, {"arrows": "to", "from": "Guernsey", "smooth": false, "to": "United Kingdom", "value": 1.0000904959826247}, {"arrows": "to", "from": "Haiti", "smooth": false, "to": "Belgium", "value": 1.0003167359391867}, {"arrows": "to", "from": "Heard and McDonald Islands", "smooth": false, "to": "United States of America", "value": 1.0043890551573014}, {"arrows": "to", "from": "Honduras", "smooth": false, "to": "United States of America", "value": 1.0014479357219963}, {"arrows": "to", "from": "Hong Kong", "smooth": false, "to": "United States of America", "value": 1.0212213079255088}, {"arrows": "to", "from": "Hungary", "smooth": false, "to": "United States of America", "value": 1.003846079261553}, {"arrows": "to", "from": "Iceland", "smooth": false, "to": "Belgium", "value": 1.0029863674266175}, {"arrows": "to", "from": "India", "smooth": false, "to": "Belgium", "value": 1.0042533111833643}, {"arrows": "to", "from": "Indonesia", "smooth": false, "to": "United States of America", "value": 1.000588223887061}, {"arrows": "to", "from": "Ireland", "smooth": false, "to": "United Kingdom", "value": 1.0608133003238462}, {"arrows": "to", "from": "Isle of Man", "smooth": false, "to": "United States of America", "value": 1.0011311997828096}, {"arrows": "to", "from": "Israel", "smooth": false, "to": "Belgium", "value": 1.009275838219039}, {"arrows": "to", "from": "Italy", "smooth": false, "to": "Belgium", "value": 1.053618869705177}, {"arrows": "to", "from": "Japan", "smooth": false, "to": "United States of America", "value": 1.1268753676399295}, {"arrows": "to", "from": "Jersey", "smooth": false, "to": "United Kingdom", "value": 1.023347963517191}, {"arrows": "to", "from": "Jordan", "smooth": false, "to": "United States of America", "value": 1.0050225270356747}, {"arrows": "to", "from": "Kazakhstan", "smooth": false, "to": "Germany", "value": 1.0000452479913124}, {"arrows": "to", "from": "Kenya", "smooth": false, "to": "Australia", "value": 1.0001357439739371}, {"arrows": "to", "from": "Kyrgyzstan", "smooth": false, "to": "United States of America", "value": 1.0000452479913124}, {"arrows": "to", "from": "Latvia", "smooth": false, "to": "Belgium", "value": 1.0006787198696858}, {"arrows": "to", "from": "Lebanon", "smooth": false, "to": "Belgium", "value": 1.0042080631920518}, {"arrows": "to", "from": "Lesotho", "smooth": false, "to": "United States of America", "value": 1.0458362151994467}, {"arrows": "to", "from": "Liberia", "smooth": false, "to": "Netherlands", "value": 1.0000452479913124}, {"arrows": "to", "from": "Netherlands", "smooth": false, "to": "Belgium", "value": 1.279813578275793}, {"arrows": "to", "from": "Lithuania", "smooth": false, "to": "Germany", "value": 1.0105880299670982}, {"arrows": "to", "from": "Luxembourg", "smooth": false, "to": "Belgium", "value": 1.0019456636264326}, {"arrows": "to", "from": "Macedonia", "smooth": false, "to": "Belgium", "value": 1.0004072319218116}, {"arrows": "to", "from": "Malaysia", "smooth": false, "to": "United States of America", "value": 1.0023528955482441}, {"arrows": "to", "from": "Malta", "smooth": false, "to": "Belgium", "value": 1.0013121917480592}, {"arrows": "to", "from": "Malvinas", "smooth": false, "to": "Belgium", "value": 1.0000452479913124}, {"arrows": "to", "from": "Marshall Islands", "smooth": false, "to": "Belgium", "value": 1.0000452479913124}, {"arrows": "to", "from": "Mauritania", "smooth": false, "to": "United States of America", "value": 1.0000452479913124}, {"arrows": "to", "from": "Mauritius", "smooth": false, "to": "Belgium", "value": 1.0001357439739371}, {"arrows": "to", "from": "Mexico", "smooth": false, "to": "United States of America", "value": 1.1084141871844762}, {"arrows": "to", "from": "Moldova", "smooth": false, "to": "Czechia", "value": 1.000226239956562}, {"arrows": "to", "from": "Mozambique", "smooth": false, "to": "Germany", "value": 1.0005429758957487}, {"arrows": "to", "from": "New Caledonia", "smooth": false, "to": "New Zealand", "value": 1.0002714879478742}, {"arrows": "to", "from": "Nicaragua", "smooth": false, "to": "United States of America", "value": 1.0001809919652496}, {"arrows": "to", "from": "Northern Mariana Islands", "smooth": false, "to": "United States of America", "value": 1.000226239956562}, {"arrows": "to", "from": "Norway", "smooth": false, "to": "United Kingdom", "value": 1.0231669715519414}, {"arrows": "to", "from": "Palestine", "smooth": false, "to": "United States of America", "value": 1.0003619839304991}, {"arrows": "to", "from": "Panama", "smooth": false, "to": "United States of America", "value": 1.2385926581902096}, {"arrows": "to", "from": "Papua New Guinea", "smooth": false, "to": "Belgium", "value": 1.0001357439739371}, {"arrows": "to", "from": "Paraguay", "smooth": false, "to": "Germany", "value": 1.0003167359391867}, {"arrows": "to", "from": "Peru", "smooth": false, "to": "Belgium", "value": 1.0001809919652496}, {"arrows": "to", "from": "Philippines", "smooth": false, "to": "United States of America", "value": 1.0088686062972276}, {"arrows": "to", "from": "Poland", "smooth": false, "to": "United States of America", "value": 1.0270130508134943}, {"arrows": "to", "from": "Portugal", "smooth": false, "to": "Belgium", "value": 1.0233027155258787}, {"arrows": "to", "from": "Puerto Rico", "smooth": false, "to": "United States of America", "value": 1.0456552232341971}, {"arrows": "to", "from": "Republic of Serbia", "smooth": false, "to": "Germany", "value": 1.0175109726378933}, {"arrows": "to", "from": "Romania", "smooth": false, "to": "United States of America", "value": 1.1520332508096158}, {"arrows": "to", "from": "Russia", "smooth": false, "to": "Belgium", "value": 1.0866951513545309}, {"arrows": "to", "from": "Rwanda", "smooth": false, "to": "United States of America", "value": 1.0005429758957487}, {"arrows": "to", "from": "Seychelles", "smooth": false, "to": "United States of America", "value": 1.0000452479913124}, {"arrows": "to", "from": "Singapore", "smooth": false, "to": "United States of America", "value": 1.009728318132163}, {"arrows": "to", "from": "Sint Maarten", "smooth": false, "to": "France", "value": 1.0000452479913124}, {"arrows": "to", "from": "Slovakia", "smooth": false, "to": "Belgium", "value": 1.0016741756785583}, {"arrows": "to", "from": "Solomon Islands", "smooth": false, "to": "United States of America", "value": 1.0000904959826247}, {"arrows": "to", "from": "South Africa", "smooth": false, "to": "United States of America", "value": 1.0098188141147877}, {"arrows": "to", "from": "South Georgia and South Sandwich Islands", "smooth": false, "to": "Belgium", "value": 1.0004524799131238}, {"arrows": "to", "from": "Spain", "smooth": false, "to": "Belgium", "value": 1.0865141593892813}, {"arrows": "to", "from": "Svalbard and Jan Mayen Islands", "smooth": false, "to": "United States of America", "value": 1.0146603491852129}, {"arrows": "to", "from": "Sweden", "smooth": false, "to": "United States of America", "value": 1.3781374633976071}, {"arrows": "to", "from": "Switzerland", "smooth": false, "to": "United States of America", "value": 1.0428045997815167}, {"arrows": "to", "from": "Taiwan", "smooth": false, "to": "United States of America", "value": 1.0268320588482447}, {"arrows": "to", "from": "Tajikistan", "smooth": false, "to": "United States of America", "value": 1.0141173732894644}, {"arrows": "to", "from": "Tanzania", "smooth": false, "to": "Germany", "value": 1.0005429758957487}, {"arrows": "to", "from": "Thailand", "smooth": false, "to": "United States of America", "value": 1.0528496538528664}, {"arrows": "to", "from": "Tokelau", "smooth": false, "to": "United States of America", "value": 1.000226239956562}, {"arrows": "to", "from": "Trinidad and Tobago", "smooth": false, "to": "United Kingdom", "value": 1.0006334718783734}, {"arrows": "to", "from": "Turkey", "smooth": false, "to": "Belgium", "value": 1.0095925741582257}, {"arrows": "to", "from": "Turkmenistan", "smooth": false, "to": "United States of America", "value": 1.002941119435305}, {"arrows": "to", "from": "Uganda", "smooth": false, "to": "United States of America", "value": 1.0001809919652496}, {"arrows": "to", "from": "Ukraine", "smooth": false, "to": "United States of America", "value": 1.0141626212807766}, {"arrows": "to", "from": "United Arab Emirates", "smooth": false, "to": "United States of America", "value": 1.0050677750269872}, {"arrows": "to", "from": "Uruguay", "smooth": false, "to": "Belgium", "value": 1.0008597118349354}, {"arrows": "to", "from": "Uzbekistan", "smooth": false, "to": "United States of America", "value": 1.003167359391867}, {"arrows": "to", "from": "Vanuatu", "smooth": false, "to": "United States of America", "value": 1.0000904959826247}, {"arrows": "to", "from": "Venezuela", "smooth": false, "to": "United States of America", "value": 1.0327595457101673}, {"arrows": "to", "from": "Vietnam", "smooth": false, "to": "Belgium", "value": 1.0013121917480592}, {"arrows": "to", "from": "Zimbabwe", "smooth": false, "to": "United States of America", "value": 1.0000452479913124}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"shape": "dot", "scaling": {"min": 10, "max": 30}, "font": {"size": 16, "face": "Tahoma"}}, "edges": {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "scaling": {"min": 1, "max": 15}, "color": {"inherit": true}, "smooth": {"enabled": true}}, "interaction": {"dragNodes": true, "hideEdgesOnDrag": false, "hideNodesOnDrag": false}, "physics": {"enabled": true, "solver": "barnesHut", "stabilization": {"enabled": true}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
