@@ -13,7 +13,7 @@ us_remapping = {
     "Oregon": "OR", "Pennsylvania": "PA", "Rhode Island": "RI", "South Carolina": "SC",
     "South Dakota": "SD", "Tennessee": "TN", "Texas": "TX", "Utah": "UT",
     "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV",
-    "Wisconsin": "WI", "Wyoming": "WY"
+    "Wisconsin": "WI", "Wyoming": "WY", "Washington DC": "DC"
 }
 
 
@@ -46,7 +46,7 @@ def plot_map(df_no_US, df_US, options, save_path=None):
             colorscale=plot['colorscale'],
             zmin=minZ,  # Set min value for colorbar
             zmax=maxZ,  # Set max value for colorbar
-            colorbar=dict(title="Scale", tickformat=".1s", len=1),
+            colorbar=dict(title="Scale", len=1),
             hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
             visible=counter == 0
         ))
