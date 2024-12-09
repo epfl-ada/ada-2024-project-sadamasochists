@@ -94,23 +94,26 @@ def plot_map(df_no_US, df_US, options, save_path=None):
 
 
 def plot_map_time(df_no_US, df_US, options, save_path=None):
+    df_US_copy = df_US.copy()
+    df_US_copy[options['location_label']] = df_US_copy[options['location_label']].map(us_remapping)
+
     # Create frames for the animation
     frames = [
         {
             "data": [
                 px.choropleth(
-                    df_no_US[df_no_US['year'] == year],
-                    locations=df_no_US[options['location_label']],
+                    df_no_US[df_no_US[options['time_label']] == year],
+                    locations=options['location_label'],
                     locationmode='country names',
-                    color=df_no_US[options['value_label']],
+                    color=options['value_label'],
                     color_continuous_scale=options['color_scale'],
                     range_color=options['range_color']
-                ).data[0], 
+                ).data[0],
                 px.choropleth(
-                    df_US[df_US['year'] == year],
-                    locations=df_US[options['location_label']],
+                    df_US_copy[df_US_copy[options['time_label']] == year],
+                    locations=options['location_label'],
                     locationmode='USA-states',
-                    color=df_US[options['value_label']].map(us_remapping),
+                    color=options['value_label'],
                     color_continuous_scale=options['color_scale'],
                     range_color=options['range_color']
                 ).data[0]
@@ -122,31 +125,34 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
 
     # Define the figure with animation
     fig_brewery = px.choropleth(
-        df_no_US[df_no_US['year'] == options['time_range'][0]],
-        locations=df_no_US[options['location_label']],
+        df_no_US[df_no_US[options['time_label']] == df_no_US[options['time_label']].min()],
+        locations=options['location_label'],
         locationmode='country names',
-        color=df_no_US[options['value_label']],
+        color=options['value_label'],
         color_continuous_scale=options['color_scale'],
         range_color=options['range_color']
     )
     fig_brewery.add_trace(
         px.choropleth(
-            df_US[df_US['year'] == options['time_range'][0]],
-            locations=df_US[options['location_label']],
+            df_US_copy[df_US_copy[options['time_label']] == df_US_copy[options['time_label']].min()],
+            locations=options['location_label'],
             locationmode='USA-states',
-            color=df_US[options['value_label']],
+            color=options['value_label'],
             color_continuous_scale=options['color_scale'],
             range_color=options['range_color']
         ).data[0]
     )
-    df_US[options['location_label']] = df_US[options['location_label']].map(us_remapping_inverse)
 
     fig_brewery.frames = frames
 
     # Add slider to the layout
     fig_brewery.update_layout(
         sliders=[{
-            "steps": [ {"args": [[str(year)], {"frame": {"duration": 300, "redraw": True}, "mode": "immediate"}],"label": str(year), "method": "animate"} for year in options['time_range'] ],
+            "steps": [
+                {"args": [[str(year)], {"frame": {"duration": 300, "redraw": True}, "mode": "immediate"}],
+                "label": str(year), "method": "animate"}
+                for year in options['time_range']
+            ],
             "transition": {"duration": 300},
             "x": 0.1,
             "xanchor": "left",
@@ -155,8 +161,10 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
         }],
         updatemenus=[{
             "buttons": [
-                {"args": [None, {"frame": {"duration": 300, "redraw": True}, "fromcurrent": True}],"label": "Play", "method": "animate"},
-                {"args": [[None], {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],"label": "Pause", "method": "animate"}
+                {"args": [None, {"frame": {"duration": 300, "redraw": True}, "fromcurrent": True}],
+                "label": "Play", "method": "animate"},
+                {"args": [[None], {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],
+                "label": "Pause", "method": "animate"}
             ],
             "direction": "left",
             "pad": {"r": 10, "t": 87},
@@ -169,15 +177,17 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
         }]
     )
 
+    # Update the layout
     fig_brewery.update_layout(
-        title=options["title"],
+        title_text=options['title'],
         geo=dict(
             showframe=False,
-            showcoastlines=True,
-            projection_type="equirectangular"
+            showcoastlines=False,
         ),
+        geo_scope='world',
         height=600,
         width=800
+        
     )
 
     fig_brewery.show()
