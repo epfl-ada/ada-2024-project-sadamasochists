@@ -1,4 +1,5 @@
 import plotly.graph_objects as go
+import plotly.express as px
 
 us_remapping = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
@@ -15,7 +16,7 @@ us_remapping = {
     "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV",
     "Wisconsin": "WI", "Wyoming": "WY", "Washington DC": "DC"
 }
-
+us_remapping_inverse = {v: k for k, v in us_remapping.items()}
 
 def plot_map(df_no_US, df_US, options, save_path=None):
     # Initialize figure
@@ -36,11 +37,10 @@ def plot_map(df_no_US, df_US, options, save_path=None):
             visible=counter == 0
         ))
         dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
-        dfUS[plot['location_label']] = dfUS[plot['location_label']].map(us_remapping)
         minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
         maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
         fig.add_trace(go.Choropleth(
-            locations=dfUS[plot['location_label']],
+            locations=dfUS[plot['location_label']].map(us_remapping),
             locationmode="USA-states",
             z=dfUS[plot['z_label']],
             colorscale=plot['colorscale'],
@@ -91,3 +91,93 @@ def plot_map(df_no_US, df_US, options, save_path=None):
     # Save the plot
     if save_path:
         fig.write_html(save_path)
+
+
+def plot_map_time(df_no_US, df_US, options, save_path=None):
+    # Create frames for the animation
+    frames = [
+        {
+            "data": [
+                px.choropleth(
+                    df_no_US[df_no_US['year'] == year],
+                    locations=df_no_US[options['location_label']],
+                    locationmode='country names',
+                    color=df_no_US[options['value_label']],
+                    color_continuous_scale=options['color_scale'],
+                    range_color=options['range_color']
+                ).data[0], 
+                px.choropleth(
+                    df_US[df_US['year'] == year],
+                    locations=df_US[options['location_label']],
+                    locationmode='USA-states',
+                    color=df_US[options['value_label']].map(us_remapping),
+                    color_continuous_scale=options['color_scale'],
+                    range_color=options['range_color']
+                ).data[0]
+            ],
+            "name": str(year),
+        }
+        for year in options['time_range']
+    ]
+
+    # Define the figure with animation
+    fig_brewery = px.choropleth(
+        df_no_US[df_no_US['year'] == options['time_range'][0]],
+        locations=df_no_US[options['location_label']],
+        locationmode='country names',
+        color=df_no_US[options['value_label']],
+        color_continuous_scale=options['color_scale'],
+        range_color=options['range_color']
+    )
+    fig_brewery.add_trace(
+        px.choropleth(
+            df_US[df_US['year'] == options['time_range'][0]],
+            locations=df_US[options['location_label']],
+            locationmode='USA-states',
+            color=df_US[options['value_label']],
+            color_continuous_scale=options['color_scale'],
+            range_color=options['range_color']
+        ).data[0]
+    )
+    df_US[options['location_label']] = df_US[options['location_label']].map(us_remapping_inverse)
+
+    fig_brewery.frames = frames
+
+    # Add slider to the layout
+    fig_brewery.update_layout(
+        sliders=[{
+            "steps": [ {"args": [[str(year)], {"frame": {"duration": 300, "redraw": True}, "mode": "immediate"}],"label": str(year), "method": "animate"} for year in options['time_range'] ],
+            "transition": {"duration": 300},
+            "x": 0.1,
+            "xanchor": "left",
+            "y": 0,
+            "yanchor": "top"
+        }],
+        updatemenus=[{
+            "buttons": [
+                {"args": [None, {"frame": {"duration": 300, "redraw": True}, "fromcurrent": True}],"label": "Play", "method": "animate"},
+                {"args": [[None], {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],"label": "Pause", "method": "animate"}
+            ],
+            "direction": "left",
+            "pad": {"r": 10, "t": 87},
+            "showactive": False,
+            "type": "buttons",
+            "x": 0.1,
+            "xanchor": "right",
+            "y": 0,
+            "yanchor": "top"
+        }]
+    )
+
+    fig_brewery.update_layout(
+        title=options["title"],
+        geo=dict(
+            showframe=False,
+            showcoastlines=True,
+            projection_type="equirectangular"
+        ),
+        height=600,
+        width=800
+    )
+
+    fig_brewery.show()

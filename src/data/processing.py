@@ -52,6 +52,7 @@ df_ratings = df_ratings[df_ratings['beer_id'].isin(df_ratings['beer_id'].unique(
 df_ratings = df_ratings[df_ratings['brewery_id'].isin(df_ratings['brewery_id'].unique())]
 df_ratings = df_ratings[df_ratings['user_id'].isin(df_ratings['user_id'].unique())]
 df_ratings = df_ratings[['date', 'beer_id', 'user_id', 'brewery_id', 'abv', 'style', 'rating', 'palate', 'taste', 'appearance', 'aroma', 'overall', 'text']]
+df_ratings['year'] = df_ratings['date'].dt.year
 
 # Add location information to the ratings
 df_ratings = df_ratings.join(df_breweries.set_index('brewery_id'), on='brewery_id')
