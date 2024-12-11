@@ -59,6 +59,9 @@ df_ratings['year'] = df_ratings['date'].dt.year
 df_ratings = df_ratings.join(df_breweries.set_index('brewery_id'), on='brewery_id')
 df_ratings = df_ratings.join(df_users[['user_id', 'country_user', 'state_user']].set_index('user_id'), on='user_id')
 
+# Filter ratings only from 2002
+df_ratings = df_ratings[df_ratings['year'] >= 2002]
+
 # Save the processed data
 if not os.path.exists(DATA_PROCESSED_FOLDER):
     os.makedirs(DATA_PROCESSED_FOLDER)

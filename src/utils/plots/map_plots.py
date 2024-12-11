@@ -182,7 +182,7 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
         title_text=options['title'],
         geo=dict(
             showframe=False,
-            showcoastlines=False,
+            showcoastlines=True,
         ),
         geo_scope='world',        
     )
