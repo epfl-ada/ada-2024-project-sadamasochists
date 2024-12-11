@@ -184,10 +184,7 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
             showframe=False,
             showcoastlines=False,
         ),
-        geo_scope='world',
-        height=600,
-        width=800
-        
+        geo_scope='world',        
     )
 
     fig_brewery.show()

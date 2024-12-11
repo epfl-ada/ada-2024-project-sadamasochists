@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.graph_objects as go
 
-def plot_correlation_matrix(df, cmap=['pink', 'red'], filename=None):
+def plot_correlation_matrix(df, title, cmap=['pink', 'red'], filename=None):
     corr = df.corr()
 
     # Mask the upper triangle and flatten to remove blanks
@@ -41,16 +41,26 @@ def plot_correlation_matrix(df, cmap=['pink', 'red'], filename=None):
                 y=y,
                 text=f"{val:.2f}",
                 showarrow=False,
-                font=dict(color="black", size=10)
+                font=dict(color="black", size=14),
             )
         )
 
     fig.update_layout(
-        title="Correlation Matrix",
-        xaxis=dict(tickangle=45),
-        yaxis=dict(tickmode='linear'),
+        title=title,
+        xaxis=dict(
+            tickangle=45,
+            tickfont=dict(size=14),
+        ),
+        yaxis=dict(
+            tickfont=dict(size=14),
+            tickmode='linear'
+        ),
         annotations=annotations,
-        autosize=True
+        autosize=True,
+        width=800,
+        height=600,
+        plot_bgcolor='white',  # Set the plot background color to white
+        paper_bgcolor='white'  # Set the paper background color to white
     )
 
     # Save as HTML if a filename is provided

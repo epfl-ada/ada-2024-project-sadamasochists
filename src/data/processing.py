@@ -42,8 +42,9 @@ df_breweries.columns = ['brewery_id', 'brewery_name', 'location_brewery']
 df_breweries = clean_states(df_breweries, 'location_brewery', 'brewery')
 
 # Clean the users
-df_users = df_users[['user_id', 'user_name', 'location']]
-df_users.columns = ['user_id', 'user_name', 'location_user']
+df_users = df_users[['user_id', 'user_name', 'location', 'joined']]
+df_users.columns = ['user_id', 'user_name', 'location_user', 'joined']
+df_users['joined'] = pd.to_datetime(df_users['joined'], unit='s')
 df_users = df_users.dropna()
 df_users = clean_states(df_users, 'location_user', 'user')
 
@@ -56,7 +57,7 @@ df_ratings['year'] = df_ratings['date'].dt.year
 
 # Add location information to the ratings
 df_ratings = df_ratings.join(df_breweries.set_index('brewery_id'), on='brewery_id')
-df_ratings = df_ratings.join(df_users.set_index('user_id'), on='user_id')
+df_ratings = df_ratings.join(df_users[['user_id', 'country_user', 'state_user']].set_index('user_id'), on='user_id')
 
 # Save the processed data
 if not os.path.exists(DATA_PROCESSED_FOLDER):
