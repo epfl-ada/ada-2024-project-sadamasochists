@@ -24,6 +24,12 @@
             margin-top: 16px;
             margin-bottom: 16px;
         }
+        .content li {
+            text-align: justify;
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.6em;
+        }
     </style>
 </head>
 <body>
@@ -32,27 +38,21 @@
         <div class="content mx-auto px-6">
             <div class="mx-auto justify-center">
                 <h1 class="text-3xl font-bold text-center mb-16">
-                    The World of Beer: A Data-Driven Journey into Global Preferences and Trends
+                    The World of Beer: A Data-Driven Journey into Global Preferences and Popularity
                 </h1>
                 <p>
-                    Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across continents and centuries, it has brought people together, sparked revolutions, and inspired connoisseurs to seek out the perfect pint. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps something as intangible as the mood of the moment? With data in hand and curiosity as our guide, we’re diving deep into the world of beer to uncover its secrets.
+                    Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across continents and centuries, it has brought people together, sparked revolutions, and inspired connoisseurs to seek out the perfect pint. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps something as intangible as the mood of the moment? With data in hand and curiosity as our guide we aim, with the help of RateBeer as our guide, to answer to one simple question: what makes a beer popular, and how do preferences differ globally and over time?
                 </p>
-                <p>
-                    To achieve this, we’ve turned to <a href="https://www.ratebeer.com/" class="text-blue-500">RateBeer</a>, a globally renowned beer rating platform, to analyze beer preferences and trends. While we initially considered the BeerAdvocate dataset, its strong US-centric bias led us to choose RateBeer, which offers a more diverse and geographically distributed dataset. With this choice, we aim to explore the global beer landscape in a way that represents a wide array of cultures and tastes.
-                </p>
-                <img src="./img/beer-drinking-homer.gif" alt="Beer Drinking Homer" class="expanded-content rounded-lg shadow-xl mb-8">
-                <p>
-                    Our exploration begins with a closer look at the data itself: its distribution, characteristics, and the trends it reveals. From there, we’ll delve into:
-                </p>
+                <p>In our travel we are going to travel from end to end of the world and we are going to even travel in time! To avoid getting lost in our journey let's review our roadmap, before risking to get lost in the vast world of beers:</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
-                    <li><b>General Popularity Analysis:</b> Discovering which beers and regions dominate global preferences.</li>
-                    <li><b>ABV and Style Studies:</b> Examining the relationship between alcohol content, beer styles, and ratings.</li>
-                    <li><b>Brewery Analysis:</b> Analyzing brewery density and its impact on beer diversity and availability.</li>
-                    <li><b>Sentiment and Emotion Analysis:</b> Using NLP to uncover the emotions and sentiments hidden in textual reviews.</li>
+                    <li><b>General Popularity Analysis</b>: Firstly we are going to see which factors affect the rating of a beer and we'll discovering which beers and regions dominate global preferences.</li>
+                    <li><b>ABV and Style Studies</b>: Then we are going to go deeper in the relationship between alcohol content and beer styles.</li>
+                    <li><b>Brewery Analysis</b>: Analyzing brewery density and its impact on beer diversity and availability.</li>
+                    <li><b>Sentiment and Emotion Analysis</b>: Using NLP to uncover the emotions and sentiments hidden in textual reviews.</li>
                 </ul>
-                <p>
-                    With these insights, we aim to unravel the story behind each pint and offer a data-driven perspective on the world of beer. Let’s dive in!
-                </p>
+                <p>Wow! That's a long trip, we know, but we'll be there to guide you through the whole journey. At the end you're going to know exactly what makes a beer popular and how preferences differ globally and over time. </p>
+                <p>So, let's get started! Grab a pint and get ready, we're starting!</p>
+                <img src="./img/beer-drinking-homer.gif" alt="Beer Drinking Homer" class="expanded-content rounded-lg shadow-xl mb-8">
             </div>
         </div>
     </section>
@@ -92,7 +92,7 @@
                 </div>
 
                 <!-- Interactive Visualization -->
-                <div class="content mx-auto mt-12">
+                <div class="mx-auto mt-12">
                     <h3 class="text-xl font-bold text-center mb-4">Explore the Data</h3>
                     <p class="text-center mb-6">
                         Use the toggle below to switch between a flat map and a 3D globe visualization. Both maps provide an interactive view of beer-related data, allowing you to explore ratings, breweries, users, and beer varieties across countries and US states.
@@ -102,10 +102,10 @@
                         <button id="globe-map-button" class="bg-gray-300 text-black px-4 py-2 rounded">3D Globe</button>
                     </div>
                     <div id="flat-map-container">
-                        <iframe src="plots/flat_map.html" style="width: 100%; height: 900px; border: none;"></iframe>
+                        <iframe src="plots/flat_map.html" style="width: 100%; height: 620px; border: none;"></iframe>
                     </div>
                     <div id="globe-map-container" class="hidden">
-                        <iframe src="plots/globe_map.html" style="width: 100%; height: 900px; border: none;"></iframe>
+                        <iframe src="plots/globe_map.html" style="width: 100%; height: 620px; border: none;"></iframe>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@
             </p>
 
             <!-- Correlation Matrix -->
-            <div class="content mx-auto mt-8">
+            <div class=" mx-auto mt-8">
                 <iframe src="plots/correlation_matrix.html" style="width: 100%; height: 600px; border: none;"></iframe>
             </div>
 
@@ -180,8 +180,19 @@
 
             <h3 class="text-xl font-bold text-center mt-12">Popularity Across Time and Space</h3>
             <p class="mt-4">
-                Beyond these attributes, beer popularity isn’t static—it evolves. Cultural trends, seasonal preferences, and regional tastes all play a role. From summer ales in the heat of July to hearty stouts in the chill of December, beer trends flow with the seasons and across continents. In the coming sections, we’ll dive into these patterns, exploring how ratings change over time and vary between regions. We’ll also examine the interplay between ABV, beer styles, and breweries to unravel the complex web of global beer preferences.
+                Beyond these attributes, beer popularity isn’t static—it evolves. In the coming section, we’ll dive into This, exploring how ratings change over time and vary between regions.
             </p>
+            <div class=" mx-auto mt-8">
+                <iframe src="plots/average_rating_time.html" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+            <p>
+                In the map we see a clear increase in the ratings over time in most countries. This is clearly seen seen by them getting lighter and lighter as the years go on (this is mainly in the largest beer drinking countries). Additionally, we see that all colors are getting more and more similar. This seems to suggest more of a global tendency than a local one.
+            </p>
+            <p>
+                This raises the questions of "Why?". Why are the ratings increasing? Is it because the beers are getting better? Or is it because the users are getting more generous? Or is it because the users are getting more experienced?
+            <div class=" mx-auto mt-8">
+                <iframe src="plots/average_rating_top_5_percent.html" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
             <p>
                 So grab your favorite pint, and let’s toast to the data journey ahead!
             </p>
