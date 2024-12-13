@@ -93,7 +93,7 @@ def plot_map(df_no_US, df_US, options, save_path=None):
         fig.write_html(save_path)
 
 
-def plot_map_time(df_no_US, df_US, options, save_path=None):
+def plot_map_time(df_no_US, df_US, options, filename=None):
     df_US_copy = df_US.copy()
     df_US_copy[options['location_label']] = df_US_copy[options['location_label']].map(us_remapping)
 
@@ -189,5 +189,7 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
         width=800
         
     )
+    if filename:
+        fig_brewery.write_html(filename)
 
     fig_brewery.show()
