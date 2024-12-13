@@ -92,6 +92,89 @@ def plot_map(df_no_US, df_US, options, save_path=None):
     if save_path:
         fig.write_html(save_path)
 
+def plot_globe(df_no_US, df_US, options, save_path=None):
+    import plotly.graph_objects as go
+
+    # Initialize figure
+    fig = go.Figure()
+
+    # Ratings
+    counter = 0
+    for counter in range(len(options['plots'])):
+        plot = options['plots'][counter]
+        dfNoUS = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
+        fig.add_trace(go.Choropleth(
+            locations=dfNoUS[plot['location_label']],
+            locationmode="country names",
+            z=dfNoUS[plot['z_label']],
+            colorscale=plot['colorscale'],
+            showscale=False,  # Suppress legend for countries
+            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
+            visible=counter == 0
+        ))
+        dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
+        minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
+        maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
+        fig.add_trace(go.Choropleth(
+            locations=dfUS[plot['location_label']].map(us_remapping),
+            locationmode="USA-states",
+            z=dfUS[plot['z_label']],
+            colorscale=plot['colorscale'],
+            zmin=minZ,  # Set min value for colorbar
+            zmax=maxZ,  # Set max value for colorbar
+            colorbar=dict(title="Scale", len=1),
+            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
+            visible=counter == 0
+        ))
+
+    # Dropdown menu
+    if len(options['plots']) > 1:
+        buttons = []
+        for counter in range(len(options['plots'])):
+            buttons.append(dict(
+                args=[{"visible": [False, False] * counter + [True, True] + [False, False] * (len(options['plots']) - counter - 1)}],
+                label=options['plots'][counter]['label'],
+                method="update"
+            ))
+        fig.update_layout(
+            updatemenus=[
+                dict(
+                    buttons=buttons,
+                    direction="down",
+                    x=0.1,
+                    y=1,  # Dropdown below title
+                    xanchor="left",
+                    yanchor="top"
+                )
+            ]
+        )
+    
+    # Update general layout
+    fig.update_layout(
+        title=options["title"],
+        geo=dict(
+            showframe=False,
+            showcoastlines=True,
+            projection_type="orthographic",  # 3D Globe projection
+            showcountries=True,
+            showland=True,
+            landcolor="rgb(217, 217, 217)",
+            lakecolor="rgb(255, 255, 255)",
+            oceancolor="rgb(204, 229, 255)",
+            projection_rotation=dict(lat=10, lon=20),  # Starting position for the globe
+            projection_scale=0.85  # Zoomed out for better visibility
+        ),
+        height=600,
+        width=800
+    )
+
+    # Show the plot
+    fig.show()
+
+    # Save the plot
+    if save_path:
+        fig.write_html(save_path)
+
 
 def plot_map_time(df_no_US, df_US, options, save_path=None):
     df_US_copy = df_US.copy()
