@@ -10,8 +10,12 @@ def plots_values_over_time(items, time_label, value_label, xaxis_title, yaxis_ti
         yaxis_title=yaxis_title,
         xaxis=dict(tickmode='linear', tick0=2002, dtick=2),
         height=600,
-        width=800
+        width=800,
+        plot_bgcolor='white',
+        paper_bgcolor='white'
     )
-    if filename:
-        fig.write_html(filename)
     fig.show()
+
+    if filename:
+        fig.update_layout(autosize=True, height=None, width=None, title=None)
+        fig.write_html(filename)

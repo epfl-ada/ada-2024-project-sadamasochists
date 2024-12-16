@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.graph_objects as go
 
-def plot_correlation_matrix(df, title, cmap=['pink', 'red'], filename=None):
+def plot_correlation_matrix(df, save_folder, cmap=['pink', 'red']):
     corr = df.corr()
 
     # Mask the upper triangle and flatten to remove blanks
@@ -46,9 +46,7 @@ def plot_correlation_matrix(df, title, cmap=['pink', 'red'], filename=None):
         )
 
     fig.update_layout(
-        title=title,
         xaxis=dict(
-            tickangle=45,
             tickfont=dict(size=14),
         ),
         yaxis=dict(
@@ -57,15 +55,21 @@ def plot_correlation_matrix(df, title, cmap=['pink', 'red'], filename=None):
         ),
         annotations=annotations,
         autosize=True,
-        width=800,
-        height=600,
         plot_bgcolor='white',  # Set the plot background color to white
         paper_bgcolor='white'  # Set the paper background color to white
     )
 
     # Save as HTML if a filename is provided
-    if filename:
-        fig.write_html(filename)
+    if save_folder:
+        # Set the background color as transparent
+        fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
+        fig.write_html(save_folder)
+
+    # Revert the background color to white
+    fig.update_layout({'plot_bgcolor': 'white', 'paper_bgcolor': 'white'})
+
+    # Set the size to 800x800
+    fig.update_layout(width=800, height=600)
 
     # Show the plot
     fig.show()
