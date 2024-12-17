@@ -8,10 +8,14 @@ import plotly.graph_objects as go
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-class NetworkPlot():
-    def __init__(self, df, plotFrom='country_user', plotTo='country_brewery'):      
+class LocationInfluence():
+    def __init__(self, df_ratings_no_text, save_folder):    
+        # Set some variables
+        plotFrom = 'country_user'
+        plotTo = 'country_brewery'
+
         # Count the frequencies of location_user -> location_brewery
-        freq = df[df[plotFrom] != df[plotTo]].groupby(
+        freq = df_ratings_no_text[df_ratings_no_text[plotFrom] != df_ratings_no_text[plotTo]].groupby(
             [plotFrom, plotTo]
         ).size().reset_index(name='count')
 
@@ -28,16 +32,39 @@ class NetworkPlot():
         
         self.in_degrees = dict(self.G.in_degree())
 
+        self.save_folder = save_folder
+
     def print_in_degrees(self):
-        for node, in_degree in self.in_degrees.items():
-            print(f"Node: {node}, In-Degree: {in_degree}")
+        # Plot the in-degrees in the map
+        fig = go.Figure(go.Choropleth(
+            locations=list(self.in_degrees.keys()),
+            z=list(self.in_degrees.values()),
+            locationmode='country names',
+            colorscale='Blues',
+            colorbar_title='In-Degree',
+        ))
+
+        fig.update_layout(
+            title_text='In-Degree of Location Influence',
+            geo=dict(
+                showframe=False,
+                showcoastlines=False,
+                projection_type='equirectangular'
+            ),
+            autosize=True,
+        )
+        fig.write_html(f"{self.save_folder}/in_degree_map.html")
+
+        fig.update_layout(height=600, width=800)
+
+        fig.show()
         
-    def plot_location(self, width="800px", height="600px", output_file="interactive_graph.html"):        
+    def plot_location(self):        
         if self.G.number_of_edges() == 0:
             print("The graph is empty and has no edges to visualize.")
         else:
             # Create PyVis network
-            net = Network(height=height, width=width, directed=True)
+            net = Network(height="100%", width="100%", directed=True)
             
             # Add nodes with size proportional to their in-degree
             max_in_degree = max(self.in_degrees.values()) if self.in_degrees else 1
@@ -119,23 +146,32 @@ class NetworkPlot():
             """)
             
             # Generate the interactive visualization
-            net.show(output_file, notebook=False)
+            path = f"{self.save_folder}/location_influence.html"
+            net.show(path, notebook=True);
             
 class MostLeastPlot():
-    def __init__(self, df, plotPer="country_user", inequal="country_brewery", toPlot="rating", minThresh=100):
-        df["rating_type"] = (
-            df[plotPer] == df[inequal]
+    def __init__(self, df_ratings_no_text, save_folder):
+        # Define some instance variables
+        plotPer = 'country_user'
+        inequal = 'country_brewery'
+        toPlot = 'rating'
+        minThresh = 100
+        self.save_folder = save_folder
+
+        # Create a new column to indicate whether the rating is domestic or foreign
+        df_ratings_no_text["rating_type"] = (
+            df_ratings_no_text[plotPer] == df_ratings_no_text[inequal]
         ).map({True: "domestic", False: "foreign"})
         
         # First, select only countries with at least 100 domestic and foreign reviews.
-        counts = df.groupby([plotPer, "rating_type"]).size().reset_index(name="count")
+        counts = df_ratings_no_text.groupby([plotPer, "rating_type"]).size().reset_index(name="count")
         counts_pivot = counts.pivot(index=plotPer, columns="rating_type", values="count").fillna(0)
         valid_countries = counts_pivot[(counts_pivot.get("domestic", 0) >= minThresh) & (counts_pivot.get("foreign", 0) >= minThresh)].index
 
         # Filter the original dataframe to retain only valid countries
-        df = df[df[plotPer].isin(valid_countries)]
+        df_ratings_no_text = df_ratings_no_text[df_ratings_no_text[plotPer].isin(valid_countries)]
         self.average_ratings = (
-            df.groupby([plotPer, "rating_type"])
+            df_ratings_no_text.groupby([plotPer, "rating_type"])
             .agg(average_rating=(toPlot, "mean"), review_count=(plotPer, "size"))
             .reset_index()
         )
@@ -161,7 +197,7 @@ class MostLeastPlot():
                 print(f"Error loading flag for {country}: {e}")
                 print("img_path:" + img_path)
         
-    def plot(self, n=10, save_file="preference.png"):
+    def plot(self, n=10):
         # Pivot the DataFrame to get separate columns for domestic and foreign ratings
         pivoted_df = self.average_ratings.pivot(index="country", columns="rating_type", values="average_rating").reset_index()
 
@@ -252,5 +288,5 @@ class MostLeastPlot():
 
         # Adjust layout
         plt.tight_layout()
-        plt.savefig(save_file)
+        plt.savefig(f"{self.save_folder}/preferences.png")
         plt.show()

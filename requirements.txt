@@ -11,6 +11,7 @@ pyvis
 networkx
 pillow
 bar_chart_race
-great_table
 statsmodels
-
+ipykernel
+great_tables
+scikit-learn
