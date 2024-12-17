@@ -15,7 +15,7 @@ mapping_pd = {
     'abv': pd.Float64Dtype,
     'beer_id': pd.Int64Dtype,
     'beer_name': pd.StringDtype,
-    'user_id': pd.Int64Dtype,
+    'user_id': pd.StringDtype,
     'taste': pd.Float64Dtype,
     'date': pd.Timestamp,
     'style': pd.StringDtype,

@@ -6,3 +6,7 @@ numpy
 pyarrow
 tqdm
 nbformat
+pycountry
+pyvis
+networkx
+pillow
