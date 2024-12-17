@@ -1,6 +1,9 @@
+# Import necessary libraries
 import plotly.graph_objects as go
 import plotly.express as px
+import os
 
+# Define the US remapping
 us_remapping = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
     "California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE",
@@ -18,7 +21,106 @@ us_remapping = {
 }
 us_remapping_inverse = {v: k for k, v in us_remapping.items()}
 
-def plot_map(df_no_US, df_US, options, save_path=None):
+# Define the map to plot the data
+def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
+    # Initialize figure
+    fig = go.Figure()
+
+    # Ratings
+    counter = 0
+    for counter in range(len(options['plots'])):
+        # Create a new figure for each plot
+        newFig = go.Figure()
+
+        # Add the data to the figure
+        plot = options['plots'][counter]
+        dfNoUS = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
+        goMapNoUS = go.Choropleth(
+            locations=dfNoUS[plot['location_label']],
+            locationmode="country names",
+            z=dfNoUS[plot['z_label']],
+            colorscale=plot['colorscale'],
+            showscale=False,  # Suppress legend for countries
+            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
+        )
+        dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
+        minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
+        maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
+        goMapUs = go.Choropleth(
+            locations=dfUS[plot['location_label']].map(us_remapping),
+            locationmode="USA-states",
+            z=dfUS[plot['z_label']],
+            colorscale=plot['colorscale'],
+            zmin=minZ,  # Set min value for colorbar
+            zmax=maxZ,  # Set max value for colorbar
+            colorbar=dict(title="Scale", len=1),
+            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
+        )
+
+        # Append the traces to the new figure
+        newFig.add_traces([goMapNoUS, goMapUs])
+
+        # Appent the traces to the main figure but set all but the first plot to invisible
+        goMapNoUS.visible = counter == 0
+        goMapUs.visible = counter == 0
+        fig.add_traces([goMapNoUS, goMapUs])
+
+        # Create the directory if it does not exist
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
+        # Define some visualization options
+        newFig.update_layout(
+            geo=dict(
+                showframe=False,
+                showcoastlines=True,
+                projection_type="equirectangular"
+            ),
+        )
+
+        # Save the plot
+        prepare_label = lambda label: label.lower().replace(" ", "_").replace("(", "").replace(")", "").replace(",", "")
+        newFig.write_html(f"{save_dir}/{save_prefix}_{prepare_label(plot['label'])}.html")
+
+    # Dropdown menu
+    if len(options['plots']) > 1:
+        buttons = []
+        for counter in range(len(options['plots'])):
+            buttons.append(dict(
+                args=[{"visible": [False, False] * counter + [True, True] + [False, False] * (len(options['plots']) - counter - 1)}],
+                label=options['plots'][counter]['label'],
+                method="update"
+            ))
+        fig.update_layout(
+            updatemenus=[
+                dict(
+                    buttons=buttons,
+                    direction="down",
+                    x=0.1,
+                    y=1,  # Dropdown below title
+                    xanchor="left",
+                    yanchor="top"
+                )
+            ]
+        )
+    
+    # Update general layout
+    fig.update_layout(
+        geo=dict(
+            showframe=False,
+            showcoastlines=True,
+            projection_type="equirectangular"
+        ),
+        height=600,
+        width=800
+    )
+
+    # Show the plot
+    fig.show()
+
+def plot_globe(df_no_US, df_US, options, save_path=None):
+    import plotly.graph_objects as go
+
     # Initialize figure
     fig = go.Figure()
 
@@ -79,7 +181,14 @@ def plot_map(df_no_US, df_US, options, save_path=None):
         geo=dict(
             showframe=False,
             showcoastlines=True,
-            projection_type="equirectangular"
+            projection_type="orthographic",  # 3D Globe projection
+            showcountries=True,
+            showland=True,
+            landcolor="rgb(217, 217, 217)",
+            lakecolor="rgb(255, 255, 255)",
+            oceancolor="rgb(204, 229, 255)",
+            projection_rotation=dict(lat=10, lon=20),  # Starting position for the globe
+            projection_scale=0.85  # Zoomed out for better visibility
         ),
         height=600,
         width=800
@@ -101,52 +210,56 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
     frames = [
         {
             "data": [
-                px.choropleth(
-                    df_no_US[df_no_US[options['time_label']] == year],
-                    locations=options['location_label'],
+                go.Choropleth(
+                    locations=df_no_US[df_no_US[options['time_label']] == year][options['location_label']],
                     locationmode='country names',
-                    color=options['value_label'],
-                    color_continuous_scale=options['color_scale'],
-                    range_color=options['range_color']
-                ).data[0],
-                px.choropleth(
-                    df_US_copy[df_US_copy[options['time_label']] == year],
-                    locations=options['location_label'],
+                    z=df_no_US[df_no_US[options['time_label']] == year][options['value_label']],
+                    colorscale=options['color_scale'],
+                    zmin=options['range_color'][0],
+                    zmax=options['range_color'][1]
+                ),
+                go.Choropleth(
+                    locations=df_US_copy[df_US_copy[options['time_label']] == year][options['location_label']],
                     locationmode='USA-states',
-                    color=options['value_label'],
-                    color_continuous_scale=options['color_scale'],
-                    range_color=options['range_color']
-                ).data[0]
+                    z=df_US_copy[df_US_copy[options['time_label']] == year][options['value_label']],
+                    colorscale=options['color_scale'],
+                    zmin=options['range_color'][0],
+                    zmax=options['range_color'][1]
+                )
             ],
             "name": str(year),
         }
         for year in options['time_range']
     ]
 
+    # Create a figure
+    fig = go.Figure()
+
     # Define the figure with animation
-    fig_brewery = px.choropleth(
-        df_no_US[df_no_US[options['time_label']] == df_no_US[options['time_label']].min()],
-        locations=options['location_label'],
-        locationmode='country names',
-        color=options['value_label'],
-        color_continuous_scale=options['color_scale'],
-        range_color=options['range_color']
-    )
-    fig_brewery.add_trace(
-        px.choropleth(
-            df_US_copy[df_US_copy[options['time_label']] == df_US_copy[options['time_label']].min()],
-            locations=options['location_label'],
+    fig.add_trace(
+        go.Choropleth(
+            locations=df_no_US[df_no_US[options['time_label']] == df_no_US[options['time_label']].min()][options['location_label']],
+            locationmode='country names',
+            z=df_no_US[df_no_US[options['time_label']] == df_no_US[options['time_label']].min()][options['value_label']],
+            colorscale=options['color_scale'],
+            zmin=options['range_color'][0],
+            zmax=options['range_color'][1]
+    ))
+    fig.add_trace(
+        go.Choropleth(
+            locations=df_US_copy[df_US_copy[options['time_label']] == df_US_copy[options['time_label']].min()][options['location_label']],
             locationmode='USA-states',
-            color=options['value_label'],
-            color_continuous_scale=options['color_scale'],
-            range_color=options['range_color']
-        ).data[0]
+            z=df_US_copy[df_US_copy[options['time_label']] == df_US_copy[options['time_label']].min()][options['value_label']],
+            colorscale=options['color_scale'],
+            zmin=options['range_color'][0],
+            zmax=options['range_color'][1]
+        )
     )
 
-    fig_brewery.frames = frames
+    fig.frames = frames
 
     # Add slider to the layout
-    fig_brewery.update_layout(
+    fig.update_layout(
         sliders=[{
             "steps": [
                 {"args": [[str(year)], {"frame": {"duration": 300, "redraw": True}, "mode": "immediate"}],
@@ -178,13 +291,19 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
     )
 
     # Update the layout
-    fig_brewery.update_layout(
-        title_text=options['title'],
+    fig.update_layout(
+        title_text=options['title'] if 'title' in options else None,
         geo=dict(
             showframe=False,
             showcoastlines=True,
         ),
-        geo_scope='world',        
+        geo_scope='world',
+        height=600,
+        width=800
     )
 
-    fig_brewery.show()
+    fig.show()
+
+    if save_path:
+        fig.update_layout(width=None, height=None, autosize=True)
+        fig.write_html(save_path)
