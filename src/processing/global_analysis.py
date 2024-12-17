@@ -36,15 +36,17 @@ class GlobalAnalysis:
             fig.add_trace(go.Bar(x=value_counts.index, y=value_counts.values, name=column), row=(i//3)+1, col=(i%3)+1)
             fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
             fig_display.add_trace(go.Bar(x=value_counts.index, y=value_counts.values, name=column), row=(i//3)+1, col=(i%3)+1)
+            fig_display.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
+
         
         # Add the title
-        fig.update_layout(title='Ratings distribution')
+        fig.update_layout(title_text='Ratings Distribution')
         
         # Save the figure
         fig.write_html(f'{self.save_folder}/raw_ratings_distribution.html')
 
         # Set the size to 800x800
-        fig_display.update_layout(width=1000, height=600)
+        fig_display.update_layout(width=1000, height=600, title_text='Ratings Distribution')
 
         # Display the figure
         fig_display.show()
@@ -137,7 +139,7 @@ class GlobalAnalysis:
         )
 
         # Set the background color as transparent
-        fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
+        fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, title_text='Correlation Matrix')
         fig.write_html(self.save_folder + "correlation_matrix.html")
 
         # Revert the background color to white
@@ -202,6 +204,14 @@ class GlobalAnalysis:
                 medians[column].append(df_year[column].median())
 
         # Add traces for mean and median of each category to respective subplots
+        ranges = {
+            "overall": [12.25, 14.25],
+            "aroma": [5.5, 7.5],
+            "taste": [5.5, 7.5],
+            "appearance": [2.75, 4.75],
+            "mouthfeel": [2.75, 4.75],
+            "rating": [2.74, 4.75]
+        }
         for i, column in enumerate(columns):
             row = (i // 3) + 1  # Determine the row (1, 2, or 3)
             col = (i % 3) + 1  # Determine the column (1 or 2)
@@ -210,6 +220,8 @@ class GlobalAnalysis:
             fig.add_trace(go.Scatter(x=year_list, y=means[column], mode='lines+markers', name='Mean', 
                                     line=dict(color='red'), marker=dict(color='red', size=4), showlegend=(i == 0)),
                         row=row, col=col)
+            min_y = min(means[column])
+            fig.update_yaxes(range=ranges[column], row=row, col=col)
             
             # Add median trace (in blue) with markers (dots) and lines - show legend only for the first median
             if column != 'rating':
@@ -291,6 +303,7 @@ class GlobalAnalysis:
 
         # Define the options for the plot
         options = {
+            'title': 'Average Ratings by State Over the Years',
             'time_range': range(self.df_ratings_no_text['date'].dt.year.min(), self.df_ratings_no_text['date'].dt.year.max() + 1),
             'time_label': 'year',
             'location_label': 'location',
@@ -300,4 +313,4 @@ class GlobalAnalysis:
         }
 
         # Display the plot
-        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/ratings_evolution_map', is_bg_white=False)
+        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/ratings_evolution_map.html', is_bg_white=True)

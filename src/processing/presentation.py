@@ -48,6 +48,7 @@ class DataPresentation:
         fig = go.Figure()
         fig.add_trace(go.Bar(x=data[year_label], y=data[count_label]))
         fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600)
+        fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
         
     def plot_number_of_ratings_over_time(self):
@@ -131,6 +132,9 @@ class DataPresentation:
             height=600,
             width=800
         )
+
+        # Set the background to white
+        fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
 
         # Update the layout
         fig.update_layout(barmode='group', title_text='Top 5 countries with more beers')

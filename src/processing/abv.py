@@ -77,6 +77,7 @@ class ABV:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=sorted(beer_ratings['year'].unique()), y=correlation, mode='lines+markers'))
         fig.update_layout(title='Correlation between ABV and Rating over time', xaxis_title='Year', yaxis_title='Correlation', height=600, width=800)
+        fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
     
     def plot_abv_evolution_map(self):
@@ -115,7 +116,7 @@ class ABV:
             'color_scale': 'Viridis'
         }
         # Display the plot
-        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/abv_evolution.html')
+        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/abv_evolution_map.html', is_bg_white=False)
     
     def plot_abv_evolution(self):
         # Compute the metrics
