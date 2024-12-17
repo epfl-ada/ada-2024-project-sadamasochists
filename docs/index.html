@@ -224,5 +224,20 @@
             </div>
         </div>
     </section>
+    <section>
+        <h2 class="text-3xl font-bold text-center mb-6">The hops are always greener abroad</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>Another large factor in beer popularity is a country’s beer culture. Does it produce popular beer or do residents prefer foreign beers? Certain countries have large beer cultures and very famous beer styles, while others have barely any breweries. As a result of this, consumers from certain countries prefer local beers, while others prefer the beer abroad.</p>
+                <img src="./plots/location_influence/preference.png" alt="Chart of the location preference of users" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+                <p>Here we see the top 10 countries with the highest and lowest preference for foreign beers. Among the countries who have a preference for local beers, we indeed see many of the countries we would expect: Czechia, the USA, Ireland, Belgium and the UK. In the list of countries with a large preference for foreign beers, we see countries that mostly do not have a large beer culture.</p>
+                <p>In general, there are far more countries that have a preference for foreign beers than for local beers. This also makes sense, because many users will write reviews for foreign beers while they are on holiday. During this time, they have a good experience and are more likely to rate a beer higher.</p>
+
+                <p>An important question to ask is if there are any specific countries that produce very good beer. We just saw that some countries prefer their own beer, but do others like their beer as well? To find out, we can construct a graph in which every country points to another country whom they review the most foreign beers from. Self-loops are therefore impossible. </p>
+                <iframe src="plots/location_influence/interactive_graph.html" style="height: 620px;" id="network_graph_foreign_beer_preference" loading="lazy"></iframe>
+                <p>Here we indeed see the formation of hubs. The USA and Belgium are the largest ones, with in-degrees of 28 and 17 respectively. The UK and Germany are smaller hubs with 11 and 9 other nodes pointing at them. This plot clearly shows that the country of production of a beer is very important for its popularity and explains why these countries show up with high local preference in the previous graph.                </p>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

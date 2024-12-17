@@ -246,6 +246,9 @@ class MostLeastPlot():
             color="lightcoral",
             alpha=0.2,
         )
+        
+        ax.xaxis.set_major_locator(plt.MultipleLocator(0.1))  # Adjust step size for granularity
+        ax.xaxis.grid(True, linestyle="--", alpha=0.5)
 
         # Adjust layout
         plt.tight_layout()
