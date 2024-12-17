@@ -180,6 +180,49 @@
     </section>
     <section>
         <h2 class="text-3xl font-bold text-center mb-6">ABV and style a love story or an horrible breakup?</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>When it comes to beer, alcohol by volume (ABV) plays a significant role in shaping preferences. Over the years, we've observed a fascinating trend: as time progresses, beer enthusiasts increasingly gravitate towards higher ABV beers.</p>
+                <iframe src="plots/abv/abv_ratings.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
+                <p>The two main considerations that we can do are:</p>
+                <ul class="">
+                    <li><b>The higher the better</b>: We see that over time the higher ABVs are always associated with higher ratings. This observation can be validaded by observing that, if we exclude 2002, the linear correlation between the ABV and the average rating for that specific ABV is very high and it's close to <b>0.9</b> with a minor variability over the time period.  </li>
+                    <li><b>In medio stat abv</b>: Even if we see that users tend to prefer higher ABVs beer in terms of rating we see that most users goes with beers that have a ABV in the 5-10 ABV. Most ratings are indeed of beers that have an ABV in this specific range. </li>
+                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also the ABV seems to have a positive trend towards higher values. </li>
+                </ul>
+                <p>As pointed out before it seems that the average ABV is increasing over time, suggesting a shift in ABV preference over time at global level. Is this true?</p>
+                <select class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;" id="abv_evolution">
+                    <option value="abv_ratings">ABV vs Ratings</option>
+                    <option value="abv_style">ABV vs Style</option>
+                </select>
+                <div class="iframes_group">
+                    <iframe src="plots/abv/abv_evolution.html" style="height: 620px;" class="abv_plots" id="abv_evolution_iframe" loading="lazy"></iframe>
+                    <iframe src="plots/abv/average_abv.html" style="height: 620px;" class="abv_plots" id="abv_ratings_iframe" loading="lazy"></iframe>
+                </div>
+                <script>
+                    /* Selection process */
+                    const abv_selection = {
+                        "abv_ratings": "abv_evolution_iframe",
+                        "abv_style": "abv_ratings_iframe",
+                    }
+                    document.getElementById("abv_evolution").addEventListener("change", (event) => {
+                        const selected_value = event.target.value;
+                        const selected_map = abv_selection[selected_value];
+                        const iframes = document.getElementsByClassName("abv_plots");
+                        for (let i = 0; i < iframes.length; i++) {
+                            if (iframes[i].id === selected_map) {
+                                iframes[i].classList.remove("hidden_element");
+                            } else {
+                                iframes[i].classList.add("hidden_element");
+                            }
+                        }
+                    });
+                </script>
+                <p>It seems like the positive trend is real! We see that the average ABV of produced beers increases over time in most countries, in particular in Europe and United States.</p>
+                <p>It's interesting to observe another very peculiar thing: countries such as Belgium, Germany and England, historically the most famous for their beers, doesn't have a significant increase of ABV, meaning that from these countries the favourite beers are the traditional ones, with a small change over time.</p>
+                <p</p>
+            </div>
+        </div>
     </section>
 </body>
 </html>

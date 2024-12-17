@@ -6,3 +6,8 @@ numpy
 pyarrow
 tqdm
 nbformat
+bar_chart_race
+networkx
+pyvis
+great_table
+statsmodels
