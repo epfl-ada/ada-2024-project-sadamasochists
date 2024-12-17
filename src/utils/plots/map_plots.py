@@ -22,7 +22,7 @@ us_remapping = {
 us_remapping_inverse = {v: k for k, v in us_remapping.items()}
 
 # Define the map to plot the data
-def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
+def plot_map(df_no_US, df_US, options, save_dir, save_prefix, is_bg_white=True):
     # Initialize figure
     fig = go.Figure()
 
@@ -34,6 +34,8 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
 
         # Add the data to the figure
         plot = options['plots'][counter]
+        
+        # Do the plotting for non-US countries
         dfNoUS = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
         goMapNoUS = go.Choropleth(
             locations=dfNoUS[plot['location_label']],
@@ -43,6 +45,8 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
             showscale=False,  # Suppress legend for countries
             hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
         )
+        
+        # Do the plotting for US states
         dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
         minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
         maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
@@ -64,6 +68,7 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
         goMapNoUS.visible = counter == 0
         goMapUs.visible = counter == 0
         fig.add_traces([goMapNoUS, goMapUs])
+        fig.update_layout(title_text=plot['label'])
 
         # Create the directory if it does not exist
         if not os.path.exists(save_dir):
@@ -71,12 +76,21 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
 
         # Define some visualization options
         newFig.update_layout(
+            title_text=plot['label'],
+            title_x=0.5,  # Center the title
             geo=dict(
                 showframe=False,
                 showcoastlines=True,
-                projection_type="equirectangular"
+                projection=dict(type="equirectangular"),  # Correct usage
+                bgcolor="rgb(255, 255, 255)" if is_bg_white else "rgb(245, 245, 245)"
             ),
         )
+
+        # Make the background transparent
+        newFig.update_layout({
+            'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+            'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+        })
 
         # Save the plot
         prepare_label = lambda label: label.lower().replace(" ", "_").replace("(", "").replace(")", "").replace(",", "")
@@ -87,7 +101,7 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
         buttons = []
         for counter in range(len(options['plots'])):
             buttons.append(dict(
-                args=[{"visible": [False, False] * counter + [True, True] + [False, False] * (len(options['plots']) - counter - 1)}],
+                args=[{"visible": [False, False] * counter + [True, True] + [False, False] * (len(options['plots']) - counter - 1)}, {"title": options['plots'][counter]['label']}],
                 label=options['plots'][counter]['label'],
                 method="update"
             ))
@@ -106,6 +120,7 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
     
     # Update general layout
     fig.update_layout(
+        title_text=options['plots'][0]['label'],
         geo=dict(
             showframe=False,
             showcoastlines=True,
@@ -118,91 +133,7 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix):
     # Show the plot
     fig.show()
 
-def plot_globe(df_no_US, df_US, options, save_path=None):
-    import plotly.graph_objects as go
-
-    # Initialize figure
-    fig = go.Figure()
-
-    # Ratings
-    counter = 0
-    for counter in range(len(options['plots'])):
-        plot = options['plots'][counter]
-        dfNoUS = df_no_US[counter] if len(options['plots']) > 1 else df_no_US
-        fig.add_trace(go.Choropleth(
-            locations=dfNoUS[plot['location_label']],
-            locationmode="country names",
-            z=dfNoUS[plot['z_label']],
-            colorscale=plot['colorscale'],
-            showscale=False,  # Suppress legend for countries
-            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
-            visible=counter == 0
-        ))
-        dfUS = df_US[counter] if len(options['plots']) > 1 else df_US    
-        minZ = min(dfUS[plot['z_label']].min(), dfNoUS[plot['z_label']].min())
-        maxZ = max(dfUS[plot['z_label']].max(), dfNoUS[plot['z_label']].max())
-        fig.add_trace(go.Choropleth(
-            locations=dfUS[plot['location_label']].map(us_remapping),
-            locationmode="USA-states",
-            z=dfUS[plot['z_label']],
-            colorscale=plot['colorscale'],
-            zmin=minZ,  # Set min value for colorbar
-            zmax=maxZ,  # Set max value for colorbar
-            colorbar=dict(title="Scale", len=1),
-            hovertemplate="<b>%{location}</b><br>Count: %{z}<extra></extra>",  # Customized hover
-            visible=counter == 0
-        ))
-
-    # Dropdown menu
-    if len(options['plots']) > 1:
-        buttons = []
-        for counter in range(len(options['plots'])):
-            buttons.append(dict(
-                args=[{"visible": [False, False] * counter + [True, True] + [False, False] * (len(options['plots']) - counter - 1)}],
-                label=options['plots'][counter]['label'],
-                method="update"
-            ))
-        fig.update_layout(
-            updatemenus=[
-                dict(
-                    buttons=buttons,
-                    direction="down",
-                    x=0.1,
-                    y=1,  # Dropdown below title
-                    xanchor="left",
-                    yanchor="top"
-                )
-            ]
-        )
-    
-    # Update general layout
-    fig.update_layout(
-        title=options["title"],
-        geo=dict(
-            showframe=False,
-            showcoastlines=True,
-            projection_type="orthographic",  # 3D Globe projection
-            showcountries=True,
-            showland=True,
-            landcolor="rgb(217, 217, 217)",
-            lakecolor="rgb(255, 255, 255)",
-            oceancolor="rgb(204, 229, 255)",
-            projection_rotation=dict(lat=10, lon=20),  # Starting position for the globe
-            projection_scale=0.85  # Zoomed out for better visibility
-        ),
-        height=600,
-        width=800
-    )
-
-    # Show the plot
-    fig.show()
-
-    # Save the plot
-    if save_path:
-        fig.write_html(save_path)
-
-
-def plot_map_time(df_no_US, df_US, options, save_path=None):
+def plot_map_time(df_no_US, df_US, options, save_path, is_bg_white=True):
     df_US_copy = df_US.copy()
     df_US_copy[options['location_label']] = df_US_copy[options['location_label']].map(us_remapping)
 
@@ -296,6 +227,7 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
         geo=dict(
             showframe=False,
             showcoastlines=True,
+            projection_type="equirectangular"
         ),
         geo_scope='world',
         height=600,
@@ -303,7 +235,23 @@ def plot_map_time(df_no_US, df_US, options, save_path=None):
     )
 
     fig.show()
+    
+    # Update the background color
+    fig.update_layout(
+        geo=dict(
+            bgcolor="rgb(255, 255, 255)" if is_bg_white else "rgb(245, 245, 245)",
+            showframe=False,
+            showcoastlines=True,
+            projection_type="equirectangular"
+        )
+    )
 
-    if save_path:
-        fig.update_layout(width=None, height=None, autosize=True)
-        fig.write_html(save_path)
+    # Set the background as transparent and set the sea color to #f5f5f5
+    fig.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+    })
+    
+
+    fig.update_layout(width=None, height=None, autosize=True)
+    fig.write_html(save_path)

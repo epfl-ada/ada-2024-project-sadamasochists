@@ -10,3 +10,7 @@ pycountry
 pyvis
 networkx
 pillow
+bar_chart_race
+great_table
+statsmodels
+

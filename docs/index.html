@@ -139,7 +139,7 @@
                     <li><b>Overall:</b> A holistic score that captures the reviewer’s personal experience and the beer’s characteristics, scored out of 20.</li>
                 </ul>                
                 <p>These metrics combine for a total score of 50 which, after dividing by 10, gives us the rating which scored out of 5.</p>
-                <iframe src="plots/ratings_distribution/raw_ratings_distribution.html" style="height: 580px;" id="ratings_distribution_raw" loading="lazy"></iframe>
+                <iframe src="plots/global_analysis/raw_ratings_distribution.html" style="height: 580px;" id="ratings_distribution_raw" loading="lazy"></iframe>
                 <p>Users tend to prefer taste and aroma, with both distributions peaking near the higher end of the scale. Both have a median value of <b>7</b>, meaning that half of the raters gave these attributes a score well above the passing grade. This highlights their central role in shaping a beer's impression, which is understandable, as they are the first things noticed when sipping and smelling. In contrast, mouthfeel and appearance are less appreciated, with both having a median of <b>3</b>, suggesting these aspects are less memorable for beer drinkers. These factors are also more subjective and harder to evaluate, which may contribute to their lower ratings.</p>
                 <p>The overall experience follows a similar trend to taste and aroma, with a median score of <b>14</b> and a noticeable bias towards the positive end of the scale. This suggests that when taste and aroma are right, they strongly contribute to a favorable overall impression of the beer.</p>
                 <p>In general, despite varying median values, users tend to give high ratings across all categories. But why is this the case?</p>
@@ -154,7 +154,7 @@
                 <h3 class="text-xl font-bold text-center mb-4 mt-8">Everything is correlated</h3>
                 <p>Previously, we observed that the overall ratings closely resembled the distribution of taste and aroma. Now, let's explore if there is any relationship between them.</p>
                 <div class=" mx-auto iframes_group">
-                    <iframe src="plots/ratings_distribution/correlation_matrix.html" style="height: 620px;"></iframe>
+                    <iframe src="plots/global_analysis/correlation_matrix.html" style="height: 620px;"></iframe>
                 </div>
                 <p>With a correlation of <b>0.86</b> and <b>0.77</b> with the overall ratings, taste and aroma are the king and queen of the beer experience. If these aspects improve, the overall rating tends to follow suit, and they are also highly correlated with each other.</p>
                 <p>This makes perfect sense: taste and aroma are the most immediate and visceral aspects of enjoying a beer. Whether it's the hop-forward bitterness of an IPA or the rich malty aroma of a stout, these elements shape the essence of how a beer is perceived. If either taste or aroma falls short, the overall impression of the beer is unlikely to recover, no matter how appealing its appearance or mouthfeel may be.</p>
@@ -166,20 +166,63 @@
                 <!-- Evolution -->
                 <h3 class="text-xl font-bold text-center mb-4">Endless Evolution</h3>
                 <p>Ratings are not static — they tell a story, evolving alongside trends, technology, and the expanding beer market. To begin, we take a step back and observe how ratings have changed over the years.</p>
-                <iframe src="plots/ratings_distribution/average_rating_map_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
+                <iframe src="plots/global_analysis/ratings_evolution_map.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
                 <p>How many different insights from just a map!</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Beer lovers evolution</b>: We see that people over time prefer more and more the beers from beer loving countries such as United States, Belgium, United Kingdom and Canada. We see that over time people are enjoying more and more beers from european or US breweries bringing this countries to the top of the list.</li>
                     <li><b>I'm never going to like your beers</b>: In all the other continents it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brasil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
                 </ul>
                 <p>Let's go deeper and let's see how the different rating metrics have evolved over time too.</p>
-                <iframe src="plots/ratings_distribution/mean_median_over_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
+                <iframe src="plots/global_analysis/mean_median_over_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
                 <p>We can see that the mean for all categories is increasing over time, and for aroma, taste, and overall, the median has shifted from 13 to 14. This, along with the increase in the mean, clearly shows that over time there has been a shift in the bias towards the higher end of the scale. In general, the rise in the average mean indicates a trend of all ratings moving towards the higher values meaning that people are increasingly enjoing the beers produced!</p>
             </div>
         </div>
     </section>
     <section>
         <h2 class="text-3xl font-bold text-center mb-6">ABV and style a love story or an horrible breakup?</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>When it comes to beer, alcohol by volume (ABV) plays a significant role in shaping preferences. Over the years, we've observed a fascinating trend: as time progresses, beer enthusiasts increasingly gravitate towards higher ABV beers.</p>
+                <iframe src="plots/abv/abv_ratings.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
+                <p>The two main considerations that we can do are:</p>
+                <ul class="">
+                    <li><b>The higher the better</b>: We see that over time the higher ABVs are always associated with higher ratings. This observation can be validaded by observing that, if we exclude 2002, the linear correlation between the ABV and the average rating for that specific ABV is very high and it's close to <b>0.9</b> with a minor variability over the time period.  </li>
+                    <li><b>In medio stat abv</b>: Even if we see that users tend to prefer higher ABVs beer in terms of rating we see that most users goes with beers that have a ABV in the 5-10 ABV. Most ratings are indeed of beers that have an ABV in this specific range. </li>
+                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also the ABV seems to have a positive trend towards higher values. </li>
+                </ul>
+                <p>As pointed out before it seems that the average ABV is increasing over time, suggesting a shift in ABV preference over time at global level. Is this true?</p>
+                <select class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;" id="abv_evolution">
+                    <option value="abv_evoluton">ABV evolution globally</option>
+                    <option value="abv_evolution_map">ABV evolution map</option>
+                </select>
+                <div class="iframes_group">
+                    <iframe src="plots/abv/abv_evolution.html" style="height: 620px;" class="abv_plots" id="abv_evolution_iframe" loading="lazy"></iframe>
+                    <iframe src="plots/abv/abv_evolution_map.html" style="height: 620px;" class="abv_plots" id="abv_evolution_map_iframe" loading="lazy"></iframe>
+                </div>
+                <script>
+                    /* Selection process */
+                    const abv_selection = {
+                        "abv_evolution": "abv_evolution_iframe",
+                        "abv_evolution_map": "abv_evolution_map_iframe",
+                    }
+                    document.getElementById("abv_evolution").addEventListener("change", (event) => {
+                        const selected_value = event.target.value;
+                        const selected_map = abv_selection[selected_value];
+                        const iframes = document.getElementsByClassName("abv_plots");
+                        for (let i = 0; i < iframes.length; i++) {
+                            if (iframes[i].id === selected_map) {
+                                iframes[i].classList.remove("hidden_element");
+                            } else {
+                                iframes[i].classList.add("hidden_element");
+                            }
+                        }
+                    });
+                </script>
+                <p>It seems like the positive trend is real! We see that the average ABV of produced beers increases over time in most countries, in particular in Europe and United States.</p>
+                <p>It's interesting to observe another very peculiar thing: countries such as Belgium, Germany and England, historically the most famous for their beers, doesn't have a significant increase of ABV, meaning that from these countries the favourite beers are the traditional ones, with a small change over time.</p>
+                <p</p>
+            </div>
+        </div>
     </section>
 </body>
 </html>

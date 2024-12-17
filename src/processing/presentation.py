@@ -1,17 +1,19 @@
+# Do all the imports
 import plotly.graph_objects as go
 import os
+from src.utils.plots import plot_map
 
 class DataPresentation:
-    def __init__(self, df_beers, df_breweries, df_users, df_ratings_no_text, save_root):
+    def __init__(self, df_beers, df_breweries, df_users, df_ratings_no_text, save_folder):
         self.df_users = df_users
         self.df_breweries = df_breweries
         self.df_beers = df_beers
         self.df_ratings_no_text = df_ratings_no_text
-        if not os.path.exists(save_root):
-            os.makedirs(save_root)
-        self.save_root = save_root
-        
-    def get_spatial_data(self):
+        if not os.path.exists(save_folder):
+            os.makedirs(save_folder)
+        self.save_folder = save_folder
+    
+    def plot_spatial_data(self):
         # Compute the aggregated value for countries outside the US
         beers_per_country_no_US = self.df_beers[self.df_beers['country_beer'] != 'United States'].groupby('country_beer').size().reset_index(name='count').rename(columns={'country_beer': 'location'})
         users_per_country_no_US = self.df_users[self.df_users['country_user'] != 'United States'].groupby('country_user').size().reset_index(name='count').rename(columns={'country_user': 'location'})
@@ -27,19 +29,36 @@ class DataPresentation:
         ratings_in_country_US = self.df_ratings_no_text[self.df_ratings_no_text['country_brewery'] == 'United States'].groupby('state_brewery').size().reset_index(name='count').rename(columns={'state_brewery': 'location'})
         ratings_users_country_US = self.df_ratings_no_text[self.df_ratings_no_text['country_user'] == 'United States'].groupby('state_user').size().reset_index(name='count').rename(columns={'state_user': 'location'})
         df_US = [beers_per_country_US, users_per_country_US, breweries_per_country_US, ratings_in_country_US, ratings_users_country_US]
-
-        # Return the dataframes
-        return df_no_US, df_US
     
-    def get_temporal_data(self):
-        # Compute the ratings grouping by year
+        # Define some options for the plot
+        options = {
+            "plots": [
+                { 'label': 'Beers per country', 'location_label': 'location', 'z_label': 'count', 'colorscale': 'Blues' },
+                { 'label': 'Users per country', 'location_label': 'location', 'z_label': 'count', 'colorscale': 'Blues' },
+                { 'label': 'Breweries per country', 'location_label': 'location', 'z_label': 'count', 'colorscale': 'Blues' },
+                { 'label': 'Number of ratings based on the brewery country', 'location_label': 'location', 'z_label': 'count', 'colorscale': 'Blues' },
+                { 'label': 'Number of ratings based on the reviewer country', 'location_label': 'location', 'z_label': 'count', 'colorscale': 'Blues' },
+            ]
+        }
+
+        # Plot the map
+        plot_map(df_no_US, df_US, options, self.save_folder, 'ratings_map', is_bg_white=False)
+    
+    def _plot_temporal(self, data, year_label, count_label, title):
+        fig = go.Figure()
+        fig.add_trace(go.Bar(x=data[year_label], y=data[count_label]))
+        fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600)
+        fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
+        fig.show()
+        
+    def plot_number_of_ratings_over_time(self):
         ratings_grouping = self.df_ratings_no_text.groupby(self.df_ratings_no_text['date'].dt.year).size().reset_index(name='count').rename(columns={'date': 'Year', 'count': 'Number of ratings'})
-
-        # Compute the users grouping by year
+        self._plot_temporal(ratings_grouping, 'Year', 'Number of ratings', 'Number of ratings over time')
+        
+    def plot_number_of_users_over_time(self):
         users_grouping = self.df_users.groupby(self.df_users['joined'].dt.year).size().reset_index(name='count').rename(columns={'joined': 'Year', 'count': 'Number of users'})
-
-        # Return the dataframes
-        return ratings_grouping, users_grouping
+        users_grouping = users_grouping[users_grouping['Year'] >= 2002]
+        self._plot_temporal(users_grouping, 'Year', 'Number of users', 'Number of new users over time')
     
     def plot_top_5(self):
         # Define the top 5 countries with the most beers
@@ -114,12 +133,9 @@ class DataPresentation:
             width=800
         )
 
+        # Set the background to white
+        fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
+
         # Update the layout
         fig.update_layout(barmode='group', title_text='Top 5 countries with more beers')
-        fig.show()
-
-    def plot_temporal(self, data, year_label, count_label, title):
-        fig = go.Figure()
-        fig.add_trace(go.Bar(x=data[year_label], y=data[count_label]))
-        fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600)
         fig.show()
