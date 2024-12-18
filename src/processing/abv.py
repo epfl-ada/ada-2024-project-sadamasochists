@@ -49,9 +49,7 @@ class ABV:
         # Do the plot
         fig = px.scatter(beer_ratings, x='abv', y='rating', size='nbr_ratings', hover_name='abv',animation_frame='year', labels={'abv': 'ABV:', 'rating': 'Rating:', 'nbr_ratings': 'Number of ratings:'},range_x=[0, 20], range_y=[2.25, 4.75])
         fig.update_traces(marker=dict(line=dict(width=1, color='DarkSlateGrey')))
-        fig.update_layout(showlegend=False)
-        fig.update_xaxes(title_text='ABV')
-        fig.update_yaxes(title_text='Rating')
+        fig.update_layout(showlegend=False,title_x=0.5, title='ABV vs. Rating Over Time', xaxis_title='ABV', yaxis_title='Rating')
 
         # Make the background and the plot in general transparent
         fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
@@ -60,7 +58,7 @@ class ABV:
         fig.write_html(f'{self.save_folder}/abv_ratings.html')
         
         # Display the plot
-        fig.update_layout(width=800, height=600, title='ABV vs. Rating Over Time')
+        fig.update_layout(width=800, height=600, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
         
@@ -76,7 +74,7 @@ class ABV:
         # Plot the correlation 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=sorted(beer_ratings['year'].unique()), y=correlation, mode='lines+markers'))
-        fig.update_layout(title='Correlation between ABV and Rating over time', xaxis_title='Year', yaxis_title='Correlation', height=600, width=800)
+        fig.update_layout(title='Correlation between ABV and Rating over time', xaxis_title='Year', yaxis_title='Correlation', height=600, width=800, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
     
@@ -125,7 +123,7 @@ class ABV:
         # Plot the data
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=avg_abv['year'], y=avg_abv['abv'], mode='lines+markers'))
-        fig.update_layout(title='Average ABV over time', xaxis_title='Year', yaxis_title='ABV')
+        fig.update_layout(title='Average ABV over time', xaxis_title='Year', yaxis_title='ABV',title_x=0.5)
         
         # Set the background color to transparent
         fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})

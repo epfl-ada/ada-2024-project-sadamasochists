@@ -127,7 +127,8 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix, is_bg_white=True):
             projection_type="equirectangular"
         ),
         height=600,
-        width=800
+        width=800,
+        title_x=0.5
     )
 
     # Show the plot
@@ -231,7 +232,8 @@ def plot_map_time(df_no_US, df_US, options, save_path, is_bg_white=True):
         ),
         geo_scope='world',
         height=600,
-        width=800
+        width=800,
+        title_x=0.5
     )
 
     fig.show()
@@ -243,7 +245,7 @@ def plot_map_time(df_no_US, df_US, options, save_path, is_bg_white=True):
             showframe=False,
             showcoastlines=True,
             projection_type="equirectangular"
-        )
+        ),
     )
 
     # Set the background as transparent and set the sea color to #f5f5f5

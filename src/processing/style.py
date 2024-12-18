@@ -28,13 +28,15 @@ class StyleAnalysis:
         # Display a pie chart with gradient colors
         fig = px.pie(top_styles, values='count', names='style', title='Distribution of the styles of beers', color_discrete_sequence=px.colors.sequential.Viridis, hole=0.6)
         fig.update_traces(textinfo='label+percent', textfont_size=14)
-        fig.update_layout(autosize=True)
-        fig.write_html(f"{self.save_folder}/styles_pie_chart.html")
         
         # Prepare the plot for saving
-        fig.update_layout(height=600, width=800, autosize=False)
+        fig.update_layout(height=600, width=800, autosize=False, title_x=0.5)
         fig.show()
 
+        # Set the background as (245, 245, 245)
+        fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', paper_bgcolor='rgb(255, 255, 255)')
+        fig.update_layout(autosize=True, width=None, height=None)
+        fig.write_html(f"{self.save_folder}/styles_pie_chart.html")
 
     def plot_favourite_beer_style_country(self):
         # Find the countries style preferences
@@ -107,18 +109,17 @@ class StyleAnalysis:
             title_text="Countries and Their Preferred Beer Styles",
             font_size=12,
             title_font_size=18,
-            title_font_color="darkblue",
             title_x=0.5,
-            height=1000,
+            height=1020,
             width=800,
-            plot_bgcolor="rgba(240, 240, 240, 0.9)",
         )
-
-        # Save the plot to an HTML file
-        #fig.write_html("docs/plots/beer_styles_chord_diagram.html")
 
         # Show the plot
         fig.show()
+
+        # Set autosize to True
+        fig.update_layout(autosize=True,width=None, height=None)
+        fig.write_html(f"{self.save_folder}/favourite_beer_style_country.html")
         
     def plot_abv_style_evolution(self):
         # Create a dataframe with the top_10_styles_list elements as columns
@@ -148,7 +149,7 @@ class StyleAnalysis:
         fig = px.bar(df_style_avg_abv, x='style', y='count', animation_frame='year', title='Top 10 styles over the years', range_y=[0, 100000], color='avg_abv', range_color=[0, 10], color_continuous_scale='Blues')
 
         # Set the width and the height
-        fig.update_layout(height=600, width=800)
+        fig.update_layout(height=600, width=800, title_x=0.5)
 
         # Use log scale for the y-axis
         fig.update_xaxes(title_text='Style')
@@ -182,6 +183,15 @@ class StyleAnalysis:
         # Set to integer the types
         nbr_ratings_per_style = nbr_ratings_per_style.astype(int)
 
-        # Display the race
-        return bcr.bar_chart_race(nbr_ratings_per_style, period_length=1000, title='Total number of ratings per beer style', n_bars=10, steps_per_period=50, figsize=(8, 6), cmap='tab20', period_fmt='Year: {x}')        
-        
+        # Display the race plot     
+        return bcr.bar_chart_race(
+            nbr_ratings_per_style,
+            period_length=1000,
+            title='Total number of ratings per beer style',
+            n_bars=10,
+            steps_per_period=50,
+            cmap='tab20',
+            period_fmt='Year: {x}',
+            bar_kwargs={'alpha': 0.8},
+            filename=f"{self.save_folder}/race_video.mp4"
+        )

@@ -8,6 +8,16 @@ import plotly.graph_objects as go
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
+from pyvis.network import Network
+from src.utils.locationinfluence_utils import get_base64_flag, get_png
+import networkx as nx
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from PIL import Image
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+
 class LocationInfluence():
     def __init__(self, df_ratings_no_text, save_folder):    
         # Set some variables
@@ -34,6 +44,8 @@ class LocationInfluence():
 
         self.save_folder = save_folder
 
+        self.plot_location()
+
     def print_in_degrees(self):
         # Plot the in-degrees in the map
         fig = go.Figure(go.Choropleth(
@@ -53,9 +65,8 @@ class LocationInfluence():
             ),
             autosize=True,
         )
-        fig.write_html(f"{self.save_folder}/in_degree_map.html")
-
-        fig.update_layout(height=600, width=800)
+        
+        fig.update_layout(height=600, width=800, title_x=0.5)
 
         fig.show()
         
@@ -64,7 +75,7 @@ class LocationInfluence():
             print("The graph is empty and has no edges to visualize.")
         else:
             # Create PyVis network
-            net = Network(height="100%", width="100%", directed=True)
+            net = Network(height="620px", width="100%", directed=True, bgcolor="#f5f5f5", font_color="black")
             
             # Add nodes with size proportional to their in-degree
             max_in_degree = max(self.in_degrees.values()) if self.in_degrees else 1
@@ -147,7 +158,9 @@ class LocationInfluence():
             
             # Generate the interactive visualization
             path = f"{self.save_folder}/location_influence.html"
-            net.show(path, notebook=True);
+
+            # Set the background to transparent
+            net.write_html(path, open_browser=False)
             
 class MostLeastPlot():
     def __init__(self, df_ratings_no_text, save_folder):
@@ -286,6 +299,7 @@ class MostLeastPlot():
         ax.xaxis.set_major_locator(plt.MultipleLocator(0.1))  # Adjust step size for granularity
         ax.xaxis.grid(True, linestyle="--", alpha=0.5)
 
+        fig.patch.set_facecolor((245/255, 245/255, 245/255))  # Set background color to rgb(245,245,245)
         # Adjust layout
         plt.tight_layout()
         plt.savefig(f"{self.save_folder}/preferences.png")

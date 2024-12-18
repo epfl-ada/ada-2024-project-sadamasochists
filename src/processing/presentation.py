@@ -47,7 +47,7 @@ class DataPresentation:
     def _plot_temporal(self, data, year_label, count_label, title):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=data[year_label], y=data[count_label]))
-        fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600)
+        fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
         
@@ -130,7 +130,8 @@ class DataPresentation:
                 )
             ],
             height=600,
-            width=800
+            width=800,
+            title_x=0.5
         )
 
         # Set the background to white

@@ -40,13 +40,13 @@ class GlobalAnalysis:
 
         
         # Add the title
-        fig.update_layout(title_text='Ratings Distribution')
+        fig.update_layout(title_text='Ratings Distribution', title_x=0.5)
         
         # Save the figure
         fig.write_html(f'{self.save_folder}/raw_ratings_distribution.html')
 
         # Set the size to 800x800
-        fig_display.update_layout(width=1000, height=600, title_text='Ratings Distribution')
+        fig_display.update_layout(width=1000, height=600, title_x=0.5, title_text='Ratings Distribution')
 
         # Display the figure
         fig_display.show()
@@ -139,7 +139,7 @@ class GlobalAnalysis:
         )
 
         # Set the background color as transparent
-        fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, title_text='Correlation Matrix')
+        fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, title_text='Correlation Matrix', title_x=0.5)
         fig.write_html(self.save_folder + "correlation_matrix.html")
 
         # Revert the background color to white
@@ -237,19 +237,20 @@ class GlobalAnalysis:
         fig.update_layout(
             showlegend=True,
             plot_bgcolor='rgba(0, 0, 0, 0)',
-            paper_bgcolor='rgba(0, 0, 0, 0)'
+            paper_bgcolor='rgba(0, 0, 0, 0)',
+            title_x=0.5,
+            title_text='Mean and Median Ratings Over Time'
         )
 
         fig.write_html(self.save_folder + '/mean_median_over_time.html')
 
         fig.update_layout(
-            title='Mean and Median Ratings Over Time',
             xaxis_title='Year',
             yaxis_title='Rating',
             width=1000,
             height=600,
             plot_bgcolor='white',
-            paper_bgcolor='white'
+            paper_bgcolor='white',
         )
 
         fig.show()
