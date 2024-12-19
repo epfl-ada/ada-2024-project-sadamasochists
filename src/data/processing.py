@@ -70,9 +70,14 @@ countries_min_number_reviews_breweries = list(countries_min_number_reviews_brewe
 countries_min_number_reviews_users = df_ratings.groupby('country_user').size().sort_values(ascending=False).reset_index().rename(columns={0:'number_reviews'})
 countries_min_number_reviews_users = list(countries_min_number_reviews_users[countries_min_number_reviews_users['number_reviews']>=250]['country_user'])
 
+# For country user consider only countries with at least 5 users
+countries_min_number_users = df_ratings.groupby('country_user')['user_id'].nunique().reset_index().rename(columns={'user_id':'number_users'})
+countries_min_number_users = list(countries_min_number_users[countries_min_number_users['number_users']>=5]['country_user'])
+
 # Define the countries to keep and filter the data
 df_ratings = df_ratings[df_ratings['country_brewery'].isin(countries_min_number_reviews_breweries)]
 df_ratings = df_ratings[df_ratings['country_user'].isin(countries_min_number_reviews_users)]
+df_ratings = df_ratings[df_ratings['country_user'].isin(countries_min_number_users)]
 df_ratings = df_ratings.rename(columns={'palete': 'mouthfeel'})
 
 # Remove the beers that are not in the ratings

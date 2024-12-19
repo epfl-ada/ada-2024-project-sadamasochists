@@ -106,7 +106,7 @@ class StyleAnalysis:
 
         # Update layout for better visualization
         fig.update_layout(
-            title_text="Countries and Their Preferred Beer Styles",
+            title_text="User Countries and Their Preferred Beer Styles",
             font_size=12,
             title_font_size=18,
             title_x=0.5,

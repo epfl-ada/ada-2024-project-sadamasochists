@@ -229,21 +229,27 @@
         <h2 class="text-3xl font-bold text-center mb-6">The style is everything</h2>
         <div class="mx-auto px-6">
             <div class="content">
-                <p>So far we have explored the ratings, how they evolved over time and the ABV but we have missed one very important aspect: the style of the beer. The style of a beer is a key factor in shaping its taste, aroma, and overall experience but also, as we will see, the ABV. From the hoppy bitterness of an IPA to the rich maltiness of a stout, the style of a beer is a defining characteristic that influences how it is perceived and enjoyed.</p>
-                <p>Firstly let's have a look at which are the favourite styles in the wolrd.</p>
+                <p>So far we have explored the ratings, how they evolved over time and the impact of ABV on the ratings but we have missed one very important aspect: the <b>style</b> of the beer.</p>
+                <p> The style of a beer is a key factor in shaping its taste, aroma, and overall experience but also, as we will see, the ABV. From the hoppy bitterness of an IPA to the rich maltiness of a stout, the style of a beer is a defining characteristic that influences how it is perceived and enjoyed.</p>
                 <iframe src="plots/style/styles_pie_chart.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
-                <p>[DISCUSS ABOUT THE GLOBAL SHARES]</p>
-                <p>If we then move from a global to the local point of view we see very interesting results.</p>
+                <p>Wow! What a diversity! Let's do a couple of considerations: </p>
+                <p>India Pale Ale (IPA) dominates, reflecting a worldwide trend toward hoppy, flavorful beers driven by the craft beer movement. It's followed by Imperial Stout's whose strong presence highlights a growing appreciation for rich, high-alcohol beers. Meanwhile, Pale Lager maintains its steady reign as a light, approachable option, serving as the default choice in many cultures,</p>
+                <p>The dominance of "Ale" styles tells a story of tradition and innovation. Among the oldest beer types, ales trace their roots to European brewing, particularly in the UK and Belgium, where they flourished. Their warm fermentation creates fruity, complex flavors, making them perfect for modern craft brewers and adventurous drinkers seeking unique, bold experiences.</p>
+                <p>Additionally there seems to be a significant market share of beers dominated by nieche styles with more than <b>40%</b> of the beers that are from a style that has a market share smaller than <b>1.90%</b>. This reflects a global thirst for novelty, with consumer that are looking for unconventional flavors and brewering techniques.</p>
+                <p>But what about the favourite beer style for each country?</p>
                 <iframe src="plots/style/favourite_beer_style_country.html" class="abv_ratings" style="height: 1020px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
-                <p>Wow, only a couple of beer styles are really hits!</p>
-                <p>Most countries indeed like <b>Pale Lager</b> and <b>IPA</b> which seems to be the most liked ones in most countries but wait... some countries doesn't seem to agree. In Germany, UK, Belgium and Czech Republic the favourite beer is their local style! What patriotism!</p>
-                <p>In Germany the favourite one is the Pilsener while in UK all the pubs need to have at least a Bitter beer. In Belgium the Belgian Ale is the king of all while in Czech Republic the Czech Pilsner is what really dominates the market.</p>
-                <p>So far we have seen the most drinked styles at global level but are these preferences static? Ready, set and go! The race between the styles begins!</p>
+                <p>Wow, only a couple of beer styles really dominate!</p>
+                <p><b>Pale Lager</b> is the favourite style in vast regions, especially across South America, southern Africa, and much of Asia. This style’s accessibility and light, refreshing profile make it universally appealing, explaining its widespread popularity in regions with warmer climates.</p>
+                <p><b>India Pale Ale (IPA)</b> emerges as the favorite in North America and much of Europe. The bold flavors and hoppy character of IPAs resonate with a market that increasingly values craft beer and innovation. </p>
+                <p>Even so we see that in countries with a strong beer culture the prefer local artisanal beers. In Germany the favourite one is the Pilsener while in UK all the pubs need to have at least a Bitter beer. In Belgium the Belgian Ale is the king of all while in Czech Republic the Czech Pilsner is what really dominates the market. </p>
+                <p>Preferences are not static but they change over time and they evolve. Let's see how the favourite beer style for each country has changed over time.</p>
                 <video controls class="mx-auto mt-8 mb-8" autoplay loop muted>
                     <source src="plots/style/race_video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <p>[DISCUSS ABOUT THE RACE AND THE ABV EVOLUTION OVER TIME]</p>
+                <p>What a climbing for the India Pale Ale (IPA) and the imperial Stout! We see that over the years the number of ratings for these two beers have significantly increased and at the end of 2016 they were the two preferred beer styles in the world. </p>
+                <p>We see on the other hand that other styles such as the Pale Lager or the Belgian Strong Ale had a different evolution over time. From being the favourite ones they have lost rankings year after year and the Belgian Strong Ale, once in the top 3 is at the end of 2016 is not even in the podium anymore.</p>
+                <p>The evolution in style preferences over time not only highlights how user tastes have shifted but also explains the increase in average ABV from 2002 to 2016. This change is driven by the fact that the most popular styles in 2016 have a significantly higher ABV compared to those in 2002, indicating that users have progressively favored beers with higher alcohol content.</p>
             </div>
         </div>
     </section>
@@ -265,7 +271,7 @@
                         /* Modify the style and remove the border applied by the library */
                         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                         const style = iframeDoc.createElement("style");
-                        style.textContent = ".card { border: none!important; } .card-body { border: none!important; }"; // Corrected property
+                        style.textContent = ".card { border: none!important; height: 100%; width: 100%; } .card-body { border: none!important; }"; // Corrected property
                         iframeDoc.head.appendChild(style);
 
                         /* Set the background of the body to #f5f5f5 */
@@ -315,7 +321,15 @@
         </div>
     </section>
     <section>
-        <h2 class="text-3xl font-bold text-center mb-6">Closing with style</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">Let's wrap it up</h2>
+    </section>
+    <section>
+        <h2 class="text-3xl font-bold text-center mb-6">It's time to say goodbye</h2>
+        <div class="mx-auto px.6">
+            <div class="content">
+                <img src="./img/peaceout.gif" alt="Paceout" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+            </div>
+        </div>
     </section>
 </body>
 </html>

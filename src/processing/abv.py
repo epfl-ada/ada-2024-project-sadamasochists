@@ -105,7 +105,7 @@ class ABV:
 
         # Define the options
         options = {
-            'title': 'Average ABV by State Over the Years',
+            'title': 'Average ABV by users country over the years',
             'time_range': range(self.df_ratings_no_text['date'].dt.year.min(), self.df_ratings_no_text['date'].dt.year.max() + 1),
             'time_label': 'year',
             'location_label': 'location',
