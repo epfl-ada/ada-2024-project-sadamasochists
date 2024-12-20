@@ -2,6 +2,7 @@
 ## Introduction
 ### Data structure
 The data structure is as follows:
+- `analysis`: Contains code used for NLP analysis.
 - `data/`: Contains all the data needed (both the processed and the raw ones).
 - `data/processed/`: Contains the processed data that should be used for the analysis.
 - `src/`: Contains all the code needed for the analysis.
