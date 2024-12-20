@@ -19,8 +19,9 @@
     <section>
         <div class="content">
             <h1 class="text-4xl font-bold text-center mb-16 mt-8">The World of Beer: A Data-Driven Journey into Global Preferences</h1>
-            <p>Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across centuries and continents, it has brought people together, inspired innovation, and evolved into a deeply personal yet global phenomenon. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps something as intangible as the mood of the moment? With data in hand and curiosity as our guide we aim to answer to one simple question: what shapes our beer preferences, and how do these preferences differ globally and over time?</p>
-            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details. So, grab your favorite pint, sit back, and let the trip begin!</p>
+            <p>Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across centuries and continents, it has brought people together, inspired innovation, and evolved into a deeply personal yet global phenomenon. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps the alchol content? With data in hand and curiosity as our guide we aim to answer to one simple question: what shapes our beer preferences, and how do these preferences differ globally and over time?</p>
+            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details.</p>
+            <p>Grab your favorite pint, sit back, and let the trip begin!</p>
             <img src="./img/beer-drinking-homer.gif" alt="Beer Drinking Homer" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
         </div>
     </section>
@@ -110,7 +111,7 @@
                         });
                     </script>
                     <p>Wow! Such a diverse landscape of beers, users, and breweries!</p>
-                    <p>The data is primarily distributed across North America and Europe, with limited coverage in other continents, especially in the Middle East and Africa. When considered as a whole, the United States has the most available data, followed by the United Kingdom, Canada, and Germany. Surprisingly, Denmark ranks as the second most active country in terms of reviews, with an impressive 546,347 reviews—essentially one review for every 10 people in the country!</p>
+                    <p>The data is primarily distributed across North America and Europe, with limited coverage in other continents, especially in the Middle East and Africa. When considered as a whole, the United States has the most available data, followed by the United Kingdom, Canada, and Germany. Surprisingly, Denmark ranks as the second most active country in terms of reviews, with an impressive 546,347 reviews - essentially one review for every 10 people in the country!</p>
                     <p>It's fascinating how a simple beer dataset can reveal clear cultural differences between countries and people. For instance, by focusing on Muslim-majority countries, we can identify those that strictly ban alcohol, such as Saudi Arabia and Iran, due to religious and cultural laws. On the other hand, there are Muslim countries that are more open to alcohol consumption such as Egypt, Morocco, and Tunisia where we have some breweries (but no active user). How intriguing!</p>
                     <p>Alright, we've nerded out on the dataset long enough: time for the fun stuff!</p>
                 </div>
@@ -141,7 +142,7 @@
                 <p>We believe two main biases play a significant role in this phenomenon:</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Central tendency bias</b>: This bias leads raters to place most items near the middle of a rating scale. We observe this particularly with mouthfeel and appearance, where most ratings cluster around the middle value, with fewer ratings at the extremes.</li>
-                    <li><b>Social experience bias</b>: Beer is often consumed in social contexts, which can lead to a more positive bias in ratings. For example, even if a beer was "average," a fun night with friends might influence a higher rating. This could explain why taste, aroma, and overall ratings tend to be more positive, while mouthfeel and appearance, which are harder to evaluate, may be rated more randomly.</li>
+                    <li><b>Social experience bias</b>: Beer is often consumed in social contexts, which can lead to a more positive bias in ratings. For example, even if a beer was "average", a fun night with friends might influence a higher rating. This could explain why taste, aroma, and overall ratings tend to be more positive, while mouthfeel and appearance, which are harder to evaluate, may be rated more randomly.</li>
                 </ul>
                 <p>Now that we know users generally prefer taste and aroma over appearance and mouthfeel, how are these factors connected? Given the similar distributions between aroma, taste, and overall experience, could there be an influence between them?</p>
                 
@@ -165,7 +166,7 @@
                 <p>How many different insights from just a map!</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Beer lovers evolution</b>: We see that people over time prefer the beers more from beer loving countries such as United States, Belgium, United Kingdom and Canada and are enjoying more and more beers from european or US breweries bringing these countries to the top of the list.</li>
-                    <li><b>I'm never going to like your beers</b>: In all the other parts of the world it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brasil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
+                    <li><b>I'm never going to like your beers</b>: In all the other parts of the world it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brazil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
                 </ul>
                 <p>Let's go deeper and let's see how the different rating metrics have evolved over time too.</p>
                 <iframe src="plots/global_analysis/mean_median_over_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
@@ -181,10 +182,10 @@
                 <p>When it comes to beer, alcohol by volume (ABV) plays a significant role in shaping preferences. Over the years, we've observed a fascinating trend: as time progresses, beer enthusiasts increasingly gravitate towards higher ABV beers.</p>
                 <iframe src="plots/abv/abv_ratings.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
                 <p>The two main considerations that we have are:</p>
-                <ul class="">
+                <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>The higher the better</b>: We see that over time the higher ABVs are always associated with higher ratings. This observation can be validaded by observing that, if we exclude 2002, the linear correlation between the ABV and the average rating for that specific ABV is very high and it's close to <b>0.9</b> with a minor variability over the time period.  </li>
                     <li><b>In the middle stands the abv</b>: Even if we see that users tend to prefer higher ABV beers in terms of rating we see that most users go for beers that have fall into the 5-10 ABV range. Most ratings are indeed of beers that are within this range. </li>
-                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also that the ABV seems to have a positive trend towards higher values. </li>
+                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with what we discovered in the previous section, but we see that also that the ABV seems to have a positive trend towards higher values. </li>
                 </ul>
                 <p>As pointed out before it seems that the average ABV is increasing over time, suggesting a shift in ABV preference over time at global level. Is this true?</p>
                 <select class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;" id="abv_evolution">
@@ -252,11 +253,10 @@
         <h2 class="text-3xl font-bold text-center mb-6">The hops are always greener abroad</h2>
         <div class="mx-auto px-6">
             <div class="content">
-                <p>Another large factor in beer popularity is a country’s beer culture. Does it produce popular beer or do residents prefer foreign beers? Certain countries have large beer cultures and very famous beer styles, while others have barely any breweries. As a result of this, consumers from certain countries prefer local beers, while others prefer the beer abroad.</p>
-                <img src="./plots/location_influence/preferences.png" alt="Chart of the location preference of users" class="rounded-lg mb-8 mt-8 full-width-image">
-                <p>Here we see the top 10 countries with the highest and lowest preference for foreign beers. Among the countries who have a preference for local beers, we indeed see many of the countries we would expect: Czechia, the USA, Ireland, Belgium and the UK. In the list of countries with a large preference for foreign beers, we see countries that mostly do not have a large beer culture.</p>
-                <p>In general, there are far more countries that have a preference for foreign beers than for local beers. This also makes sense, because many users will write reviews for foreign beers while they are on holiday. During this time, they have a good experience and are more likely to rate a beer higher.</p>
-                <p>An important question to ask is if there are any specific countries that produce very good beer. We just saw that some countries prefer their own beer, but do others like their beer as well? To find out, we can construct a graph in which every country points to another country whom they review the most foreign beers from. Self-loops are therefore impossible. </p>
+                <p>So far we have taken a look at many factors of what makes a great beer. However, when you ask someone what their favorite beer is, they might reply with "German beers" or "Czech beers". These answers reveal an important connection we have to investigate: do the beers from a country influence the preferences of the people from other countries?</p>
+                <h3 class="text-xl font-bold text-center mb-4">The influence of beer heritage</h3>
+                <p>German beers are known for their adherence to the <i>Reinheitsgebot</i>, stating that beers can only be made from barley, hops and water. On the other hand, Belgian beers are a bit more outlandish, and may contain herbs and/or spices. For example, Witbier often contains coriander and orange peels.</p>
+                <p>To investigate these relations on a global scale, we can perform a network analysis. If people from a given country would have to choose one other country they would say produces their favorite beer, who would it be?</p>
                 <iframe src="plots/location_influence/location_influence.html" style="height: 620px;" id="network_graph_foreign_beer_preference" loading="lazy" scrolling="no"></iframe>
                 <script>
                     // Set the card class and the card-body class to no border
@@ -268,10 +268,10 @@
                         const style = iframeDoc.createElement("style");
                         style.textContent = ".card { border: none!important; height: 100%; width: 100%; } .card-body { border: none!important; }"; // Corrected property
                         iframeDoc.head.appendChild(style);
-
+        
                         /* Set the background of the body to #f5f5f5 */
                         iframeDoc.body.style.backgroundColor = "#f5f5f5";
-
+        
                         /* Add a button to toggle fullscreen */
                         const button = iframeDoc.createElement("button");
                         button.style.position = "absolute";
@@ -283,11 +283,11 @@
                         button.style.backgroundColor = "white";
                         button.style.borderRadius = "5px";
                         button.style.cursor = "pointer";
-
+        
                         // Initial button icon
                         button.innerHTML = '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5"/></svg>';
                         button.isfullscreen = false;
-
+        
                         // Toggle fullscreen mode when button is clicked
                         button.onclick = () => {
                             if (button.isfullscreen) {
@@ -305,23 +305,36 @@
                                 });
                             }
                         };
-
+        
                         iframeDoc.body.appendChild(button);
                     };
                 </script>
-
-                
-                <p>Here we indeed see the formation of hubs. The USA and Belgium are the largest ones, with in-degrees of 28 and 17 respectively. The UK and Germany are smaller hubs with 11 and 9 other nodes pointing at them. This plot clearly shows that the country of origin of a beer is very important for its popularity and explains why these countries show up with high local preference in the previous graph.                </p>
+                <p>We clearly see that only a couple of hubs are formed! A lot of countries like beers from the USA and Belgium but also UK and Germany are quite popular!</p> 
+                <p>The results show that a beer's country of origin significantly influences user preferences, with only a few countries producing standout hits in the beer world!</p>
+                <h3 class="text-xl font-bold text-center mb-4">Brews from the Backyard or Beyond</h3>
+                <p>But the story does not end here. So far we only considered preferences of other countries in terms of quantity drunk. However, users from certain countries might have a far stronger preference for foreign beers than users from other countries! This is worth investigating as well.</p>
+                <img src="./plots/location_influence/preferences.png" alt="Chart of the location preference of users" class="rounded-lg mb-8 mt-8 full-width-image">
+                <p>In countries with renowned beer cultures like Czechia, the USA, Ireland, Belgium, and the UK, beer lovers clearly favor local beers, rating them higher than foreign ones. Conversely, in countries with less established beer traditions, foreign beers tend to receive significantly higher ratings than local brews.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <iframe src="https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/"> </iframe>
+        <h2 class="text-3xl font-bold text-center mb-6">Let's wrap it up</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>Before we conclude our journey into beer preferences we have a little surprise for you!</p>
+                <p>We have created an interactive website where you can explore what users say about beers of specific countries, explore the breweries of your favourite country or see which countries rate similar to it.</p>
+                <p>Click on the image below and let's explore the world of beers together!</p>
+                <a href="https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/">
+                    <img src="./img/globe_3d.png" alt="World" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+                </a>
+            </div>
+        </div>
     </section>
 
     <section>
-        <h2 class="text-3xl font-bold text-center mb-6">Let's Wrap It Up</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">In conclusion</h2>
         <div class="mx-auto px-6">
             <div class="content">
                 <p>And here we are, at the end of our data-driven journey through the world of beer. From uncovering the preferences of millions of beer enthusiasts to analyzing trends that shape the global beer landscape, we’ve seen how beer connects cultures, defines traditions, and sparks innovation.</p>
@@ -330,17 +343,11 @@
 
                 <p>Our exploration also took us across the globe, mapping the cultural fingerprints of beer styles and showcasing how local traditions shape tastes. From Pale Lagers dominating warm-climate regions to the unique hubs of beer culture like Belgium, the USA, and Germany, the data highlighted the incredible diversity of the beer world.</p>
 
-                <p>But it’s not just about what’s brewed—it’s also about where it’s brewed. We saw how countries interact with foreign beers, creating global networks of influence and preference. From the interconnected hubs of Belgium and the USA to the curious outliers of beer culture, every story was a reminder of how beer unites us across borders.</p>
+                <p>But it’s not just about what’s brewed but it’s also about where it’s brewed. We saw how countries interact with foreign beers, creating global networks of influence and preference. From the interconnected hubs of Belgium and the USA to the curious outliers of beer culture, every story was a reminder of how beer unites us across borders.</p>
 
-                <p>As our journey concludes, one thing is clear: beer is not just a drink; it’s a dynamic cultural artifact that evolves with us. Whether you’re a seasoned beer connoisseur or a casual enthusiast, there’s always something new to discover, savor, and enjoy. So, let’s raise a glass to the past, present, and future of beer—cheers!</p>
-            </div>
-        </div>
-    </section>
-    <section>
-        <h2 class="text-3xl font-bold text-center mb-6">It's time to say goodbye</h2>
-        <div class="mx-auto px.6">
-            <div class="content">
-                <img src="./img/peaceout.gif" alt="Paceout" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+                <p>As our journey concludes, one thing is clear: beer is not just a drink; it’s a dynamic cultural artifact that evolves with us. Whether you’re a seasoned beer connoisseur or a casual enthusiast, there’s always something new to discover, savor, and enjoy. So, let’s raise a glass to the past, present, and future of beers. </p>
+                <p>Cheers!</p>
+                <img src="./img/conclusion.gif" alt="Paceout" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
             </div>
         </div>
     </section>

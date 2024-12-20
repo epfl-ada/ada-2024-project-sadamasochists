@@ -50,6 +50,9 @@ class GlobalAnalysis:
 
         # Display the figure
         fig_display.show()
+
+        # Save callback
+        fig_display.write_html('docs/notebook_fallback/ratings_distribution.html')
     
     def display_ratings_statistics(self):
         # Select the rating elements
@@ -150,6 +153,10 @@ class GlobalAnalysis:
 
         # Show the plot
         fig.show()
+
+        # Save the plot
+        fig.write_html('docs/notebook_fallback/correlation.html')
+
 
     def regression_analysis(self, df_ratings_no_text):
         # Define the train / test split
@@ -255,6 +262,9 @@ class GlobalAnalysis:
 
         fig.show()
 
+        # Save the plot
+        fig.write_html('docs/notebook_fallback/mean_median_over_time.html')
+
     def ratings_world_map(self):
         # Compute the average rating per country
         average_rating_no_US = self.df_ratings_no_text[self.df_ratings_no_text['country_brewery'] != 'United States'].groupby('country_brewery')['rating'].mean().reset_index().rename(columns={'country_brewery':'location', 'rating':'count'})
@@ -270,7 +280,7 @@ class GlobalAnalysis:
                 'colorscale': 'Blues'
             }]
         }
-        plot_map(average_rating_no_US, average_rating_US, options, self.save_folder, 'world_ratings')
+        plot_map(average_rating_no_US, average_rating_US, options, self.save_folder, 'world_ratings', 'world_ratings')
 
         # Return the data
         return average_rating_no_US, average_rating_US
@@ -314,4 +324,4 @@ class GlobalAnalysis:
         }
 
         # Display the plot
-        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/ratings_evolution_map.html', is_bg_white=True)
+        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/ratings_evolution_map.html', 'ratings_evolution', is_bg_white=True)

@@ -59,6 +59,8 @@ class LocationInfluence():
         fig.update_layout(height=600, width=800, title_x=0.5)
 
         fig.show()
+
+        fig.write_html(f"docs/notebook_fallback/in_degrees_map.html")
         
     def plot_location(self):        
         if self.G.number_of_edges() == 0:
