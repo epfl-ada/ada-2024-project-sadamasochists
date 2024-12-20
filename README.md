@@ -30,9 +30,9 @@ Our analysis extends beyond global trends, focusing on how preferences evolve ov
 
 ### Research Questions
 Our study addresses the following key questions:
-1. Which specific beer characteristics (e.g., alcohol content, style, and other features) are most favored by users, and how do they influence a beer's overall rating?
-2. How do these influential characteristics vary across countries and over time?
-3. How the country of origin of the beer affect the popularity?
+1. What beer traits, such as alcohol content and style, make beers most popular among users, and how do they impact ratings?
+2. How do user preferences for key beer traits differ across countries and change over time?
+3. How do the origins of both beer and users shape beer popularity?
 
 ### Methodology
 Throughout the project we will use the following methodology:
