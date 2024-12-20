@@ -2,6 +2,8 @@
 import plotly.graph_objects as go
 import os
 from src.utils.plots import plot_map
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 class DataPresentation:
     def __init__(self, df_beers, df_breweries, df_users, df_ratings_no_text, save_folder):
@@ -50,8 +52,12 @@ class DataPresentation:
         fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         file_name = title.replace(' ', '_').lower()
-        fig.write_html(f'docs/notebook_fallback/{file_name}.html')
-        fig.show()
+        fig.write_image(f'{self.save_folder}/{file_name}.png')
+        img = mpimg.imread(f'{self.save_folder}/{file_name}.png')
+        plt.figure(figsize=(10, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
         
     def plot_number_of_ratings_over_time(self):
         ratings_grouping = self.df_ratings_no_text.groupby(self.df_ratings_no_text['date'].dt.year).size().reset_index(name='count').rename(columns={'date': 'Year', 'count': 'Number of ratings'})

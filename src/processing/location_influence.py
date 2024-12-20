@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import os
 
 class LocationInfluence():
     def __init__(self, df_ratings_no_text, save_folder):    
@@ -33,7 +34,8 @@ class LocationInfluence():
         self.in_degrees = dict(self.G.in_degree())
 
         self.save_folder = save_folder
-
+        if not os.path.exists(save_folder):
+            os.makedirs(save_folder)
         self.plot_location()
 
     def print_in_degrees(self):
@@ -162,6 +164,8 @@ class MostLeastPlot():
         toPlot = 'rating'
         minThresh = 100
         self.save_folder = save_folder
+        if not os.path.exists(save_folder):
+            os.makedirs(save_folder)
 
         # Create a new column to indicate whether the rating is domestic or foreign
         df_ratings_no_text["rating_type"] = (

@@ -240,6 +240,9 @@ def plot_map_time(df_no_US, df_US, options, save_path, fallback_title, is_bg_whi
         title_x=0.5
     )
 
+    # Save the fallback plot
+    fig.write_html(f"docs/notebook_fallback/{fallback_title}.html")
+
     fig.show()
     
     # Update the background color
@@ -261,6 +264,3 @@ def plot_map_time(df_no_US, df_US, options, save_path, fallback_title, is_bg_whi
 
     fig.update_layout(width=None, height=None, autosize=True)
     fig.write_html(save_path)
-
-    # Save the fallback plot
-    fig.write_html(f"docs/notebook_fallback/{fallback_title}.html")

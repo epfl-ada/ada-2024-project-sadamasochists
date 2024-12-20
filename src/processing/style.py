@@ -4,6 +4,8 @@ import os
 import plotly.graph_objects as go
 import pandas as pd
 import bar_chart_race as bcr
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 # Define the class StyleAnalysis
 class StyleAnalysis:
@@ -31,14 +33,20 @@ class StyleAnalysis:
         
         # Prepare the plot for saving
         fig.update_layout(height=600, width=800, autosize=False, title_x=0.5)
-        fig.show()
+        # Save the plot
+        fig.write_image(f"docs/notebook_fallback/styles_pie_chart.png")
+
+        # Display the plot
+        img = mpimg.imread(f"docs/notebook_fallback/styles_pie_chart.png")
+        plt.figure(figsize=(10, 10))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
 
         # Set the background as (245, 245, 245)
         fig.update_layout(plot_bgcolor='rgb(255, 255, 255)', paper_bgcolor='rgb(255, 255, 255)')
         fig.update_layout(autosize=True, width=None, height=None)
         fig.write_html(f"{self.save_folder}/styles_pie_chart.html")
-
-        fig.write_html(f"docs/notebook_fallback/styles_pie_chart.html")
 
     def plot_favourite_beer_style_country(self):
         # Find the countries style preferences
@@ -116,14 +124,19 @@ class StyleAnalysis:
             width=800,
         )
 
-        # Show the plot
-        fig.show()
+        # Save the image as a PNG file
+        fig.write_image(f"docs/notebook_fallback/favourite_beer_style_country.png")
+
+        # Display the image
+        img = mpimg.imread('docs/notebook_fallback/favourite_beer_style_country.png')
+        plt.figure(figsize=(18, 14))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
 
         # Set autosize to True
         fig.update_layout(autosize=True,width=None, height=None)
         fig.write_html(f"{self.save_folder}/favourite_beer_style_country.html")
-
-        fig.write_html(f"docs/notebook_fallback/favourite_beer_style_country.html")
         
     def plot_abv_style_evolution(self):
         # Create a dataframe with the top_10_styles_list elements as columns

@@ -4,6 +4,8 @@ import plotly.express as px
 from src.utils.plots import plot_map_time
 import os
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 class ABV:
     def __init__(self, df_beers, df_breweries, df_users, df_ratings_no_text, save_folder):
@@ -79,10 +81,17 @@ class ABV:
         fig.add_trace(go.Scatter(x=sorted(beer_ratings['year'].unique()), y=correlation, mode='lines+markers'))
         fig.update_layout(title='Correlation between ABV and Rating over time', xaxis_title='Year', yaxis_title='Correlation', height=600, width=800, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
-        fig.show()
 
-        fig.write_html(f'docs/notebook_fallback/corr_abv_ratings.html')
-    
+        # Save the image as PNG
+        fig.write_image(f'docs/notebook_fallback/corr_abv_ratings.png')
+
+        # Display the image
+        img = mpimg.imread('docs/notebook_fallback/corr_abv_ratings.png')
+        plt.figure(figsize=(12, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
+
     def plot_abv_evolution_map(self):
         # Create the variables
         row_no_US = []
@@ -136,6 +145,13 @@ class ABV:
         
         # Set the background color to white
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'}, width=800, height=600)     
-        fig.show()
 
-        fig.write_html('docs/notebook_fallback/abv_evolution.html')
+        # Save the fallback plot as PNG
+        fig.write_image('docs/notebook_fallback/abv_evolution.png')
+
+        # Display the image
+        img = mpimg.imread('docs/notebook_fallback/abv_evolution.png')
+        plt.figure(figsize=(12, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()

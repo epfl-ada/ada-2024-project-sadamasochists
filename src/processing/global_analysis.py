@@ -10,6 +10,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 import statsmodels.api as sm
 from src.utils.plots import plot_map, plot_map_time
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 
 # Define the class
 class GlobalAnalysis:
@@ -48,11 +51,16 @@ class GlobalAnalysis:
         # Set the size to 800x800
         fig_display.update_layout(width=1000, height=600, title_x=0.5, title_text='Ratings Distribution')
 
-        # Display the figure
-        fig_display.show()
+        # Save the figure as PNG
+        fig_display.write_image(f'docs/notebook_fallback/raw_ratings_distribution.png')
 
-        # Save callback
-        fig_display.write_html('docs/notebook_fallback/ratings_distribution.html')
+        # Show the png figure
+        img = mpimg.imread(f'docs/notebook_fallback/raw_ratings_distribution.png')
+        plt.figure(figsize=(12, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
+
     
     def display_ratings_statistics(self):
         # Select the rating elements
@@ -151,11 +159,15 @@ class GlobalAnalysis:
         # Set the size to 800x800
         fig.update_layout(width=800, height=600)
 
-        # Show the plot
-        fig.show()
+        # Save the image as PNG
+        fig.write_image('docs/notebook_fallback/correlation_matrix.png')
 
-        # Save the plot
-        fig.write_html('docs/notebook_fallback/correlation.html')
+        # Show the image
+        img = mpimg.imread('docs/notebook_fallback/correlation_matrix.png')
+        plt.figure(figsize=(12, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
 
 
     def regression_analysis(self, df_ratings_no_text):
@@ -260,10 +272,15 @@ class GlobalAnalysis:
             paper_bgcolor='white',
         )
 
-        fig.show()
+        # Save the plot as PNG
+        fig.write_image('docs/notebook_fallback/mean_median_over_time.png')
 
-        # Save the plot
-        fig.write_html('docs/notebook_fallback/mean_median_over_time.html')
+        # Show the image
+        img = mpimg.imread('docs/notebook_fallback/mean_median_over_time.png')
+        plt.figure(figsize=(12, 8))
+        plt.imshow(img)
+        plt.axis('off')
+        plt.show()
 
     def ratings_world_map(self):
         # Compute the average rating per country
