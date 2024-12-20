@@ -110,7 +110,7 @@
                         });
                     </script>
                     <p>Wow! Such a diverse landscape of beers, users, and breweries!</p>
-                    <p>The data is primarily distributed across North America and Europe, with limited coverage in other continents, especially in the Middle East and Africa. When considered as a whole, the United States has the most available data, followed by the United Kingdom, Canada, and Germany. Surprisingly, Denmark ranks as the second most active country in terms of reviews, with an impressive 546,347 reviews—essentially one review for every 10 people in the country!</p>
+                    <p>The data is primarily distributed across North America and Europe, with limited coverage in other continents, especially in the Middle East and Africa. When considered as a whole, the United States has the most available data, followed by the United Kingdom, Canada, and Germany. Surprisingly, Denmark ranks as the second most active country in terms of reviews, with an impressive 546,347 reviews - essentially one review for every 10 people in the country!</p>
                     <p>It's fascinating how a simple beer dataset can reveal clear cultural differences between countries and people. For instance, by focusing on Muslim-majority countries, we can identify those that strictly ban alcohol, such as Saudi Arabia and Iran, due to religious and cultural laws. On the other hand, there are Muslim countries that are more open to alcohol consumption such as Egypt, Morocco, and Tunisia where we have some breweries (but no active user). How intriguing!</p>
                     <p>Alright, we've nerded out on the dataset long enough: time for the fun stuff!</p>
                 </div>
@@ -141,7 +141,7 @@
                 <p>We believe two main biases play a significant role in this phenomenon:</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Central tendency bias</b>: This bias leads raters to place most items near the middle of a rating scale. We observe this particularly with mouthfeel and appearance, where most ratings cluster around the middle value, with fewer ratings at the extremes.</li>
-                    <li><b>Social experience bias</b>: Beer is often consumed in social contexts, which can lead to a more positive bias in ratings. For example, even if a beer was "average," a fun night with friends might influence a higher rating. This could explain why taste, aroma, and overall ratings tend to be more positive, while mouthfeel and appearance, which are harder to evaluate, may be rated more randomly.</li>
+                    <li><b>Social experience bias</b>: Beer is often consumed in social contexts, which can lead to a more positive bias in ratings. For example, even if a beer was "average", a fun night with friends might influence a higher rating. This could explain why taste, aroma, and overall ratings tend to be more positive, while mouthfeel and appearance, which are harder to evaluate, may be rated more randomly.</li>
                 </ul>
                 <p>Now that we know users generally prefer taste and aroma over appearance and mouthfeel, how are these factors connected? Given the similar distributions between aroma, taste, and overall experience, could there be an influence between them?</p>
                 
@@ -165,7 +165,7 @@
                 <p>How many different insights from just a map!</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Beer lovers evolution</b>: We see that people over time prefer the beers more from beer loving countries such as United States, Belgium, United Kingdom and Canada and are enjoying more and more beers from european or US breweries bringing these countries to the top of the list.</li>
-                    <li><b>I'm never going to like your beers</b>: In all the other parts of the world it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brasil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
+                    <li><b>I'm never going to like your beers</b>: In all the other parts of the world it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brazil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
                 </ul>
                 <p>Let's go deeper and let's see how the different rating metrics have evolved over time too.</p>
                 <iframe src="plots/global_analysis/mean_median_over_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
@@ -184,7 +184,7 @@
                 <ul class="">
                     <li><b>The higher the better</b>: We see that over time the higher ABVs are always associated with higher ratings. This observation can be validaded by observing that, if we exclude 2002, the linear correlation between the ABV and the average rating for that specific ABV is very high and it's close to <b>0.9</b> with a minor variability over the time period.  </li>
                     <li><b>In the middle stands the abv</b>: Even if we see that users tend to prefer higher ABV beers in terms of rating we see that most users go for beers that have fall into the 5-10 ABV range. Most ratings are indeed of beers that are within this range. </li>
-                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also that the ABV seems to have a positive trend towards higher values. </li>
+                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with what we discovered in the previous section, but we see that also that the ABV seems to have a positive trend towards higher values. </li>
                 </ul>
                 <p>As pointed out before it seems that the average ABV is increasing over time, suggesting a shift in ABV preference over time at global level. Is this true?</p>
                 <select class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;" id="abv_evolution">
