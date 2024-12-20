@@ -1,12 +1,15 @@
 {
   "name": "reactada",
+  "homepage": "https://epfl-ada.github.io/ada-2024-project-sadamasochists",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build" 
   },
   "dependencies": {
     "@radix-ui/react-slider": "^1.2.2",
