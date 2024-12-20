@@ -2,7 +2,7 @@
 ## Introduction
 ### Data structure
 The data structure is as follows:
-- `analysis`: Contains code used for NLP analysis.
+- `analysis/`: Contains code used for NLP analysis.
 - `data/`: Contains all the data needed (both the processed and the raw ones).
 - `data/processed/`: Contains the processed data that should be used for the analysis.
 - `src/`: Contains all the code needed for the analysis.
@@ -42,7 +42,7 @@ Throughout the project we will use the following methodology:
 3. **Data analysis:**: To be able to propertly answer the research questions we are going to combine different methods:
     - **Quantitative and Statistical Analysis:**: This phase encompass an examination of the data through descriptive statistical analysis of key variables. We are going to use different statistical methods (mean, median, skewness, ...) together with correlation analysis and regression analysis to understand which variables affect beer rating and how they are correlated.
     - **Qualitative analysis:** This phase encompass an examination of the data through the use of pie charts, bar plots and maps. We saw that the use of these qualitative methods are really helpful to understand our data and uncover some hidden patterns.
-    - **Natural Language Processing:**: This phase encompass the creation of the [website](https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/) that shows similarity analysis between beer reviews across countries. This is done using various NLP techniques. Implementation details can be found in the `result.ipynb` notebook, on the last section.
+    - **Natural Language Processing:**: This phase encompass the creation of the [website](https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/) that shows similarity analysis between beer reviews across countries. This is implemented using various NLP techniques. For this task, we first preprocessed the data (removed stopwords & lemmatization) using the [spacy](https://pypi.org/project/spacy/) library and for the analysis part, we used the pre-trained NLP model [MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) to implement clustering of reviews. Additionally, we used LLMs to derive interesting beer facts for each country.
 
 ### Proposed Timeline
 
