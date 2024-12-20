@@ -8,16 +8,6 @@ import plotly.graph_objects as go
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
-from pyvis.network import Network
-from src.utils.locationinfluence_utils import get_base64_flag, get_png
-import networkx as nx
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-from PIL import Image
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-
 class LocationInfluence():
     def __init__(self, df_ratings_no_text, save_folder):    
         # Set some variables
