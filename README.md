@@ -1,62 +1,47 @@
-# **Title**: Breweries, Beer, and Breviews: Unraveling the Global Beer Experience
-
-## Prepare the data
-To initialize the dataset and prepare it for the analysis you should:
-- Download the original BeerAdvocate dataset and unzip it in the `data/` folder.
-- Run the `Processing.ipynb` notebook to process the reviews and ratings.
-- Run the `Cleaning.ipynb` notebook to process all the data into the final cleaned and partially processed dataset. All the code that is needed to clean and pre-process the data should be placed here (e.g. recompute some metrics, add some metrics used everywhere,...).
-
-The data into the `data/processed` folder are the one that should be used for the analysis.
-
-## Data structure
+# Breweries, Beer, and Breviews: Unraveling the Global Beer Preferences
+## Introduction
+### Data structure
 The data structure is as follows:
 - `data/`: Contains all the data needed (both the processed and the raw ones).
 - `data/processed/`: Contains the processed data that should be used for the analysis.
-- `src/`: Contains all the code needed for the analysis that is not directly needed to display the results in the data story.
-- `src/data/`: Contains all the notebooks and code needed to clean and process the data. Here only notebooks should be used.
-- `src/utils/`: Contains all the additional general purpose code that is needed for the analysis.
+- `src/`: Contains all the code needed for the analysis.
+- `src/data/`: Contains the code to process the data and prepare it for further analysis.
+- `src/processing/`: Contains all the code needed inside the `results.ipynb` notebook. Here each file correspond to a specific section.
+- `src/utils/`: Contains some utility functions that are used in the analysis.
 
 All the results are displayed in the `results.ipynb` notebook placed at the root of the repository. <br><br>
-The data story is contained in the branch `website` and is displayed at the [following link](https://epfl-ada.github.io/ada-2024-project-sadamasochists/)
+The data story can be found [following link](https://epfl-ada.github.io/ada-2024-project-sadamasochists/)
 
+
+### Prepare the data
+To initialize the dataset and prepare it for the analysis you should:
+- Download the original RateBeer dataset and unzip it in the `data/` folder.
+- Run the `src/data/processing.py` file to convert the ratings into a parquet file. This is done to ease the data manipulation.
+- Run the `src/data/cleaning.py` file to clean and process all the data into the `data/processed` folder.  
+
+The data into the `data/processed` folder are the one that will be used for the analysis.
 
 ## Project details
 ### Abstract
-
-Our project aims to explore the intricate relationship between brewery prevalence, beer preferences, and customer and expert reviews through the data of popular beer rating websites (RateBeer and BeerAdvocate). We strive to understand which factors influence consumer preferences across time and geographic regions. This project will utilize trend analysis methods, examining the evolution of global and local beer preferences, thus identifying both gradually emerging patterns and immediate changes triggered by specific circumstances, for instance following major events like the Super Bowl, World Cup or presidential elections. We will examine multiple variables, such as beer style, alcohol content, and reviewer demographics, aiming to combine statistical methods with NLP techniques, such as topic modeling and sentiment analysis, to identify the key characteristics that make specific beers more popular, whether at a global or regional level. Ultimately, we aim to provide an in-depth understanding of global beer trends and consumer reviews.
+Our project explores the dynamic relationship between brewery prevalence, beer consumption, and customer reviews to better understand global user preferences and their evolution over time. We aim to uncover what people enjoy drinking and how their preferences change across time and regions. <br>
+To achieve this, we will utilize RateBeer, a popular beer ratings platform, combining quantitative methods—such as correlation, regression, and natural language processing (NLP)—with qualitative tools like pie charts, bar plots, and maps. This approach will help us analyze how characteristics like beer styles and alcohol content influence a beer's popularity. <br>
+Our analysis extends beyond global trends, focusing on how preferences evolve over time and vary between countries. Ultimately, we seek to identify potential trend, either global or local, in the beer-loving community and explore if the beer culture of a country influences its beer preferences.
 
 ### Research Questions
-
-1. What patterns in consumer reviews reveal cyclical (e.g. seasonal) trends and event-driven changes, and how do these differ between global and regional contexts?
-2. How do intrinsic beer characteristics (such as alcohol content, stylistic classification, and brewery location) correlate with consumer ratings across geographic regions, and what statistically significant outliers emerge in rating patterns when controlling for these factors?
-3. How do regional preferences and cultural factors shape consumer beer selection patterns and consumption behavior?
-4. To what extent do rating distributions and consumer preferences differ between RateBeer and BeerAdvocate, indicating a platform effect?
-
-### Proposed additional dataset
-
-We opted against utilizing another existing dataset, instead proposing to create a collection of significant sociocultural (e.g. Superbowl, World Cup) and economic occurrences. This dataset will form the basis for analyzing variations in beer consumption and rating patterns. Given the predominantly North American user demographic of our primary datasets, the focus will primarily be on U.S.-centric events, while also incorporating key international occurrences. Specifically, this dataset will include:
-
-1\. Athletic Competitions: International and domestic sporting events.
-
-2\. Cultural Celebrations: Beer-centric festivals and holidays.
-
-3\. Macroeconomic Indicators: Market dynamics and regulatory shifts within the beverage industry.
-
-This dataset will be loosely structured, containing temporal markers, event identifiers, and categorical classifications. These attributes are intended to facilitate temporal joins with our primary beer review datasets, enabling deeper exploration of correlations and patterns.
+Our study addresses the following key questions:
+1. Which specific beer characteristics (e.g., alcohol content, style, and other features) are most favored by users, and how do they influence a beer's overall rating?
+2. How do these influential characteristics vary across countries and over time?
+3. Are people more inclined to prefer beers from their own country, or do they embrace international options?
 
 ### Methodology
 Throughout the project we will use the following methodology:
 
-1. **Data handling**: The provided files were mostly in CSV and TXT format. Thus, to facilitate quicker (as well as simpler in the instance of TXT files) data loading we converted larger files into parquet files.
-2. **Data processing**: Whilst the size of the provided dataset is manageable (some GBs of data) we saw that we weren't always able to handle the data with pandas, the go to library for data manipulation in Python. We choose instead to do as follow:
-    - Small files (such as the beers, the breweries or the users) are handled with pandas. This has done because the data is small enough to be handled with pandas and it is easier to manipulate since we are more familiar with it.
-    - Larger files (such as reviews and ratings) are handled with polars and the data without the textual reviews are handled with pandas.
-3. **Data cleaning**: After inspecting the data, basic cleaning methods were utilized, mainly: outlier removal, duplicate removal, and inconsistency. Post-cleaning, typical statistical values were added (e.g. avg, std, median…). Additionally, for consistency across the datasets, an outline (e.g. renaming columns, enforcing datetime formats, etc.) was enforced.
-4. **Data analysis:**
-    - **Quantitative and Statistical Analysis:** This phase encompass an examination of the data through descriptive statistical analysis of key variables (e.g. brewery distribution by country, mean beer ratings by country, …). Next, through correlation analysis, we will try to elucidate the relationships within the data, followed by conducting regression analysis to understand which variables affect beer rating.
-    - **Natural Language Processing:** This component aims to focus on processing the textual reviews using sentiment analysis and topic modeling techniques (e.g. LDA). This allow us to identify key themes in beer descriptors and reviews while allowing us to extract additional data from the textual data.
-    - **Geospatial Analysis & Temporal Analysis:** This stage aims to implement time trend analysis (e.g. Mann-Kendall) alongside spatial and correlation analyses. This approach enables us to examine temporal shifts in popularity patterns and their geographical variations.
-    - **Cross-Platform Analysis:** Upon conducting the individual dataset analyses, we strive to seek discrepancies between the two platform user bases. This analysis should assess potential differences and evaluate the extent to which the reviewing platform users influence metrics.
+1. **Data handling**: The provided files were mostly in CSV and TXT format. Thus, to facilitate quicker (as well as simpler in the instance of TXT files) data loading we converted all files into parquet format. This format is more efficient in terms of memory usage and speed, which is crucial for handling large datasets.
+2. **Data cleaning**: After inspection of the data, basic cleaning methods are used, mainly: outlier removal, duplicate removal, and inconsistency. This is done to ensure that the data is clean and ready for analysis.
+3. **Data analysis:**: To be able to propertly answer the research questions we are going to combine different methods:
+    - **Quantitative and Statistical Analysis:**: This phase encompass an examination of the data through descriptive statistical analysis of key variables. We are going to use different statistical methods (mean, median, skewness, ...) together with correlation analysis and regression analysis to understand which variables affect beer rating and how they are correlated.
+    - **Qualitative analysis:** This phase encompass an examination of the data through the use of pie charts, bar plots and maps. We saw that the use of these qualitative methods are really helpful to understand our data and uncover some hidden patterns.
+    - **Natural Language Processing:**: [TO ADD]
 
 ### Proposed Timeline
 
@@ -81,6 +66,6 @@ We plan to finish one week early to be able to have more time for reviewing and 
 
 We plan to split the work between our team in subgroups:
 
-- _Alex Procelewski_ and _Konstantinos Chasialis_: Geospatial analysis & Temporal analysis.
-- _Alessandro Dalbesio_ and _Rik de Vries_: Finish quantitative and statistical analysis started in milestone 2 and work on the natural language processing part.
-- _Oscar de Francesca_: Set up the website & cross-platform analysis.
+- _Alex Procelewski_ and _Konstantinos Chasialis_: NLP analysis and world data visualization.
+- _Alessandro Dalbesio_ and _Rik de Vries_: Do quantitative and statistical analysis and work on the data story.
+- _Oscar de Francesca_: Set up the website and work on the data story.

@@ -20,7 +20,7 @@
         <div class="content">
             <h1 class="text-4xl font-bold text-center mb-16 mt-8">The World of Beer: A Data-Driven Journey into Global Preferences</h1>
             <p>Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across centuries and continents, it has brought people together, inspired innovation, and evolved into a deeply personal yet global phenomenon. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps something as intangible as the mood of the moment? With data in hand and curiosity as our guide we aim to answer to one simple question: what shapes our beer preferences, and how do these preferences differ globally and over time?</p>
-            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details. So, grab your favorite pint, sit back, and let’s the trip begin!</p>
+            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details. So, grab your favorite pint, sit back, and let the trip begin!</p>
             <img src="./img/beer-drinking-homer.gif" alt="Beer Drinking Homer" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
         </div>
     </section>
@@ -39,11 +39,6 @@
 
                 <!-- Dataset snapshot -->
                 <h4 class="text-xl font-bold text-center mt-12 mb-6">A snapshot of the dataset</h4>
-                <div class="mx-auto justify-center">
-                    <p>
-                        Here's what the dataset has to offer:
-                    </p>
-                </div>
                 <div class="grid grid-cols-3 gap-6 mt-12 mb-12">
                     <div class="col-span-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-12 h-12 mx-auto text-gray-800 mb-4">
@@ -65,14 +60,14 @@
                     </div>
                 </div>
                 <div class="mx-auto justify-center">
-                    <p>Wow, that's a lot of data, and we are not even using all of them!</p>
+                    <p>Wow, that's a lot of data, and we are not even using all of it!</p>
                     <p>You've read right! We have filtered the original dataset to ensure consistent results and to exclude potential outliers that could introduce bias or reduce the quality of our work. Specifically we are considering ratings and reviews only from 2002 to 2016 and we have excluded countries with fewer ratings than a defined threshold.</p>
                 </div>
 
                 <!-- Interactive Maps -->
                 <div class="mx-auto mt-12">
                     <h3 class="text-xl font-bold text-center mb-4">Mapping the Data Adventure</h3>
-                    <p class="text-center mb-6">What a great news that we have so much data to play with! But wait a minute, where all these data are coming from?</p>
+                    <p class="text-center mb-6">What great news that we have so much data to play with! But wait a minute, where is all of this data coming from?</p>
                     <select id="data_presentation_map_select" class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;">
                         <option value="beers">Beer per country</option>
                         <option value="users">Users per country</option>
@@ -114,7 +109,7 @@
                             }
                         });
                     </script>
-                    <p>Wow! Such a diverse landscape of beers, users and breweries!</p>
+                    <p>Wow! Such a diverse landscape of beers, users, and breweries!</p>
                     <p>The data is primarily distributed across North America and Europe, with limited coverage in other continents, especially in the Middle East and Africa. When considered as a whole, the United States has the most available data, followed by the United Kingdom, Canada, and Germany. Surprisingly, Denmark ranks as the second most active country in terms of reviews, with an impressive 546,347 reviews—essentially one review for every 10 people in the country!</p>
                     <p>It's fascinating how a simple beer dataset can reveal clear cultural differences between countries and people. For instance, by focusing on Muslim-majority countries, we can identify those that strictly ban alcohol, such as Saudi Arabia and Iran, due to religious and cultural laws. On the other hand, there are Muslim countries that are more open to alcohol consumption such as Egypt, Morocco, and Tunisia where we have some breweries (but no active user). How intriguing!</p>
                     <p>Alright, we've nerded out on the dataset long enough: time for the fun stuff!</p>
@@ -129,7 +124,7 @@
                 
                 <!-- Ratings overview -->
                 <h3 class="text-xl font-bold text-center mb-4">Is it the aroma or is it the mouthfeel?</h3>
-                <p>What people truly love about a beer? Is it the bold aroma that wafts from the glass? The golden clarity of its appearance? Or perhaps the complex flavors that linger on the palate?</p>
+                <p>What do people truly love about beer? Is it the bold aroma that wafts from the glass? The golden clarity of its appearance? Or perhaps the complex flavors that linger on the palate?</p>
                 <p>When a beer is evaluated multiple aspects can be graded:</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
                     <li><b>Aroma:</b> The beer's smell, scored out of 10.</li>
@@ -141,7 +136,7 @@
                 <p>These metrics combine for a total score of 50 which, after dividing by 10, gives us the rating which scored out of 5.</p>
                 <iframe src="plots/global_analysis/raw_ratings_distribution.html" style="height: 580px;" id="ratings_distribution_raw" loading="lazy"></iframe>
                 <p>Users tend to prefer taste and aroma, with both distributions peaking near the higher end of the scale. Both have a median value of <b>7</b>, meaning that half of the raters gave these attributes a score well above the passing grade. This highlights their central role in shaping a beer's impression, which is understandable, as they are the first things noticed when sipping and smelling. In contrast, mouthfeel and appearance are less appreciated, with both having a median of <b>3</b>, suggesting these aspects are less memorable for beer drinkers. These factors are also more subjective and harder to evaluate, which may contribute to their lower ratings.</p>
-                <p>The overall experience follows a similar trend to taste and aroma, with a median score of <b>14</b> and a noticeable bias towards the positive end of the scale. This suggests that when taste and aroma are right, they strongly contribute to a favorable overall impression of the beer.</p>
+                <p>The overall experience follows a similar trend to that of taste and aroma, with a median score of <b>14</b> and a noticeable bias towards the positive end of the scale. This suggests that when taste and aroma are right, they strongly contribute to a favorable overall impression of the beer.</p>
                 <p>In general, despite varying median values, users tend to give high ratings across all categories. But why is this the case?</p>
                 <p>We believe two main biases play a significant role in this phenomenon:</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
@@ -161,7 +156,7 @@
                 <p>We’ve established that taste and aroma are highly correlated with each other, but how important are they in determining the overall grade? Do they have the same influence on the overall rating?</p>
                 <p>To answer these questions, we can use a powerful tool: <i>linear regression</i>. By fitting a linear regression model to our data, we find that taste and aroma can accurately predict the overall score, with an <b>R&#x00B2;</b> of <b>77.32%</b>. This means that most of the variance in the overall experience is explained by these factors.</p>
                 <p>We also see that the coefficient for taste is <b>1.7843</b>, while aroma, the second most important factor, has a coefficient of <b>0.7184</b>. This indicates that taste is more than twice as important as aroma, meaning if a beer’s taste isn’t right, the overall experience is likely to fail.</p>
-                <p>Now we know that the taste has a big impact on the overall experience, but how the rating have evolved in time? Do people like more and more the beers or they are becoming more and more critic?</p>
+                <p>Now we know that the taste has a big impact on the overall experience, but how the rating have evolved in time? Do people appreciate the beers more and more, or are they becoming more and more critical?</p>
                 
                 <!-- Evolution -->
                 <h3 class="text-xl font-bold text-center mb-4">Endless Evolution</h3>
@@ -169,8 +164,8 @@
                 <iframe src="plots/global_analysis/ratings_evolution_map.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
                 <p>How many different insights from just a map!</p>
                 <ul class="list-disc list-inside ml-6 mt-4">
-                    <li><b>Beer lovers evolution</b>: We see that people over time prefer more and more the beers from beer loving countries such as United States, Belgium, United Kingdom and Canada. We see that over time people are enjoying more and more beers from european or US breweries bringing this countries to the top of the list.</li>
-                    <li><b>I'm never going to like your beers</b>: In all the other continents it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brasil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
+                    <li><b>Beer lovers evolution</b>: We see that people over time prefer the beers more from beer loving countries such as United States, Belgium, United Kingdom and Canada and are enjoying more and more beers from european or US breweries bringing these countries to the top of the list.</li>
+                    <li><b>I'm never going to like your beers</b>: In all the other parts of the world it seems that the ratings are not increasing over time and in some cases they are decreasing. We see some improvements in some specific countries (such as Brasil or Australia) but in general these countries doesn't follow the positive trend of the countries from either EU or US.</li>
                 </ul>
                 <p>Let's go deeper and let's see how the different rating metrics have evolved over time too.</p>
                 <iframe src="plots/global_analysis/mean_median_over_time.html" style="height: 620px;" id="ratings_distribution_raw" loading="lazy"></iframe>
@@ -179,21 +174,21 @@
         </div>
     </section>
     <section>
-        <h2 class="text-3xl font-bold text-center mb-6">ABV and style a love story or an horrible breakup?</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">ABV and style - a love story or an horrible breakup?</h2>
         <div class="mx-auto px-6">
             <div class="content">
                 <h3 class="text-xl font-bold text-center mb-4">Is it the aroma or is it the mouthfeel?</h3>
                 <p>When it comes to beer, alcohol by volume (ABV) plays a significant role in shaping preferences. Over the years, we've observed a fascinating trend: as time progresses, beer enthusiasts increasingly gravitate towards higher ABV beers.</p>
                 <iframe src="plots/abv/abv_ratings.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
-                <p>The two main considerations that we can do are:</p>
+                <p>The two main considerations that we have are:</p>
                 <ul class="">
                     <li><b>The higher the better</b>: We see that over time the higher ABVs are always associated with higher ratings. This observation can be validaded by observing that, if we exclude 2002, the linear correlation between the ABV and the average rating for that specific ABV is very high and it's close to <b>0.9</b> with a minor variability over the time period.  </li>
-                    <li><b>In medio stat abv</b>: Even if we see that users tend to prefer higher ABVs beer in terms of rating we see that most users goes with beers that have a ABV in the 5-10 ABV. Most ratings are indeed of beers that have an ABV in this specific range. </li>
-                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also the ABV seems to have a positive trend towards higher values. </li>
+                    <li><b>In the middle stands the abv</b>: Even if we see that users tend to prefer higher ABV beers in terms of rating we see that most users go for beers that have fall into the 5-10 ABV range. Most ratings are indeed of beers that are within this range. </li>
+                    <li><b>Positive trend</b>: All the ABVs tend to have a higher rating over time, which is coherent with was we discovered in the previous section, but we see that also that the ABV seems to have a positive trend towards higher values. </li>
                 </ul>
                 <p>As pointed out before it seems that the average ABV is increasing over time, suggesting a shift in ABV preference over time at global level. Is this true?</p>
                 <select class="block p-2 bg-white border border-gray-500 rounded focus:outline-none mt-8 mb-4" style="margin-right: 8px; margin-left: 8px;" id="abv_evolution">
-                    <option value="abv_evoluton">ABV evolution globally</option>
+                    <option value="abv_evolution">ABV evolution globally</option>
                     <option value="abv_evolution_map">ABV evolution map</option>
                 </select>
                 <div class="iframes_group">
@@ -220,7 +215,7 @@
                     });
                 </script>
                 <p>It seems like the positive trend is real! We see that the average ABV of produced beers increases over time in most countries, in particular in Europe and United States.</p>
-                <p>It's interesting to observe another very peculiar thing: countries such as Belgium, Germany and England, historically the most famous for their beers, doesn't have a significant increase of ABV, meaning that from these countries the favourite beers are the traditional ones, with a small change over time.</p>
+                <p>It's interesting to observe another very peculiar thing: countries such as Belgium, Germany and England, historically the most famous for their beers, don't have a significant increase in ABV, meaning that from these countries the favourite beers are the traditional ones, with a small change over time.</p>
                 <p</p>
             </div>
         </div>
@@ -232,23 +227,23 @@
                 <p>So far we have explored the ratings, how they evolved over time and the impact of ABV on the ratings but we have missed one very important aspect: the <b>style</b> of the beer.</p>
                 <p> The style of a beer is a key factor in shaping its taste, aroma, and overall experience but also, as we will see, the ABV. From the hoppy bitterness of an IPA to the rich maltiness of a stout, the style of a beer is a defining characteristic that influences how it is perceived and enjoyed.</p>
                 <iframe src="plots/style/styles_pie_chart.html" class="abv_ratings" style="height: 620px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
-                <p>Wow! What a diversity! Let's do a couple of considerations: </p>
-                <p>India Pale Ale (IPA) dominates, reflecting a worldwide trend toward hoppy, flavorful beers driven by the craft beer movement. It's followed by Imperial Stout's whose strong presence highlights a growing appreciation for rich, high-alcohol beers. Meanwhile, Pale Lager maintains its steady reign as a light, approachable option, serving as the default choice in many cultures,</p>
+                <p>Wow! Such diversity! Let's do a couple of considerations: </p>
+                <p>India Pale Ale (IPA) dominates, reflecting a worldwide trend toward hoppy, flavorful beers driven by the craft beer movement. It's followed by Imperial Stout's whose strong presence highlights a growing appreciation for rich, high-alcohol beers. Meanwhile, Pale Lager maintains its steady reign as a light, approachable option, serving as the default choice in many cultures.</p>
                 <p>The dominance of "Ale" styles tells a story of tradition and innovation. Among the oldest beer types, ales trace their roots to European brewing, particularly in the UK and Belgium, where they flourished. Their warm fermentation creates fruity, complex flavors, making them perfect for modern craft brewers and adventurous drinkers seeking unique, bold experiences.</p>
-                <p>Additionally there seems to be a significant market share of beers dominated by nieche styles with more than <b>40%</b> of the beers that are from a style that has a market share smaller than <b>1.90%</b>. This reflects a global thirst for novelty, with consumer that are looking for unconventional flavors and brewering techniques.</p>
+                <p>Additionally there seems to be a significant market share of beers dominated by niche styles with more than <b>40%</b> of beers being from a style that has a market share smaller than <b>1.90%</b>. This reflects a global thirst for novelty, with consumers that are looking for unconventional flavors and brewing techniques.</p>
                 <p>But what about the favourite beer style for each country?</p>
                 <iframe src="plots/style/favourite_beer_style_country.html" class="abv_ratings" style="height: 1020px;" id="ratings_distribution_raw_2002" loading="lazy"></iframe>
                 <p>Wow, only a couple of beer styles really dominate!</p>
                 <p><b>Pale Lager</b> is the favourite style in vast regions, especially across South America, southern Africa, and much of Asia. This style’s accessibility and light, refreshing profile make it universally appealing, explaining its widespread popularity in regions with warmer climates.</p>
                 <p><b>India Pale Ale (IPA)</b> emerges as the favorite in North America and much of Europe. The bold flavors and hoppy character of IPAs resonate with a market that increasingly values craft beer and innovation. </p>
-                <p>Even so we see that in countries with a strong beer culture the prefer local artisanal beers. In Germany the favourite one is the Pilsener while in UK all the pubs need to have at least a Bitter beer. In Belgium the Belgian Ale is the king of all while in Czech Republic the Czech Pilsner is what really dominates the market. </p>
+                <p>Even so we see that in countries with a strong beer culture, they prefer local artisanal beers. In Germany the favourite one is the Pilsener while in UK all the pubs need to have at least a Bitter beer. In Belgium the Belgian Ale is the king of all while in Czech Republic the Czech Pilsner is what really dominates the market. </p>
                 <p>Preferences are not static but they change over time and they evolve. Let's see how the favourite beer style for each country has changed over time.</p>
                 <video controls class="mx-auto mt-8 mb-8" autoplay loop muted>
                     <source src="plots/style/race_video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <p>What a climbing for the India Pale Ale (IPA) and the imperial Stout! We see that over the years the number of ratings for these two beers have significantly increased and at the end of 2016 they were the two preferred beer styles in the world. </p>
-                <p>We see on the other hand that other styles such as the Pale Lager or the Belgian Strong Ale had a different evolution over time. From being the favourite ones they have lost rankings year after year and the Belgian Strong Ale, once in the top 3 is at the end of 2016 is not even in the podium anymore.</p>
+                <p>What a rise for the India Pale Ale (IPA) and the imperial Stout! We see that over the years the number of ratings for these two beers have significantly increased and at the end of 2016 they were the two preferred beer styles of the world. </p>
+                <p>We see on the other hand that other styles such as the Pale Lager or the Belgian Strong Ale had a different evolution over time. From being the favourites, they have lost rankings year after year and the Belgian Strong Ale, once in the top 3 is at the end of 2016 is not even on the podium anymore.</p>
                 <p>The evolution in style preferences over time not only highlights how user tastes have shifted but also explains the increase in average ABV from 2002 to 2016. This change is driven by the fact that the most popular styles in 2016 have a significantly higher ABV compared to those in 2002, indicating that users have progressively favored beers with higher alcohol content.</p>
             </div>
         </div>
@@ -316,12 +311,25 @@
                 </script>
 
                 
-                <p>Here we indeed see the formation of hubs. The USA and Belgium are the largest ones, with in-degrees of 28 and 17 respectively. The UK and Germany are smaller hubs with 11 and 9 other nodes pointing at them. This plot clearly shows that the country of production of a beer is very important for its popularity and explains why these countries show up with high local preference in the previous graph.                </p>
+                <p>Here we indeed see the formation of hubs. The USA and Belgium are the largest ones, with in-degrees of 28 and 17 respectively. The UK and Germany are smaller hubs with 11 and 9 other nodes pointing at them. This plot clearly shows that the country of origin of a beer is very important for its popularity and explains why these countries show up with high local preference in the previous graph.                </p>
             </div>
         </div>
     </section>
     <section>
-        <h2 class="text-3xl font-bold text-center mb-6">Let's wrap it up</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">Let's Wrap It Up</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>And here we are, at the end of our data-driven journey through the world of beer. From uncovering the preferences of millions of beer enthusiasts to analyzing trends that shape the global beer landscape, we’ve seen how beer connects cultures, defines traditions, and sparks innovation.</p>
+
+                <p>We started by diving into what makes a great beer: its taste, aroma, mouthfeel, and style. These attributes revealed how personal and sensory experiences shape preferences, with taste and aroma leading the charge. Moving further, we explored how these preferences evolved over time, showing the rise of higher ABVs and the growth of bold styles like IPAs and Imperial Stouts.</p>
+
+                <p>Our exploration also took us across the globe, mapping the cultural fingerprints of beer styles and showcasing how local traditions shape tastes. From Pale Lagers dominating warm-climate regions to the unique hubs of beer culture like Belgium, the USA, and Germany, the data highlighted the incredible diversity of the beer world.</p>
+
+                <p>But it’s not just about what’s brewed—it’s also about where it’s brewed. We saw how countries interact with foreign beers, creating global networks of influence and preference. From the interconnected hubs of Belgium and the USA to the curious outliers of beer culture, every story was a reminder of how beer unites us across borders.</p>
+
+                <p>As our journey concludes, one thing is clear: beer is not just a drink; it’s a dynamic cultural artifact that evolves with us. Whether you’re a seasoned beer connoisseur or a casual enthusiast, there’s always something new to discover, savor, and enjoy. So, let’s raise a glass to the past, present, and future of beer—cheers!</p>
+            </div>
+        </div>
     </section>
     <section>
         <h2 class="text-3xl font-bold text-center mb-6">It's time to say goodbye</h2>
