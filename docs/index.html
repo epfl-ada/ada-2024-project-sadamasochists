@@ -19,8 +19,9 @@
     <section>
         <div class="content">
             <h1 class="text-4xl font-bold text-center mb-16 mt-8">The World of Beer: A Data-Driven Journey into Global Preferences</h1>
-            <p>Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across centuries and continents, it has brought people together, inspired innovation, and evolved into a deeply personal yet global phenomenon. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps something as intangible as the mood of the moment? With data in hand and curiosity as our guide we aim to answer to one simple question: what shapes our beer preferences, and how do these preferences differ globally and over time?</p>
-            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details. So, grab your favorite pint, sit back, and let the trip begin!</p>
+            <p>Beer. It’s not just a beverage; it’s a cultural phenomenon, a historical artifact, and a science experiment in a glass. Across centuries and continents, it has brought people together, inspired innovation, and evolved into a deeply personal yet global phenomenon. But what makes one beer an instant hit and another a forgettable sip? Is it the richness of its taste, the aroma that wafts from the glass, or perhaps the alchol content? With data in hand and curiosity as our guide we aim to answer to one simple question: what shapes our beer preferences, and how do these preferences differ globally and over time?</p>
+            <p>We know, the world of beer is vast and complex with thousands of beers and millions of reviews. But fear not! We are here to guide you through this journey, step by step, from the basics to the most intricate details.</p>
+            <p>Grab your favorite pint, sit back, and let the trip begin!</p>
             <img src="./img/beer-drinking-homer.gif" alt="Beer Drinking Homer" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
         </div>
     </section>
@@ -252,9 +253,10 @@
         <h2 class="text-3xl font-bold text-center mb-6">The hops are always greener abroad</h2>
         <div class="mx-auto px-6">
             <div class="content">
-                <p>So far we have taken a look at many factors of what makes a great beer. However, when you ask someone what their favorite beer is, they might reply with "German beers" or "Czech beers". These answers reveal an important connection we have to investigate. The country where a beer is produced, is very important for its popularity! </p>
+                <p>So far we have taken a look at many factors of what makes a great beer. However, when you ask someone what their favorite beer is, they might reply with "German beers" or "Czech beers". These answers reveal an important connection we have to investigate: do the beers from a country influence the preferences of the people from other countries?</p>
                 <h3 class="text-xl font-bold text-center mb-4">The influence of beer heritage</h3>
-                <p>German beers are known for their adherence to the <i>Reinheitsgebot</i>, stating that beers can only be made from barley, hops and water. On the other hand, Belgian beers are a bit more outlandish, and may contain herbs and/or spices. For example, Witbier often contains coriander and orange peels. To investigate these relations on a global scale, we can perform a network analysis. If people from a given country would have to choose one other country they would say produces their favorite beer, who would it be?</p>
+                <p>German beers are known for their adherence to the <i>Reinheitsgebot</i>, stating that beers can only be made from barley, hops and water. On the other hand, Belgian beers are a bit more outlandish, and may contain herbs and/or spices. For example, Witbier often contains coriander and orange peels.</p>
+                <p>To investigate these relations on a global scale, we can perform a network analysis. If people from a given country would have to choose one other country they would say produces their favorite beer, who would it be?</p>
                 <iframe src="plots/location_influence/location_influence.html" style="height: 620px;" id="network_graph_foreign_beer_preference" loading="lazy" scrolling="no"></iframe>
                 <script>
                     // Set the card class and the card-body class to no border
@@ -307,21 +309,32 @@
                         iframeDoc.body.appendChild(button);
                     };
                 </script>
-                <p>Here we see the formation of hubs. A lot of countries like beers from the USA and Belgium. These countries have in-degrees of 28 and 17 respectively. The UK and Germany are smaller hubs with 11 and 9 other nodes pointing at them. We can clearly see that the country of origin of a beer is very important for its popularity.</p>
+                <p>We clearly see that only a couple of hubs are formed! A lot of countries like beers from the USA and Belgium but also UK and Germany are quite popular!</p> 
+                <p>The results show that a beer's country of origin significantly influences user preferences, with only a few countries producing standout hits in the beer world!</p>
                 <h3 class="text-xl font-bold text-center mb-4">Brews from the Backyard or Beyond</h3>
-                <p>But the story does not end here. In the previous plot, we show all countries as equal in their preference for foreign beer. However, users from certain countries might have a far stronger preference for foreign beers than users from other countries! This is worth investigating as well.</p>
+                <p>But the story does not end here. So far we only considered preferences of other countries in terms of quantity drunk. However, users from certain countries might have a far stronger preference for foreign beers than users from other countries! This is worth investigating as well.</p>
                 <img src="./plots/location_influence/preferences.png" alt="Chart of the location preference of users" class="rounded-lg mb-8 mt-8 full-width-image">
-                <p>In this plot, we see the top 10 countries with the highest and lowest preference for foreign beers. Among the countries who have a preference for local beers, we see many countries with world-renowned beer cultures: Czechia, the USA, Ireland, Belgium and the UK. In the list of countries with a large preference for foreign beers, we see countries that mostly do not have a large beer culture.</p>
+                <p>In countries with renowned beer cultures like Czechia, the USA, Ireland, Belgium, and the UK, beer lovers clearly favor local beers, rating them higher than foreign ones. Conversely, in countries with less established beer traditions, foreign beers tend to receive significantly higher ratings than local brews.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <iframe src="https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/"> </iframe>
+        <h2 class="text-3xl font-bold text-center mb-6">Let's Wrap It Up</h2>
+        <div class="mx-auto px-6">
+            <div class="content">
+                <p>Before we conclude our journey into beer preferences we have a little surprise for you! We have creating an interactive website where you can explore the data yourself!</p>
+                <p>We have created an interactive animation where you can explore what users tells about beers of specific countries, explore the breweries of your favourite country or see which countries rate similar to it.</p>
+                <p>Click on the image below and let's explore the world of beers together!</p>
+                <a href="https://epfl-ada.github.io/ada-2024-project-sadamasochists-react/">
+                    <img src="./img/globe_3d.png" alt="World" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+                </a>
+            </div>
+        </div>
     </section>
 
     <section>
-        <h2 class="text-3xl font-bold text-center mb-6">Let's Wrap It Up</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">In conclusion</h2>
         <div class="mx-auto px-6">
             <div class="content">
                 <p>And here we are, at the end of our data-driven journey through the world of beer. From uncovering the preferences of millions of beer enthusiasts to analyzing trends that shape the global beer landscape, we’ve seen how beer connects cultures, defines traditions, and sparks innovation.</p>
@@ -330,17 +343,11 @@
 
                 <p>Our exploration also took us across the globe, mapping the cultural fingerprints of beer styles and showcasing how local traditions shape tastes. From Pale Lagers dominating warm-climate regions to the unique hubs of beer culture like Belgium, the USA, and Germany, the data highlighted the incredible diversity of the beer world.</p>
 
-                <p>But it’s not just about what’s brewed—it’s also about where it’s brewed. We saw how countries interact with foreign beers, creating global networks of influence and preference. From the interconnected hubs of Belgium and the USA to the curious outliers of beer culture, every story was a reminder of how beer unites us across borders.</p>
+                <p>But it’s not just about what’s brewed but it’s also about where it’s brewed. We saw how countries interact with foreign beers, creating global networks of influence and preference. From the interconnected hubs of Belgium and the USA to the curious outliers of beer culture, every story was a reminder of how beer unites us across borders.</p>
 
-                <p>As our journey concludes, one thing is clear: beer is not just a drink; it’s a dynamic cultural artifact that evolves with us. Whether you’re a seasoned beer connoisseur or a casual enthusiast, there’s always something new to discover, savor, and enjoy. So, let’s raise a glass to the past, present, and future of beer—cheers!</p>
-            </div>
-        </div>
-    </section>
-    <section>
-        <h2 class="text-3xl font-bold text-center mb-6">It's time to say goodbye</h2>
-        <div class="mx-auto px.6">
-            <div class="content">
-                <img src="./img/peaceout.gif" alt="Paceout" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
+                <p>As our journey concludes, one thing is clear: beer is not just a drink; it’s a dynamic cultural artifact that evolves with us. Whether you’re a seasoned beer connoisseur or a casual enthusiast, there’s always something new to discover, savor, and enjoy. So, let’s raise a glass to the past, present, and future of beers. </p>
+                <p>Cheers!</p>
+                <img src="./img/conclusion.gif" alt="Paceout" class="rounded-lg shadow-xl mb-8 mt-8 full-width-image">
             </div>
         </div>
     </section>
