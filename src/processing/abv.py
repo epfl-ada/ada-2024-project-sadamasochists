@@ -47,9 +47,9 @@ class ABV:
         beer_ratings = pd.DataFrame(beer_ratings)
 
         # Do the plot
-        fig = px.scatter(beer_ratings, x='abv', y='rating', size='nbr_ratings', hover_name='abv',animation_frame='year', labels={'abv': 'ABV:', 'rating': 'Rating:', 'nbr_ratings': 'Number of ratings:'},range_x=[0, 20], range_y=[2.25, 4.75])
+        fig = px.scatter(beer_ratings, x='abv', y='rating', size='nbr_ratings', hover_name='abv',animation_frame='year', labels={'abv': 'ABV:', 'rating': 'Average Rating:', 'nbr_ratings': 'Number of ratings:'},range_x=[0, 20], range_y=[2.25, 4.75])
         fig.update_traces(marker=dict(line=dict(width=1, color='DarkSlateGrey')))
-        fig.update_layout(showlegend=False,title_x=0.5, title='ABV vs. Rating Over Time', xaxis_title='ABV', yaxis_title='Rating')
+        fig.update_layout(showlegend=False,title_x=0.5, title='ABV vs. Average Rating Over Time', xaxis_title='ABV', yaxis_title='Average Rating')
 
         # Make the background and the plot in general transparent
         fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
@@ -62,6 +62,9 @@ class ABV:
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
         
+        # Save the fallback plot
+        fig.write_html('docs/notebook_fallback/abv_ratings.html')
+
         return beer_ratings
     
     def plot_corr_abv_ratings(self, beer_ratings):
@@ -77,6 +80,8 @@ class ABV:
         fig.update_layout(title='Correlation between ABV and Rating over time', xaxis_title='Year', yaxis_title='Correlation', height=600, width=800, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
         fig.show()
+
+        fig.write_html(f'docs/notebook_fallback/corr_abv_ratings.html')
     
     def plot_abv_evolution_map(self):
         # Create the variables
@@ -114,7 +119,7 @@ class ABV:
             'color_scale': 'Viridis'
         }
         # Display the plot
-        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/abv_evolution_map.html', is_bg_white=False)
+        plot_map_time(df_states_no_US, df_states_US, options, self.save_folder + '/abv_evolution_map.html', 'abv_evolution_map', is_bg_white=False)
     
     def plot_abv_evolution(self):
         # Compute the metrics
@@ -132,3 +137,5 @@ class ABV:
         # Set the background color to white
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'}, width=800, height=600)     
         fig.show()
+
+        fig.write_html('docs/notebook_fallback/abv_evolution.html')

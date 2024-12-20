@@ -22,7 +22,7 @@ us_remapping = {
 us_remapping_inverse = {v: k for k, v in us_remapping.items()}
 
 # Define the map to plot the data
-def plot_map(df_no_US, df_US, options, save_dir, save_prefix, is_bg_white=True):
+def plot_map(df_no_US, df_US, options, save_dir, save_prefix, fallback_title, is_bg_white=True):
     # Initialize figure
     fig = go.Figure()
 
@@ -134,7 +134,11 @@ def plot_map(df_no_US, df_US, options, save_dir, save_prefix, is_bg_white=True):
     # Show the plot
     fig.show()
 
-def plot_map_time(df_no_US, df_US, options, save_path, is_bg_white=True):
+    # Save the fallback plot
+    fig.write_html(f"docs/notebook_fallback/{fallback_title}.html")
+
+
+def plot_map_time(df_no_US, df_US, options, save_path, fallback_title, is_bg_white=True):
     df_US_copy = df_US.copy()
     df_US_copy[options['location_label']] = df_US_copy[options['location_label']].map(us_remapping)
 
@@ -257,3 +261,6 @@ def plot_map_time(df_no_US, df_US, options, save_path, is_bg_white=True):
 
     fig.update_layout(width=None, height=None, autosize=True)
     fig.write_html(save_path)
+
+    # Save the fallback plot
+    fig.write_html(f"docs/notebook_fallback/{fallback_title}.html")

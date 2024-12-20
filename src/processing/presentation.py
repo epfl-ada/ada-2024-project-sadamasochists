@@ -42,7 +42,7 @@ class DataPresentation:
         }
 
         # Plot the map
-        plot_map(df_no_US, df_US, options, self.save_folder, 'ratings_map', is_bg_white=False)
+        plot_map(df_no_US, df_US, options, self.save_folder, 'ratings_map', 'spatial_data', is_bg_white=False)
     
     def _plot_temporal(self, data, year_label, count_label, title):
         fig = go.Figure()

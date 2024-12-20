@@ -38,6 +38,8 @@ class StyleAnalysis:
         fig.update_layout(autosize=True, width=None, height=None)
         fig.write_html(f"{self.save_folder}/styles_pie_chart.html")
 
+        fig.write_html(f"docs/notebook_fallback/styles_pie_chart.html")
+
     def plot_favourite_beer_style_country(self):
         # Find the countries style preferences
         countries_style_preferences = {}
@@ -120,6 +122,8 @@ class StyleAnalysis:
         # Set autosize to True
         fig.update_layout(autosize=True,width=None, height=None)
         fig.write_html(f"{self.save_folder}/favourite_beer_style_country.html")
+
+        fig.write_html(f"docs/notebook_fallback/favourite_beer_style_country.html")
         
     def plot_abv_style_evolution(self):
         # Create a dataframe with the top_10_styles_list elements as columns
@@ -156,6 +160,8 @@ class StyleAnalysis:
         fig.update_yaxes(title_text='Number of ratings')
 
         fig.show()
+
+        fig.write_html(f"docs/notebook_fallback/abv_style_evolution.html")
         
     def plot_style_race(self):
         # Prepare the data
