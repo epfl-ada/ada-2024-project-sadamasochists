@@ -49,6 +49,8 @@ class DataPresentation:
         fig.add_trace(go.Bar(x=data[year_label], y=data[count_label]))
         fig.update_layout(title=title, xaxis_title=year_label, yaxis_title=count_label, width=800, height=600, title_x=0.5)
         fig.update_layout({'plot_bgcolor': 'rgb(255,255,255)', 'paper_bgcolor': 'rgb(255,255,255)'})
+        file_name = title.replace(' ', '_').lower()
+        fig.write_html(f'docs/notebook_fallback/{file_name}.html')
         fig.show()
         
     def plot_number_of_ratings_over_time(self):
@@ -140,3 +142,6 @@ class DataPresentation:
         # Update the layout
         fig.update_layout(barmode='group', title_text='Top 5 countries with more beers')
         fig.show()
+
+        # Save it in the docs/notebook_fallback folder
+        fig.write_html(f'docs/notebook_fallback/top_5_countries.html')
